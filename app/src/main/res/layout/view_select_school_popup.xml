@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/common_10"
+        android:orientation="vertical"
+        >
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/icon_arrow_right"/>
+    <TextView
+        android:id="@+id/tv_search_school"
+        android:layout_width="@dimen/common_76"
+        android:layout_height="@dimen/common_31"
+        android:gravity="center"
+        android:background="@drawable/shape_btn_search_school_bg"
+        android:textColor="@color/color_white"
+        android:textSize="@dimen/font_12"
+        android:text="搜课程" />
+    <TextView
+        android:id="@+id/tv_search_course"
+        android:layout_width="@dimen/common_76"
+        android:layout_height="@dimen/common_31"
+        android:gravity="center"
+        android:background="@drawable/shape_btn_search_course_bg"
+        android:textColor="@color/color_white"
+        android:textSize="@dimen/font_12"
+        android:text="搜校区"/>
+    </LinearLayout>
+</LinearLayout>

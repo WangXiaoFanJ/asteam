@@ -1,0 +1,66 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.dev.nutclass.fragment.HomeFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+        <LinearLayout
+            android:id="@+id/title_bar"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/common_45"
+            android:background="@android:color/transparent"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="北京"
+                android:textSize="@dimen/font_15"
+                android:textColor="@color/color_white"
+                android:layout_marginLeft="@dimen/common_15"/>
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/common_6"
+                android:layout_marginRight="@dimen/common_10"
+                android:src="@drawable/title_bar_arrow_down"/>
+            <LinearLayout
+                android:id="@+id/ll_search"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/common_31"
+                android:layout_weight="1"
+                android:background="@drawable/shape_btn_home_search"
+                android:gravity="center">
+                <ImageView
+                    android:layout_width="@dimen/common_11"
+                    android:layout_height="@dimen/common_11"
+                    android:src="@drawable/icon_search"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="搜索你想找的课程或机构"
+                    android:textSize="@dimen/font_12"
+                    android:textColor="@color/color_9b9b9b"/>
+            </LinearLayout>
+           <TextView
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:text="消息"
+               android:textSize="@dimen/font_14"
+               android:textColor="@color/color_white"
+               android:layout_marginLeft="@dimen/common_15"
+               android:layout_marginRight="@dimen/common_20"/>
+        </LinearLayout>
+    </RelativeLayout>
+
+
+</FrameLayout>

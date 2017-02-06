@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_white"
+    android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/common_8"
+        android:paddingTop="@dimen/common_8"
+        android:paddingBottom="@dimen/common_7"
+        android:orientation="horizontal">
+        <ImageView
+            android:layout_width="@dimen/common_75"
+            android:layout_height="@dimen/common_75"
+            android:src="@mipmap/ic_launcher"/>
+        <LinearLayout
+            android:layout_gravity="center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="精锐教育蓝色港湾"
+                android:textColor="@color/color_333333"
+               />
+            <RelativeLayout
+                android:layout_marginTop="@dimen/common_6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingRight="@dimen/common_11">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="双井       升学辅导"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:text="1.2公里"/>
+            </RelativeLayout>
+            <TextView
+                android:layout_marginTop="@dimen/common_6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/color_f75250"
+                android:text="￥1200    门店价：￥1800"/>
+        </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/common_1"
+            android:background="@color/color_dcdcdc"/>
+    </LinearLayout>
+
+</LinearLayout>

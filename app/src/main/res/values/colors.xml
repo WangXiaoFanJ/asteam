@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="color_white">#ffffff</color>
+    <color name="color_black">#000000</color>
+    <color name="color_bg">#f1f1f1</color>
+
+    <color name="color_333333">#333333</color>
+    <color name="color_a8a8a8">#a8a8a8</color>
+    <color name="color_cacaca">#cacaca</color>
+    <color name="color_dcdcdc">#dcdcdc</color>
+    <color name="color_7f7f7f">#7f7f7f</color>
+    <color name="color_969696">#969696</color>
+    <color name="color_9b9b9b">#9b9b9b</color>
+    <color name="color_a0a0a0">#a0a0a0</color>
+    <color name="color_f2f2f2">#f2f2f2</color>
+    <color name="color_f5f5f5">#f5f5f5</color>
+    <color name="color_aaf5f5f5">#aaf5f5f5</color>
+    <color name="color_title_bar_bg">#fcfbf9</color>
+    <color name="color_ff5916">#ff5916</color>
+    <color name="color_ff6733">#f75250</color>
+    <color name="color_f75250">#f75250</color>
+    <color name="color_f8f6f7">#f8f6f7</color>
+    <color name="home_nav_txt">#666666</color>
+    <color name="home_nav_txt_ed">#e94706</color>
+
+    <color name="list_divider_line">#f2f2f2</color>
+    <!-- default value -->
+    <!-- ViewPager 圆形indicator使用的颜色 -->
+    <color name="circle_page_indicator_fill_color">#FFFFFFFF</color>
+    <color name="circle_page_indicator_page_color">#00000000</color>
+    <color name="circle_page_indicator_stroke_color">#FFDADADA</color>
+    <color name="color_100">#000000</color>
+    <!-- 深灰 -->
+    <color name="color_60">#666666</color>
+    <color name="photopicker_background">#181819</color>
+</resources>

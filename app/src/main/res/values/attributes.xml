@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- TitleBar attributes -->
+    <declare-styleable name="TitleBar">
+        <attr name="left_type" format="integer"/>
+        <attr name="right_type1" format="integer"/>
+        <attr name="right_type2" format="integer"/>
+        <attr name="middle_text_id" format="integer"/>
+        <attr name="middle_text" format="string"/>
+    </declare-styleable>
+</resources>

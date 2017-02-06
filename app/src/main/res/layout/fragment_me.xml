@@ -1,0 +1,30 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_white"
+    tools:context="com.dev.nutclass.fragment.MeFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/tv_open_user_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="跳转到个人信息页" />
+        <TextView
+            android:id="@+id/tv_open_comment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="跳转评论页面" />
+        <TextView
+            android:id="@+id/tv_open_order"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="跳转到我的订单页"/>
+    </LinearLayout>
+
+</FrameLayout>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:background="@color/color_white"
     android:layout_marginTop="@dimen/common_10"
     android:orientation="vertical">
@@ -11,34 +11,56 @@
         android:gravity="center_vertical"
         android:paddingLeft="@dimen/common_11">
         <TextView
+            android:id="@+id/tv_school_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="精锐教育蓝色港湾中心"
             android:textColor="@color/color_7f7f7f"
             android:textSize="@dimen/font_14"/>
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
             android:layout_alignParentRight="true"
             android:layout_marginRight="@dimen/common_17"
+            android:scaleType="fitXY"
             android:src="@drawable/icon_arrow_right_normal"/>
     </RelativeLayout>
     <View
         android:layout_width="match_parent"
         android:layout_height="@dimen/common_1"
         android:background="@color/color_dcdcdc"/>
-    <LinearLayout
-        android:id="@+id/ll_container"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"></LinearLayout>
+  <include layout="@layout/view_amusement_park_card"/>
     <View
         android:layout_width="match_parent"
         android:layout_height="@dimen/common_1"
         android:background="@color/color_dcdcdc"/>
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/common_44"
-        android:text="精美礼品一份"
-        android:gravity="center"/>
+        android:layout_height="@dimen/common_37"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+        <ImageView
+            android:id="@+id/iv_gift_img01"
+            android:layout_width="@dimen/common_43"
+            android:layout_height="@dimen/common_15"
+            android:scaleType="fitXY"
+            />
+        <ImageView
+            android:layout_marginLeft="@dimen/common_10"
+            android:id="@+id/iv_gift_img02"
+            android:layout_width="@dimen/common_10"
+            android:layout_height="@dimen/common_10"
+            android:scaleType="fitXY"
+            />
+        <TextView
+            android:id="@+id/tv_gift_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="精美礼品一份"
+            android:layout_marginLeft="@dimen/common_6"
+            android:textSize="@dimen/font_12"
+            android:textColor="@color/color_7f7f7f"
+            />
+    </LinearLayout>
+
 </LinearLayout>

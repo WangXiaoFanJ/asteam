@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@color/color_bg"
+    tools:context="com.dev.nutclass.activity.DiscountCouponActivity">
+    <com.dev.nutclass.view.TitleBar
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/common_45"
+        app:left_type="1"
+        app:middle_text="优惠券"
+        app:right_type2="3"
+        ></com.dev.nutclass.view.TitleBar>
+    <android.support.design.widget.TabLayout
+        android:id="@+id/tab_layout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/common_44"
+        app:tabIndicatorHeight="@dimen/common_2"
+        app:tabIndicatorColor="@color/color_f75250"
+        app:tabSelectedTextColor="@color/color_f75250"
+        app:tabTextColor="@color/color_333333"
+        app:tabBackground="@color/color_white"
+        ></android.support.design.widget.TabLayout>
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
+</LinearLayout>

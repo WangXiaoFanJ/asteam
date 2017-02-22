@@ -40,5 +40,13 @@ public class SharedPrefUtil {
         editor.putInt(key,value);
         editor.commit();
     }
+    public void setDeviceToken(String deviceToken){
+        SharedPreferences.Editor editor = mPrefer.edit();
+        editor.putString("device_token",deviceToken);
+        editor.commit();
+    }
+    public String getDeviceToken(){
+        return mPrefer.getString("device_token","");
+    }
 
 }

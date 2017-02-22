@@ -13,11 +13,29 @@ public class BannerCardEntity extends BaseCardEntity {
 	 */
 	private static final long serialVersionUID = 1L;
 	private List<ImageEntity> list = null;
+	private List<String> imgList= null;
 
 	public BannerCardEntity() {
 		setCardType(BaseCardEntity.CARD_TYPE_BANNER);
 	}
-//old
+
+	public BannerCardEntity(JSONObject jsonObject) {
+		setCardType(BaseCardEntity.CARD_TYPE_BANNER_VIEW);
+		optJsonObjBanner(jsonObject);
+	}
+
+	private void optJsonObjBanner(JSONObject jsonObject) {
+		JSONArray jsonArray = jsonObject.optJSONArray("goods_image");
+		List<String> list = new ArrayList<>();
+		for (int i = 0;i<jsonArray.length();i++){
+			String str = jsonArray.optString(i);
+			list.add(str);
+		}
+		setImgList(list);
+	}
+
+
+	//old
 	public BannerCardEntity(int cardType, JSONArray jsonArray) {
 		setCardType(cardType);
 		optJsonObjNew(jsonArray);
@@ -28,8 +46,12 @@ public class BannerCardEntity extends BaseCardEntity {
 		optJsonObjNew(jsonArray);
 	}
 
-	public List<ImageEntity> getList() {
-		return list;
+	public List<String> getImgList() {
+		return imgList;
+	}
+
+	public void setImgList(List<String> imgList) {
+		this.imgList = imgList;
 	}
 
 	public void setList(List<ImageEntity> list) {

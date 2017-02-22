@@ -10,19 +10,32 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/common_44"
         android:gravity="center_vertical">
-        <TextView
-            android:layout_marginLeft="@dimen/common_11"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="免费·试听课"
-            android:textSize="@dimen/font_13"
-            android:textColor="@color/color_333333"
-            />
+            android:gravity="center_vertical">
+            <ImageView
+                android:id="@+id/iv_title_icon"
+                android:layout_marginLeft="@dimen/common_11"
+                android:layout_width="@dimen/common_10"
+                android:layout_height="@dimen/common_10"
+                android:scaleType="fitXY"/>
+            <TextView
+                android:id="@+id/tv_title_info"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="免费·试听课"
+                android:textSize="@dimen/font_13"
+                android:textColor="@color/color_333333"
+                />
+        </LinearLayout>
+
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true">
             <TextView
+                android:id="@+id/tv_title_find_more"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="查看更多"
@@ -40,131 +53,9 @@
         android:layout_height="@dimen/common_1"
         android:background="@color/color_bg"/>
     <LinearLayout
+        android:id="@+id/ll_container"
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingLeft="@dimen/common_10"
-        android:paddingTop="@dimen/common_8"
-        android:paddingBottom="@dimen/common_8">
-        <ImageView
-            android:layout_width="@dimen/common_51"
-            android:layout_height="@dimen/common_51"
-            android:src="@mipmap/ic_launcher"/>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="马博士婴儿游泳馆游泳卡"
-                android:textSize="@dimen/font_14"
-                android:textColor="@color/color_333333"
-                android:layout_marginTop="@dimen/common_5"/>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/common_10"
-             >
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="0"
-                    android:textSize="@dimen/font_12"
-                    android:textColor="@color/color_f75250"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="免费试听"
-                    android:textColor="@color/color_f75250"
-                    android:layout_marginLeft="@dimen/common_24"/>
-            </LinearLayout>
-        </LinearLayout>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingLeft="@dimen/common_10"
-        android:paddingTop="@dimen/common_8"
-        android:paddingBottom="@dimen/common_8">
-        <ImageView
-            android:layout_width="@dimen/common_51"
-            android:layout_height="@dimen/common_51"
-            android:src="@mipmap/ic_launcher"/>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="马博士婴儿游泳馆游泳卡"
-                android:textSize="@dimen/font_14"
-                android:textColor="@color/color_333333"
-                android:layout_marginTop="@dimen/common_5"/>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/common_10"
-                >
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="0"
-                    android:textSize="@dimen/font_12"
-                    android:textColor="@color/color_f75250"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="免费试听"
-                    android:textColor="@color/color_f75250"
-                    android:layout_marginLeft="@dimen/common_24"/>
-            </LinearLayout>
-        </LinearLayout>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingLeft="@dimen/common_10"
-        android:paddingTop="@dimen/common_8"
-        android:paddingBottom="@dimen/common_8">
-        <ImageView
-            android:layout_width="@dimen/common_51"
-            android:layout_height="@dimen/common_51"
-            android:src="@mipmap/ic_launcher"/>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="马博士婴儿游泳馆游泳卡"
-                android:textSize="@dimen/font_14"
-                android:textColor="@color/color_333333"
-                android:layout_marginTop="@dimen/common_5"/>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/common_10"
-                >
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="0"
-                    android:textSize="@dimen/font_12"
-                    android:textColor="@color/color_f75250"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="免费试听"
-                    android:textColor="@color/color_f75250"
-                    android:layout_marginLeft="@dimen/common_24"/>
-            </LinearLayout>
-        </LinearLayout>
-    </LinearLayout>
+        android:layout_height="wrap_content"></LinearLayout>
 
 </LinearLayout>

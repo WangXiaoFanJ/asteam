@@ -25,6 +25,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="跳转到我的订单页"/>
+        <TextView
+            android:id="@+id/tv_open_discount_coupon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="跳转到优惠券页面"/>
+        <TextView
+            android:id="@+id/tv_test_https"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="测试https"/>
     </LinearLayout>
-
 </FrameLayout>

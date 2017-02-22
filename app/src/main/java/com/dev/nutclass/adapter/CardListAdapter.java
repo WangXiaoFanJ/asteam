@@ -9,15 +9,32 @@ import com.dev.nutclass.entity.BannerCardEntity;
 import com.dev.nutclass.entity.BaseCardEntity;
 import com.dev.nutclass.entity.ClassifyEntity;
 import com.dev.nutclass.entity.CourseCardEntity;
+import com.dev.nutclass.entity.CourseCommentEntity;
+import com.dev.nutclass.entity.CourseInfoEntity;
+import com.dev.nutclass.entity.CourseListCardEntity;
+import com.dev.nutclass.entity.CourseRecommendForUEntity;
+import com.dev.nutclass.entity.CourserDetailHeadEntity;
+import com.dev.nutclass.entity.DiscountCouponEntity;
 import com.dev.nutclass.entity.IconEntity;
 import com.dev.nutclass.entity.JDCatCardEntity;
 import com.dev.nutclass.entity.JDItemCardEntity;
+import com.dev.nutclass.entity.SchoolCardEntity;
+import com.dev.nutclass.entity.SchoolDetailHeadEntity;
+import com.dev.nutclass.entity.SchoolDetailMerchInfoEntity;
+import com.dev.nutclass.entity.SchoolDetailToCourseEntity;
+import com.dev.nutclass.entity.SchoolIntroduceEntity;
+import com.dev.nutclass.entity.SchoolRecommentForUEntity;
+import com.dev.nutclass.entity.SchoolToCourseCardEntity;
+import com.dev.nutclass.entity.ServiceFeatureEntity;
+import com.dev.nutclass.entity.UserOrdeCardEntity;
 import com.dev.nutclass.view.BannerCardView;
 import com.dev.nutclass.view.ClassifyView;
+import com.dev.nutclass.view.CommentForCourseDetailView;
 import com.dev.nutclass.view.CourseCardView;
 import com.dev.nutclass.view.CourseInfoHeadView;
 import com.dev.nutclass.view.CourseInfoView;
 import com.dev.nutclass.view.CourseRecommendView;
+import com.dev.nutclass.view.DiscountCouponView;
 import com.dev.nutclass.view.HomeIconView;
 import com.dev.nutclass.view.JDCardView;
 import com.dev.nutclass.view.JDCatCardView;
@@ -25,11 +42,16 @@ import com.dev.nutclass.view.JDItemCardView;
 import com.dev.nutclass.view.NearbyAmuseParkView;
 import com.dev.nutclass.view.PublicSchoolFeatureView;
 import com.dev.nutclass.view.SchoolCardView;
+import com.dev.nutclass.view.SchoolCommonCourseView;
 import com.dev.nutclass.view.SchoolInfoModule001View;
 import com.dev.nutclass.view.SchoolInfoCourseListView;
 import com.dev.nutclass.view.SchoolInfoHeadView;
+import com.dev.nutclass.view.SchoolIntroduceView;
 import com.dev.nutclass.view.SchoolRecommendView;
-import com.dev.nutclass.view.UserOrderView;
+import com.dev.nutclass.view.UserOrderBackMoneyView;
+import com.dev.nutclass.view.UserOrderWaitCommentView;
+import com.dev.nutclass.view.UserOrderWaitPayView;
+import com.dev.nutclass.view.UserOrderWaitUseView;
 
 import java.util.List;
 
@@ -70,7 +92,7 @@ public class CardListAdapter extends RecyclerView.Adapter<CardListAdapter.MyView
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = null;
-        if(viewType ==1||viewType==BaseCardEntity.CARD_TYPE_BANNER_COURSE_INFO||viewType==BaseCardEntity.CARD_TYPE_JD_BANNER){
+        if(viewType==BaseCardEntity.CARD_TYPE_BANNER_VIEW||viewType ==1||viewType==BaseCardEntity.CARD_TYPE_JD_BANNER){
             if(viewType== BaseCardEntity.CARD_TYPE_JD_BANNER){
                 view = new BannerCardView(mContext,2);
             }else{
@@ -109,18 +131,44 @@ public class CardListAdapter extends RecyclerView.Adapter<CardListAdapter.MyView
             view = new SchoolInfoCourseListView(mContext);
         }else if (viewType == BaseCardEntity.CARD_TYPE_SCHOOL_INFO_001_View){
             view = new SchoolInfoModule001View(mContext);
-        }else if (viewType == BaseCardEntity.CARD_TYPE_SCHOOL_RECOMMEND_VIEW){
+        }
+        //校区详情页-为您推荐（1027）
+        else if (viewType == BaseCardEntity.CARD_TYPE_SCHOOL_RECOMMEND_VIEW){
             view = new SchoolRecommendView(mContext);
+        }
+        //校区详情页-机构介绍（1018）
+        else if (viewType == BaseCardEntity.CARD_TYPE_SCHOOL_DETAIL_INTRODUCE_VIEW){
+            view = new SchoolIntroduceView(mContext);
+        }
+
+        //校区正课列表
+        else if (viewType == BaseCardEntity.CARD_TYPE_SCHOOL_COMMON_COURSE_VIEW){
+            view = new SchoolCommonCourseView(mContext);
         }
 
         //校区详情页与课程详情页公用view
         else if(viewType == BaseCardEntity.CARD_TYPE_SCHOOL_FEATURE_VIEW){
             view = new PublicSchoolFeatureView(mContext);
         }
+        //校区详情页课程评论（1011）
+        else if (viewType == BaseCardEntity.CARD_TYPE_CORUSE_COMMENT_VIEW){
+            view = new CommentForCourseDetailView(mContext);
+        }
 
         //订单详情
         else if (viewType == BaseCardEntity.CARD_TYPE_USER_ORDER_VIEW){
-            view = new UserOrderView(mContext);
+            view = new UserOrderWaitCommentView(mContext);
+        }else if (viewType == BaseCardEntity.CARD_TYPE_USER_ORDER_WAIT_PAY_VIEW){
+            view = new UserOrderWaitPayView(mContext);
+        }else if (viewType == BaseCardEntity.CARD_TYPE_USER_ORDER_WAIT_USE_VIEW){
+            view = new UserOrderWaitUseView(mContext);
+        }else if (viewType == BaseCardEntity.CARD_TYPE_USER_ORDER_AFTER_SALE_VIEW){
+            view = new UserOrderBackMoneyView(mContext);
+        }
+
+        //优惠券
+        else if (viewType == BaseCardEntity.CARD_TYPE_DISCOUNT_COUPON_VIEW){
+            view = new DiscountCouponView(mContext);
         }
 //        View view = LayoutInflater.from(mContext).inflate(R.layout.banner_card_view,parent,false);
         return new MyViewHolder(view);
@@ -130,9 +178,10 @@ public class CardListAdapter extends RecyclerView.Adapter<CardListAdapter.MyView
     public void onBindViewHolder(MyViewHolder holder, int position) {
 //        holder.tv.setText(list.get(position));
         int type = list.get(position).getCardType();
-        if(type == 1||type==BaseCardEntity.CARD_TYPE_BANNER_COURSE_INFO||type==BaseCardEntity.CARD_TYPE_JD_BANNER){
+        if(type == 1||type==BaseCardEntity.CARD_TYPE_BANNER_VIEW||type==BaseCardEntity.CARD_TYPE_JD_BANNER){
 //            ImageEntity imageEntity = (ImageEntity) list.get(position);
-            ((BannerCardView)holder.view).updateView();
+            BannerCardEntity entity = (BannerCardEntity) list.get(position);
+            ((BannerCardView)holder.view).updateView(entity);
 //            if(type==BaseCardEntity.CARD_TYPE_JD_BANNER){
 //                BannerCardEntity entity = (BannerCardEntity) list.get(position);
 //                ((BannerCardView) (holder.view)).updateView(entity,1);
@@ -144,9 +193,13 @@ public class CardListAdapter extends RecyclerView.Adapter<CardListAdapter.MyView
             IconEntity iconEntity = (IconEntity) list.get(position);
             ((HomeIconView)holder.view).updateView(iconEntity);
         }else if (type == BaseCardEntity.CARD_TYPE_COURSE_INFO){
-            CourseCardEntity courseCardEntity = (CourseCardEntity) list.get(position);
+            CourseInfoEntity courseCardEntity = (CourseInfoEntity) list.get(position);
             ((CourseInfoView)holder.view).updateView(courseCardEntity);
-        }else if (type == BaseCardEntity.CARD_TYPE_AMUSE_PARK_VIEW){
+        }else if (type == BaseCardEntity.CARD_TYPE_COURSE_CARD_VIEW){
+            CourseListCardEntity entity = (CourseListCardEntity) list.get(position);
+            ((CourseCardView)(holder.view)).updateView(entity);
+
+        } else if (type == BaseCardEntity.CARD_TYPE_AMUSE_PARK_VIEW){
 
         }else if(type==BaseCardEntity.CARD_TYPE_JD_CAT_CARD){
             JDCatCardEntity entity = (JDCatCardEntity) list.get(position);
@@ -157,20 +210,72 @@ public class CardListAdapter extends RecyclerView.Adapter<CardListAdapter.MyView
         }
         //课程详情页
         else if (type == BaseCardEntity.CARD_TYPE_COURSE_INFO_HEAD_VIEW){
-
+            CourserDetailHeadEntity entity = (CourserDetailHeadEntity) list.get(position);
+            ((CourseInfoHeadView)(holder.view)).updateView(entity);
+        }else if(type == BaseCardEntity.CARD_TYPE_COURSE_RECOMMEND_CARD_VIEW){
+            CourseRecommendForUEntity entity = (CourseRecommendForUEntity) list.get(position);
+            ((CourseRecommendView)(holder.view)).updateView(entity);
         }
 
-
+        else if (type == BaseCardEntity.CARD_TYPE_SHCOOL_CARD_VIEW){
+            SchoolCardEntity entity = (SchoolCardEntity) list.get(position);
+            ((SchoolCardView)(holder.view)).updateView(entity);
+        }
 
         //校区详情页面
         else if(type == BaseCardEntity.CARD_TYPE_SCHOOL_INFO_HEAD_NAME){
-//            ((SchoolInfoHeadView)holder.view).
+            SchoolDetailHeadEntity entity = (SchoolDetailHeadEntity) list.get(position);
+            ((SchoolInfoHeadView)holder.view).updateView(entity);
         }else if (type == BaseCardEntity.CARD_TYPE_SCHOOL_INFO_COURSE_VIEW){
-
+            SchoolDetailToCourseEntity entity = (SchoolDetailToCourseEntity) list.get(position);
+            ((SchoolInfoCourseListView)(holder.view)).updateView(entity);
         }else if (type == BaseCardEntity.CARD_TYPE_SCHOOL_INFO_001_View){
+            SchoolDetailMerchInfoEntity entity = (SchoolDetailMerchInfoEntity) list.get(position);
+            ((SchoolInfoModule001View)(holder.view)).updateView(entity);
+        }
+        //校区详情页-为您推荐（1027）
+        else if (type == BaseCardEntity.CARD_TYPE_SCHOOL_RECOMMEND_VIEW){
+            SchoolRecommentForUEntity entity = (SchoolRecommentForUEntity) list.get(position);
+            ((SchoolRecommendView)(holder.view)).update(entity);
+        }
+        //校区详情页-机构介绍（1018）
+        else if (type == BaseCardEntity.CARD_TYPE_SCHOOL_DETAIL_INTRODUCE_VIEW){
+            SchoolIntroduceEntity entity = (SchoolIntroduceEntity) list.get(position);
+            ((SchoolIntroduceView)(holder.view)).updateView(entity);
+        }
+        else if (type==BaseCardEntity.CARD_TYPE_CORUSE_COMMENT_VIEW){
+            CourseCommentEntity entity = (CourseCommentEntity) list.get(position);
+            ((CommentForCourseDetailView)(holder.view)).updateView(entity);
+        }
 
-        }else if (type == BaseCardEntity.CARD_TYPE_SCHOOL_RECOMMEND_VIEW);{
-
+        //校区正课列表
+        else if (type == BaseCardEntity.CARD_TYPE_SCHOOL_COMMON_COURSE_VIEW){
+            SchoolToCourseCardEntity entity = (SchoolToCourseCardEntity) list.get(position);
+            ((SchoolCommonCourseView)(holder.view)).updateView(entity);
+        }
+        //用户订单页面
+        else if (type == BaseCardEntity.CARD_TYPE_USER_ORDER_WAIT_PAY_VIEW){
+            UserOrdeCardEntity entity = (UserOrdeCardEntity) list.get(position);
+            ((UserOrderWaitPayView)(holder.view)).updateView(entity);
+        }else if (type == BaseCardEntity.CARD_TYPE_USER_ORDER_WAIT_USE_VIEW){
+            UserOrdeCardEntity entity = (UserOrdeCardEntity) list.get(position);
+            ((UserOrderWaitUseView)(holder.view)).updateView(entity);
+        }else if (type == BaseCardEntity.CARD_TYPE_USER_ORDER_AFTER_SALE_VIEW){
+            UserOrdeCardEntity entity = (UserOrdeCardEntity) list.get(position);
+            ((UserOrderBackMoneyView)(holder.view)).updateView(entity);
+        }else if (type == BaseCardEntity.CARD_TYPE_USER_ORDER_VIEW){
+            UserOrdeCardEntity entity = (UserOrdeCardEntity) list.get(position);
+            ((UserOrderWaitCommentView)(holder.view)).updateView(entity);
+        }
+        //校区详情页与课程详情页公用view
+        else if (type == BaseCardEntity.CARD_TYPE_SCHOOL_FEATURE_VIEW){
+            ServiceFeatureEntity entity = (ServiceFeatureEntity) list.get(position);
+            ((PublicSchoolFeatureView)(holder.view)).updateView(entity);
+        }
+        //优惠券
+        else if (type == BaseCardEntity.CARD_TYPE_DISCOUNT_COUPON_VIEW){
+            DiscountCouponEntity entity = (DiscountCouponEntity) list.get(position);
+            ((DiscountCouponView)(holder.view)).updateView(entity);
         }
     }
 

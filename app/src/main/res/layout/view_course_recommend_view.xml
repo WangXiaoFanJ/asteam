@@ -3,11 +3,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-    <TextView
+    <ImageView
+        android:id="@+id/iv_recommend_bg"
         android:layout_width="match_parent"
         android:layout_height="@dimen/common_44"
-        android:text="为您推荐"
-        android:gravity="center"/>
+        android:scaleType="fitXY"/>
     <LinearLayout
         android:id="@+id/ll_container"
         android:layout_width="match_parent"

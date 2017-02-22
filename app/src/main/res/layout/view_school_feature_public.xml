@@ -15,9 +15,15 @@
        android:textSize="@dimen/font_13"
        android:gravity="center_vertical"
        android:paddingLeft="@dimen/common_11"/>
-   <cn.lankton.flowlayout.FlowLayout
-       android:id="@+id/flow_layout"
+   <!--<cn.lankton.flowlayout.FlowLayout-->
+       <!--android:id="@+id/flow_layout"-->
+       <!--android:layout_width="match_parent"-->
+       <!--android:layout_height="wrap_content"-->
+      <!--&gt;</cn.lankton.flowlayout.FlowLayout>-->
+   <LinearLayout
+       android:paddingLeft="@dimen/common_20"
+       android:id="@+id/ll_container"
        android:layout_width="match_parent"
        android:layout_height="wrap_content"
-      ></cn.lankton.flowlayout.FlowLayout>
+       android:orientation="vertical"></LinearLayout>
 </LinearLayout>

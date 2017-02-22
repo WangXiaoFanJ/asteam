@@ -5,6 +5,8 @@ import android.os.PersistableBundle;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 
+import com.umeng.message.PushAgent;
+
 /**
  * Created by Administrator on 2016/12/27.
  */
@@ -14,6 +16,7 @@ public abstract class BaseActivity extends FragmentActivity{
     @Override
     public void onCreate(Bundle savedInstanceState, PersistableBundle persistentState) {
         super.onCreate(savedInstanceState, persistentState);
+        PushAgent.getInstance(this).onAppStart();
     }
     @Override
     protected void onRestart() {

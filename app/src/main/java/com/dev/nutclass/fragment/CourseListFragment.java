@@ -15,7 +15,15 @@ import android.widget.TextView;
 import com.dev.nutclass.R;
 import com.dev.nutclass.activity.CourseInfoActivity;
 import com.dev.nutclass.adapter.CardListAdapter;
+import com.dev.nutclass.constants.UrlConst;
 import com.dev.nutclass.entity.BaseCardEntity;
+import com.dev.nutclass.entity.JsonDataList;
+import com.dev.nutclass.network.OkHttpClientManager;
+import com.dev.nutclass.parser.CardListParser;
+import com.dev.nutclass.utils.LogUtil;
+import com.squareup.okhttp.Request;
+
+import org.json.JSONException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +32,7 @@ import java.util.List;
  * A simple {@link Fragment} subclass.
  */
 public class CourseListFragment extends BaseFragment {
-
+    private static final String TAG = "CourseListFragment";
     private TextView startActivityTv;
     private RecyclerView recyclerView;
     private Context mContext;
@@ -45,13 +53,51 @@ public class CourseListFragment extends BaseFragment {
         LinearLayoutManager layoutManager = new LinearLayoutManager(mContext,LinearLayoutManager.VERTICAL,false);
         recyclerView.setLayoutManager(layoutManager);
 
-        BaseCardEntity entity = new BaseCardEntity();
-        entity.setCardType(BaseCardEntity.CARD_TYPE_COURSE_CARD_VIEW);
-        for(int i =0;i<10;i++){
-            list.add(entity);
-        }
-        recyclerView.setAdapter(new CardListAdapter(list,mContext));
+//        BaseCardEntity entity = new BaseCardEntity();
+//        entity.setCardType(BaseCardEntity.CARD_TYPE_COURSE_CARD_VIEW);
+//        for(int i =0;i<10;i++){
+//            list.add(entity);
+//        }
+//        recyclerView.setAdapter(new CardListAdapter(list,mContext));
+        initData();
         return view;
+    }
+
+    private void initData() {
+        reqData();
+    }
+
+    private void reqData() {
+        String url = UrlConst.COURSE_LIST_URL;
+        OkHttpClientManager.getAsyn(url, new OkHttpClientManager.ResultCallback<String>() {
+            @Override
+            public void onError(Request request, Exception e) {
+                LogUtil.e(TAG,"error:"+e.getMessage());
+            }
+
+            @Override
+            public void onResponse(String response) {
+                LogUtil.d(TAG,"response:"+response);
+                CardListParser parser = new CardListParser();
+                try {
+                    JsonDataList<BaseCardEntity> result = (JsonDataList<BaseCardEntity>) parser.parse(response);
+                    if(result.getErrorCode()== UrlConst.SUCCESS_CODE){
+                        ArrayList<BaseCardEntity> list = result.getList();
+                        if(list!=null&&list.size()>0){
+                            update(list);
+                        }
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+        });
+
+    }
+
+    private void update(ArrayList<BaseCardEntity> list) {
+        recyclerView.setAdapter(new CardListAdapter(list,mContext));
     }
 
 

@@ -25,6 +25,10 @@
         app:tabBackground="@color/color_white"
         app:tabTextAppearance="@style/TabLayoutTextStyle"
        app:tabPaddingEnd="@dimen/common_5"></android.support.design.widget.TabLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/common_1"
+        android:background="@color/color_e5e5e5"/>
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"

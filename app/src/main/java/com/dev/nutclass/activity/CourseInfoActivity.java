@@ -13,9 +13,16 @@ import android.widget.RelativeLayout;
 
 import com.dev.nutclass.R;
 import com.dev.nutclass.adapter.CardListAdapter;
+import com.dev.nutclass.constants.UrlConst;
+import com.dev.nutclass.entity.BannerCardEntity;
 import com.dev.nutclass.entity.BaseCardEntity;
 import com.dev.nutclass.entity.CourseCardEntity;
+import com.dev.nutclass.entity.JsonDataList;
+import com.dev.nutclass.network.OkHttpClientManager;
+import com.dev.nutclass.parser.CardListParser;
+import com.dev.nutclass.utils.LogUtil;
 import com.dev.nutclass.utils.SnsUtil;
+import com.squareup.okhttp.Request;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -86,58 +93,92 @@ public class CourseInfoActivity extends BaseActivity implements View.OnClickList
     }
 
     private void initData() {
-        lists = new ArrayList<>();
-        /**
-         * 假数据 bannerEntity
-         * */
-        BaseCardEntity imageEntity = new BaseCardEntity();
-        imageEntity.setCardType(BaseCardEntity.CARD_TYPE_BANNER_COURSE_INFO);
-//        ImageEntity imageEntity = new ImageEntity(BaseCardEntity.CARD_TYPE_BANNER_COURSE_INFO);
-//        List<String> stringList = new ArrayList<>();
-//        String [] strings = {"http://cdn2.kobiko.cn/./Uploads/2016-12-03/th_584281b63caa3.jpg",
-//                "http://cdn1.kobiko.cn/./Uploads/2016-12-03/th_5842775fe7b5a.jpg",
-//                "http://cdn1.kobiko.cn/./Uploads/2016-12-03/th_5842775fe7b5a.jpg"};
-//        for(int i=0;i<strings.length;i++){
-//            stringList.add(strings[i]);
-//        }
-//        imageEntity.setImages(stringList);
-        /**
-         * 假数据 课时选择
-         * */
-        CourseCardEntity courseCardEntity = new CourseCardEntity();
-        List<String> couresList = new ArrayList<>();
-        couresList.add("官方认证");
-        couresList.add("免费试听");
-        couresList.add("7天退款");
-        couresList.add("信用卡分期");
-        courseCardEntity.setCourseTimeList(couresList);
-
-        lists.add(imageEntity);
-        BaseCardEntity baseCardEntity = new BaseCardEntity();
-        baseCardEntity.setCardType(BaseCardEntity.CARD_TYPE_COURSE_INFO_HEAD_VIEW);
-        lists.add(baseCardEntity);
-        lists.add(courseCardEntity);
-
-        //校区特色
-        BaseCardEntity featureEntity = new BaseCardEntity();
-        featureEntity.setCardType(BaseCardEntity.CARD_TYPE_SCHOOL_FEATURE_VIEW);
-        lists.add(featureEntity);
-
-        //游乐场数据
-        BaseCardEntity amusePark = new BaseCardEntity();
-        amusePark.setCardType(BaseCardEntity.CARD_TYPE_NEARBY_AMUSE_PARK_VIEW);
-        lists.add(amusePark);
-        //课程推荐模块
-        BaseCardEntity recommendView = new BaseCardEntity();
-        recommendView.setCardType(BaseCardEntity.CARD_TYPE_COURSE_RECOMMEND_CARD_VIEW);
-        lists.add(recommendView);
+//        lists = new ArrayList<>();
+//        /**
+//         * 假数据 bannerEntity
+//         * */
+//        BaseCardEntity imageEntity = new BaseCardEntity();
+//        imageEntity.setCardType(BaseCardEntity.CARD_TYPE_BANNER_COURSE_INFO);
+////        ImageEntity imageEntity = new ImageEntity(BaseCardEntity.CARD_TYPE_BANNER_COURSE_INFO);
+////        List<String> stringList = new ArrayList<>();
+////        String [] strings = {"http://cdn2.kobiko.cn/./Uploads/2016-12-03/th_584281b63caa3.jpg",
+////                "http://cdn1.kobiko.cn/./Uploads/2016-12-03/th_5842775fe7b5a.jpg",
+////                "http://cdn1.kobiko.cn/./Uploads/2016-12-03/th_5842775fe7b5a.jpg"};
+////        for(int i=0;i<strings.length;i++){
+////            stringList.add(strings[i]);
+////        }
+////        imageEntity.setImages(stringList);
+//        /**
+//         * 假数据 课时选择
+//         * */
+//        CourseCardEntity courseCardEntity = new CourseCardEntity();
+//        List<String> couresList = new ArrayList<>();
+//        couresList.add("官方认证");
+//        couresList.add("免费试听");
+//        couresList.add("7天退款");
+//        couresList.add("信用卡分期");
+//        courseCardEntity.setCourseTimeList(couresList);
+//
+//        lists.add(imageEntity);
+//        BaseCardEntity baseCardEntity = new BaseCardEntity();
+//        baseCardEntity.setCardType(BaseCardEntity.CARD_TYPE_COURSE_INFO_HEAD_VIEW);
+//        lists.add(baseCardEntity);
+//        lists.add(courseCardEntity);
+//
+//        //校区特色
+//        BaseCardEntity featureEntity = new BaseCardEntity();
+//        featureEntity.setCardType(BaseCardEntity.CARD_TYPE_SCHOOL_FEATURE_VIEW);
+//        lists.add(featureEntity);
+//
+//        //游乐场数据
+//        BaseCardEntity amusePark = new BaseCardEntity();
+//        amusePark.setCardType(BaseCardEntity.CARD_TYPE_NEARBY_AMUSE_PARK_VIEW);
+//        lists.add(amusePark);
+//        //课程推荐模块
+//        BaseCardEntity recommendView = new BaseCardEntity();
+//        recommendView.setCardType(BaseCardEntity.CARD_TYPE_COURSE_RECOMMEND_CARD_VIEW);
+//        lists.add(recommendView);
         /**
          * recyclerview绑定适配器
          * */
         LinearLayoutManager layoutManager = new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(layoutManager);
-        CardListAdapter adapter = new CardListAdapter(lists, mContext);
-        recyclerView.setAdapter(adapter);
+//        CardListAdapter adapter = new CardListAdapter(lists, mContext);
+        reqData();
+//        recyclerView.setAdapter(adapter);
+    }
+
+    private void reqData() {
+        String url = UrlConst.COURSE_DETAIL_URL;
+        OkHttpClientManager.getAsyn(url, new OkHttpClientManager.ResultCallback<String>() {
+            @Override
+            public void onError(Request request, Exception e) {
+                LogUtil.e(TAG,"error:"+e.getMessage());
+            }
+
+            @Override
+            public void onResponse(String response) {
+                LogUtil.d(TAG,"response:"+response);
+                CardListParser parser = new CardListParser();
+                try {
+                    JsonDataList<BaseCardEntity> result = (JsonDataList<BaseCardEntity>) parser.parse(response);
+                    if(result.getErrorCode()== UrlConst.SUCCESS_CODE){
+                        if(result.getList()!=null&&result.getList().size()>0){
+                            update(result.getList());
+                        }
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+        });
+    }
+
+    private void update(ArrayList<BaseCardEntity> list) {
+//        List<BaseCardEntity> lists = new ArrayList<>();
+//        lists.add(lists.get(0));
+        recyclerView.setAdapter(new CardListAdapter(list,mContext));
     }
 
     @Override

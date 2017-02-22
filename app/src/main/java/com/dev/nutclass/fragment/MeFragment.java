@@ -5,15 +5,19 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.dev.nutclass.R;
+import com.dev.nutclass.activity.DiscountCouponActivity;
 import com.dev.nutclass.activity.UserInfoActivity;
 import com.dev.nutclass.activity.UserOrderActivity;
 import com.dev.nutclass.activity.WriteCommentActivity;
+import com.dev.nutclass.network.OkHttpClientManager;
+import com.squareup.okhttp.Request;
 
 import org.w3c.dom.Text;
 
@@ -26,6 +30,8 @@ public class MeFragment extends BaseFragment {
     private TextView openUserTv;
     private TextView openCommentTv;
     private TextView openOrderTv;
+    private TextView openDiscountCouponTv;
+    private TextView testHttpsTv;
     public MeFragment() {
         // Required empty public constructor
     }
@@ -40,6 +46,8 @@ public class MeFragment extends BaseFragment {
         openUserTv = (TextView) view.findViewById(R.id.tv_open_user_info);
         openCommentTv = (TextView) view.findViewById(R.id.tv_open_comment);
         openOrderTv = (TextView) view.findViewById(R.id.tv_open_order);
+        openDiscountCouponTv = (TextView) view.findViewById(R.id.tv_open_discount_coupon);
+        testHttpsTv = (TextView) view.findViewById(R.id.tv_test_https);
         openUserTv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -56,6 +64,29 @@ public class MeFragment extends BaseFragment {
             @Override
             public void onClick(View v) {
                 mContext.startActivity(new Intent(mContext, UserOrderActivity.class));
+            }
+        });
+        openDiscountCouponTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mContext.startActivity(new Intent(mContext, DiscountCouponActivity.class));
+            }
+        });
+        testHttpsTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                OkHttpClientManager.getAsyn("https://kyfw.12306.cn/otn/", new OkHttpClientManager.ResultCallback<String>() {
+                    @Override
+                    public void onError(Request request, Exception e) {
+                        Log.d("===","error:"+e.getMessage());
+                    }
+
+                    @Override
+                    public void onResponse(String response) {
+                        Log.d("===","response:"+response.toString());
+                    }
+
+                });
             }
         });
         return view;

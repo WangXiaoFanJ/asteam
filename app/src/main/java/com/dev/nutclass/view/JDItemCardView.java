@@ -36,7 +36,7 @@ public class JDItemCardView extends RelativeLayout{
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(mContext, PublicListActivity.class);
-                intent.putExtra(Const.KEY_TYPE,PublicListActivity.TYPE_FROM_JD);
+                intent.putExtra(Const.KEY_TYPE,Const.TYPE_FROM_JD);
                 mContext.startActivity(intent);
             }
         });

@@ -45,4 +45,5 @@ dependencies {
     compile files('libs/weiboSDKCore_3.1.4.jar')
     compile project(':jd_apklib')
     compile project(':photopicker')
+    compile project(':PushSDK')
 }

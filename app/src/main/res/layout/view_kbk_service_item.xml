@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <LinearLayout
+        android:layout_marginTop="@dimen/common_5"
+        android:layout_marginBottom="@dimen/common_5"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/common_61"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingLeft="@dimen/common_10">
+        <ImageView
+            android:layout_width="@dimen/common_17"
+            android:layout_height="@dimen/common_17"
+            android:src="@drawable/icon_tick"
+            android:scaleType="fitXY"/>
+        <LinearLayout
+            android:layout_marginLeft="@dimen/common_10"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/tv_service_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/font_13"
+                android:textColor="@color/color_333333"
+                android:text="预约试听"/>
+            <TextView
+                android:id="@+id/tv_service_info"
+                android:layout_marginTop="@dimen/common_9"
+                android:singleLine="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="购课优惠"
+                android:textSize="@dimen/font_12"
+                android:textColor="@color/color_7f7f7f"
+                />
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

@@ -10,6 +10,10 @@ import android.net.Uri;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 
+import com.dev.nutclass.ApplicationConfig;
+import com.dev.nutclass.rsa.Base64Utils;
+import com.dev.nutclass.utils.SharedPrefUtil;
+
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -249,6 +253,12 @@ public class HttpUtil {
 	}
 	public static String addToken(String url){
 		StringBuffer sb=new StringBuffer(url);
+//		String string = "dev_token="+SharedPrefUtil.getInstance().getDeviceToken()+
+//				"&client_type=2"+
+//				"&request_time="+System.currentTimeMillis()+
+//				"&version_number="+ ApplicationConfig.getInstance().getVersionCode()+
+//		"sign="+"123";
+//		sb.append(Base64Utils.decode(string));
 //		sb.append("&userId="+SharedPrefUtil.getInstance().getUid()+"&token="+SharedPrefUtil.getInstance().getToken());
 //		sb.append("&longitude="+SharedPrefUtil.getInstance().getLon()+"&latitude="+SharedPrefUtil.getInstance().getLat());
 		return sb.toString();

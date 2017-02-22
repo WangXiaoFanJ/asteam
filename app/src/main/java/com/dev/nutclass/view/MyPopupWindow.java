@@ -66,7 +66,7 @@ public class MyPopupWindow extends PopupWindow {
      * 弹出popupwindow，背景置灰
      * */
         WindowManager.LayoutParams lp = ((Activity)context).getWindow().getAttributes();
-        lp.alpha = 0.5f;
+        lp.alpha = 0.8f;
         ((Activity)context).getWindow().setAttributes(lp);
         this.setOnDismissListener(new PopupWindow.OnDismissListener() {
 

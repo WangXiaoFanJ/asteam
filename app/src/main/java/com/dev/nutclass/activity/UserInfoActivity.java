@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import com.dev.nutclass.R;
 import com.dev.nutclass.utils.GlideUtils;
+import com.dev.nutclass.utils.LogUtil;
 import com.dev.nutclass.view.MyPopupWindow;
 import com.foamtrace.photopicker.PhotoPickerActivity;
 import com.foamtrace.photopicker.PhotoPreviewActivity;
@@ -70,6 +71,7 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
                 case REQUEST_CAMERA_CODE:
                     GlideUtils.loadImageView(mContext,data.getStringArrayListExtra(PhotoPickerActivity.EXTRA_RESULT).get(0),
                            hearPortraitIv,0);
+                    LogUtil.d("===","paths:"+data.getStringArrayListExtra(PhotoPickerActivity.EXTRA_RESULT).get(0));
 //                    loadAdpater(data.getStringArrayListExtra(PhotoPickerActivity.EXTRA_RESULT));
                     break;
                 // 预览

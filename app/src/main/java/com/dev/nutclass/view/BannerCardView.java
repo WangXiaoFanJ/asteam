@@ -73,7 +73,7 @@ public class BannerCardView extends RelativeLayout {
     private void initView(int type) {
         if(type==1){
             LayoutInflater.from(mContext).inflate(R.layout.banner_card_view,this);
-        }else if (type== BaseCardEntity.CARD_TYPE_BANNER_COURSE_INFO){
+        }else if (type== BaseCardEntity.CARD_TYPE_BANNER_VIEW){
             LayoutInflater.from(mContext).inflate(R.layout.banner_card_view_course_info,this);
         }else if(type==2){
             LayoutInflater.from(mContext).inflate(R.layout.card_banner_76,this);
@@ -82,14 +82,15 @@ public class BannerCardView extends RelativeLayout {
         singleImageView = (BigImgView) this.findViewById(R.id.iv_single);
         pageIndicatorLayout = (LinearLayout) this.findViewById(R.id.ll_pager_indicator);
     }
-    public void updateView() {
+    public void updateView(BannerCardEntity entity) {
         List<String> imgList = new ArrayList<>();
-        String [] strings = {"http://cdn2.kobiko.cn/./Uploads/2016-12-03/th_584281b63caa3.jpg",
-                "http://cdn1.kobiko.cn/./Uploads/2016-12-03/th_5842775fe7b5a.jpg",
-                "http://cdn1.kobiko.cn/./Uploads/2016-12-03/th_5842775fe7b5a.jpg"};
-        for(int i=0;i<strings.length;i++){
-            imgList.add(strings[i]);
-        }
+//        String [] strings = {"http://cdn2.kobiko.cn/./Uploads/2016-12-03/th_584281b63caa3.jpg",
+//                "http://cdn1.kobiko.cn/./Uploads/2016-12-03/th_5842775fe7b5a.jpg",
+//                "http://cdn1.kobiko.cn/./Uploads/2016-12-03/th_5842775fe7b5a.jpg"};
+//        for(int i=0;i<entity.getImgList().size();i++){
+//            imgList.add(entity.getImgList().get(i));
+//        }
+        imgList.addAll(entity.getImgList());
 
             if (imgList == null || imgList.size() < 0) {
                 return;

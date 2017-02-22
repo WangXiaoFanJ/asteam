@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:layout_marginTop="@dimen/common_10">
+    <LinearLayout
+        android:layout_marginLeft="@dimen/common_10"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/common_92"
+        android:orientation="horizontal">
+        <LinearLayout
+            android:id="@+id/ll_coupon_bg"
+            android:layout_width="@dimen/common_113"
+            android:layout_height="match_parent"
+            android:background="@color/color_f75250"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_coupon_money"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="￥100"
+                android:textColor="@color/color_white"
+                android:textSize="@dimen/font_33" />
+
+            <TextView
+                android:id="@+id/tv_coupon_info"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/common_8"
+                android:text="满5000可用"
+                android:textColor="@color/color_white"
+                android:textSize="@dimen/font_12" />
+        </LinearLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/color_title_bar_bg">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:gravity="center_vertical">
+                <TextView
+                    android:id="@+id/tv_coupon_name"
+                    android:paddingLeft="@dimen/common_11"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/common_36"
+                    android:text="全品类(均可使用)"
+                    android:gravity="center_vertical"
+                    android:textColor="@color/color_black"
+                    android:textSize="@dimen/font_14"/>
+                <TextView
+                    android:id="@+id/tv_coupon_time"
+                    android:paddingLeft="@dimen/common_11"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/common_15"
+                    android:layout_marginTop="@dimen/common_10"
+                    android:gravity="center_vertical"
+                    android:text="2017.0203--2017"
+                    android:textSize="@dimen/font_12"
+                    android:textColor="@color/color_7f7f7f"/>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/common_10"
+                    android:background="@drawable/shape_imaginary_line"
+                    android:layerType="software"/>
+                <TextView
+                    android:id="@+id/tv_coupon_limit"
+                    android:paddingLeft="@dimen/common_11"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/common_15"
+                    android:gravity="center_vertical"
+                    android:text="仅限APP用户"
+                    android:textColor="@color/color_a8a8a8"
+                    android:textSize="@dimen/font_11"/>
+            </LinearLayout>
+        </RelativeLayout>
+    </LinearLayout>
+
+</LinearLayout>

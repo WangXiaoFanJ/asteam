@@ -11,6 +11,7 @@
         android:layout_height="@dimen/common_44"
         android:gravity="center_vertical">
         <TextView
+            android:id="@+id/tv_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="商户信息"
@@ -32,6 +33,7 @@
         android:layout_height="@dimen/common_44"
         android:gravity="center_vertical">
         <TextView
+            android:id="@+id/tv_merchant_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="营业时间"

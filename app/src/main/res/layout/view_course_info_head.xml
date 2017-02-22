@@ -1,60 +1,96 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
     <LinearLayout
-        android:background="@color/color_white"
-        android:paddingLeft="@dimen/common_11"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:background="@color/color_white"
+        android:orientation="vertical"
+        android:paddingLeft="@dimen/common_11">
+
         <TextView
+            android:id="@+id/tv_goods_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/common_13"
             android:text="芒果少儿英语课程"
-            android:layout_marginTop="@dimen/common_16"
+            android:textColor="@color/color_333333"
+            android:textSize="@dimen/font_14" />
+        <TextView
+            android:id="@+id/tv_promotion_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="促销信息"
+            android:visibility="gone"
+            android:textColor="@color/color_7f7f7f"
             android:textSize="@dimen/font_14"
-            android:textColor="@color/color_333333"/>
+            android:layout_marginTop="@dimen/common_5"/>
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/common_19">
+            android:gravity="center_vertical"
+            android:layout_marginTop="@dimen/common_10">
             <TextView
+                android:id="@+id/tv_kbk_money"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="￥1232"
                 android:textColor="@color/color_ff6733"
-                android:textSize="@dimen/font_15" />
+                android:textSize="@dimen/font_24" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="门店价:￥1300"
-                android:layout_marginLeft="@dimen/common_20"
-                android:textSize="@dimen/font_11"
+                android:layout_marginLeft="@dimen/common_10"
+                android:text="门店价:"
                 android:textColor="@color/color_a8a8a8"
-                />
+                android:textSize="@dimen/font_11" />
+            <TextView
+                android:id="@+id/tv_shop_money"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/common_3"
+                android:text="1800"
+                android:textColor="@color/color_a8a8a8"
+                android:textSize="@dimen/font_11" />
         </LinearLayout>
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/common_10"
             android:layout_marginTop="@dimen/common_9">
-            <TextView
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="适用年龄：0-6岁"
-                android:textSize="@dimen/font_9"
-                android:textColor="@color/color_cacaca"
-                />
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="适用年龄："
+                    android:textColor="@color/color_7f7f7f"
+                    android:textSize="@dimen/font_11" />
+                <TextView
+                    android:id="@+id/tv_fit_age"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0-6"
+                    android:textColor="@color/color_7f7f7f"
+                    android:textSize="@dimen/font_11" />
+            </LinearLayout>
+
             <TextView
+                android:id="@+id/tv_interest_num"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="666人感兴趣"
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="@dimen/common_11"
-                android:layout_marginBottom="@dimen/common_8"
-                android:textSize="@dimen/font_9"
-                android:textColor="@color/color_cacaca"
-                />
+                android:text="666人感兴趣"
+                android:textColor="@color/color_7f7f7f"
+                android:textSize="@dimen/font_11" />
         </RelativeLayout>
     </LinearLayout>
 </LinearLayout>

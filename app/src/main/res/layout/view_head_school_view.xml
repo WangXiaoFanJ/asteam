@@ -4,6 +4,7 @@
     android:layout_height="match_parent"
     android:background="@color/color_white">
     <LinearLayout
+        android:layout_marginTop="@dimen/common_13"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -20,12 +21,14 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/common_4">
             <TextView
+                android:id="@+id/tv_cate_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="升学辅导"
                 android:textSize="@dimen/font_12"
                 android:textColor="@color/color_7f7f7f"/>
             <TextView
+                android:id="@+id/tv_interest_num"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="666感兴趣"
@@ -33,6 +36,7 @@
                 android:textColor="@color/color_7f7f7f"
                 android:layout_marginLeft="@dimen/common_16"/>
             <TextView
+                android:id="@+id/tv_comment_num"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="12评论"
@@ -40,6 +44,18 @@
                 android:textColor="@color/color_7f7f7f"
                 android:layout_marginLeft="@dimen/common_14"/>
         </LinearLayout>
+        <HorizontalScrollView
+            android:scrollbars="none"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/common_65"
+            android:layout_marginTop="@dimen/common_5">
+            <LinearLayout
+                android:id="@+id/ll_image_container"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+            </LinearLayout>
+        </HorizontalScrollView>
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -51,14 +67,7 @@
                 android:layout_marginTop="@dimen/common_13"
                 android:orientation="vertical">
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="芒果少儿英语课程(天堂校区)"
-                    android:singleLine="true"
-                    android:textColor="@color/color_333333"
-                    android:textSize="@dimen/font_14"
-                    />
-                <TextView
+                    android:id="@+id/tv_school_addr"
                     android:singleLine="true"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -72,16 +81,18 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/common_8">
                     <TextView
+                        android:id="@+id/tv_distance"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="2.2km"
                         android:textSize="@dimen/font_10"
                         android:textColor="@color/color_a8a8a8"/>
                     <TextView
+                        android:id="@+id/tv_nearby"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="离我最近"
-                        android:textColor="@color/color_a8a8a8"
+                        android:textColor="@color/color_f75250"
                         android:textSize="@dimen/font_10"
                         android:layout_marginLeft="@dimen/common_20"
                         android:layout_marginBottom="@dimen/common_6"/>
@@ -97,6 +108,7 @@
                     android:layout_height="@dimen/common_26"
                     android:background="@color/color_cacaca"/>
                 <ImageView
+                    android:id="@+id/iv_phone"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/icon_phone_yellow"

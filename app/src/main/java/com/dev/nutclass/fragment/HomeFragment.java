@@ -107,17 +107,17 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         ClassifyEntity classifyEntity = new ClassifyEntity();
 //        imageEntity.setImages(stringList);
         iconEntity.setIconList(iconLists);
-        lists.add(imageEntity);
+//        lists.add(imageEntity);
         lists.add(iconEntity);
         BaseCardEntity jdEntity = new BaseCardEntity();
         jdEntity.setCardType(BaseCardEntity.CARD_TYPE_JD_CARD_VIEW);
         lists.add(jdEntity);
         lists.add(classifyEntity);
-        BaseCardEntity cardEntity = new BaseCardEntity();
-        cardEntity.setCardType(BaseCardEntity.CARD_TYPE_COURSE_CARD_VIEW);
-        for(int i =0;i<4;i++){
-            lists.add(cardEntity);
-        }
+//        BaseCardEntity cardEntity = new BaseCardEntity();
+//        cardEntity.setCardType(BaseCardEntity.CARD_TYPE_COURSE_CARD_VIEW);
+//        for(int i =0;i<4;i++){
+//            lists.add(cardEntity);
+//        }
 
     }
 

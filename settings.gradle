@@ -1,2 +1,2 @@
-include ':app', ':flowlayout', ':photopicker'
+include ':app', ':flowlayout', ':photopicker', ':PushSDK'
 include ':jd_apklib'

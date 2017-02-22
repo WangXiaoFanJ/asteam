@@ -63,6 +63,10 @@ public class TitleBar extends FrameLayout implements View.OnClickListener{
      * 控件类型- 文字
      */
     public static final int TYPE_MIDDLE_TXT = 2;
+    /**
+    * 控件类型-文字右01
+    * */
+    public static final int TYPE_RIGHT_TXT_01 = 3;
     public TitleBar(Context context) {
         super(context);
         mContext = context;
@@ -147,6 +151,12 @@ public class TitleBar extends FrameLayout implements View.OnClickListener{
                 view = LayoutInflater.from(mContext).inflate(R.layout.view_title_textview,null);
                 view.setTag(TYPE_MIDDLE_TXT);
                 break;
+            case TYPE_RIGHT_TXT_01:
+                view = LayoutInflater.from(mContext).inflate(R.layout.view_title_textview,null);
+                TextView textView = (TextView) view.findViewById(R.id.view_text);
+                textView.setText("兑换");
+                textView.setTextColor(getResources().getColor(R.color.color_7f7f7f));
+                textView.setTextSize(13);
             default:
                 break;
         }

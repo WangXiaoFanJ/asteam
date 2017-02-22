@@ -19,6 +19,7 @@ import com.dev.nutclass.entity.SingleItemCardEntity;
 import com.dev.nutclass.network.HttpUtil;
 import com.dev.nutclass.network.OkHttpClientManager;
 import com.dev.nutclass.parser.BaseParser;
+import com.dev.nutclass.parser.CardListParser;
 import com.dev.nutclass.parser.JDCatListParse2;
 import com.dev.nutclass.parser.JDCatListParser;
 import com.dev.nutclass.utils.LogUtil;
@@ -32,9 +33,6 @@ import java.util.ArrayList;
 public class PublicListActivity extends BaseActivity {
     private static final String TAG = "PublicListActivity";
     private Context mContext;
-    public static final int TYPE_FROM_AMUSE_PARK = 1003;
-
-    public static final int TYPE_FROM_JD = 1;
     private int curPage = 1;
     private TitleBar titleBar;
     private RecyclerView recyclerView;
@@ -87,10 +85,13 @@ public class PublicListActivity extends BaseActivity {
     }
 
     private void initData() {
-        if(type==PublicListActivity.TYPE_FROM_AMUSE_PARK){
+        if(type==Const.TYPE_FROM_AMUSE_PARK){
             titleBar.setMiddleText("附近游乐场");
-        }else if(type == PublicListActivity.TYPE_FROM_JD){
+        }else if(type == Const.TYPE_FROM_JD){
             titleBar.setMiddleText("京东商城");
+            reqData(1);
+        }else if(type == Const.TYPE_FROM_SCHOLL_MOR_COURSE){
+            titleBar.setMiddleText("正课");
             reqData(1);
         }
 
@@ -102,10 +103,12 @@ public class PublicListActivity extends BaseActivity {
 //            refreshLayout.setLoadMore(true);
         }
         String url = null;
-        if (type == TYPE_FROM_JD) {
+        if (type == Const.TYPE_FROM_JD) {
             url = String.format(HttpUtil.addBaseGetParams(UrlConst.KJD_CAT_URL),
                     selectedC);
             url = url + "&pageNo=" + page;
+        }else if (type == Const.TYPE_FROM_SCHOLL_MOR_COURSE){
+            url = UrlConst.SCHOOL_TO_COURSE_LIST_URL;
         }
         OkHttpClientManager.getAsyn(url, new OkHttpClientManager.ResultCallback<String>() {
             @Override
@@ -117,13 +120,15 @@ public class PublicListActivity extends BaseActivity {
             public void onResponse(String response) {
                 LogUtil.d(TAG, "response=" + response);
                 BaseParser<BaseCardEntity> parser = null;
-                if (type == TYPE_FROM_JD) {
+                if (type == Const.TYPE_FROM_JD) {
                     //根据不同page解析得到list
                     if(page==1) {
                         parser = new JDCatListParser();
                     }else{
                         parser = new JDCatListParse2();
                     }
+                }else if(type == Const.TYPE_FROM_SCHOLL_MOR_COURSE){
+                    parser = new CardListParser();
                 }
                 JsonDataList<BaseCardEntity> result;
                 try {

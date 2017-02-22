@@ -3,6 +3,7 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="common_1">1dp</dimen>
+    <dimen name="common_2">2dp</dimen>
     <dimen name="common_3">3dp</dimen>
     <dimen name="common_4">4dp</dimen>
     <dimen name="common_5">5dp</dimen>
@@ -23,27 +24,36 @@
     <dimen name="common_20">20dp</dimen>
     <dimen name="common_21">21dp</dimen>
     <dimen name="common_24">24dp</dimen>
+    <dimen name="common_25">25dp</dimen>
     <dimen name="common_26">26dp</dimen>
     <dimen name="common_28">28dp</dimen>
     <dimen name="common_30">30dp</dimen>
     <dimen name="common_31">31dp</dimen>
     <dimen name="common_33">33dp</dimen>
     <dimen name="common_36">36dp</dimen>
+    <dimen name="common_37">37dp</dimen>
     <dimen name="common_43">43dp</dimen>
+    <dimen name="common_40">40dp</dimen>
     <dimen name="common_44">44dp</dimen>
     <dimen name="common_45">45dp</dimen>
     <dimen name="common_51">51dp</dimen>
     <dimen name="common_61">61dp</dimen>
+    <dimen name="common_65">65dp</dimen>
+    <dimen name="common_70">70dp</dimen>
     <dimen name="common_75">75dp</dimen>
     <dimen name="common_76">76dp</dimen>
     <dimen name="common_81">81dp</dimen>
     <dimen name="common_89">89dp</dimen>
+    <dimen name="common_92">92dp</dimen>
     <dimen name="common_101">101dp</dimen>
     <dimen name="common_113">113dp</dimen>
+    <dimen name="common_116">116dp</dimen>
+    <dimen name="common_118">118dp</dimen>
     <dimen name="common_121">121dp</dimen>
     <dimen name="common_166">166dp</dimen>
     <dimen name="common_206">206dp</dimen>
     <dimen name="common_235">235dp</dimen>
+    <dimen name="common_281">281dp</dimen>
     <dimen name="common_350">350dp</dimen>
     <dimen name="common_401">401dp</dimen>
     <dimen name="common_445">445dp</dimen>
@@ -56,7 +66,8 @@
     <dimen name="font_14">14sp</dimen>
     <dimen name="font_15">15sp</dimen>
     <dimen name="font_18">18sp</dimen>
-
+    <dimen name="font_24">24sp</dimen>
+    <dimen name="font_33">33sp</dimen>
     <dimen name="line_size">1px</dimen>
     <!-- circle_indicator -->
     <dimen name="circle_indicator_radius">4dp</dimen>

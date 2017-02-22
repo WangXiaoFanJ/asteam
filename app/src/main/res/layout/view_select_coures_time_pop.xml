@@ -29,6 +29,7 @@
                     android:paddingLeft="@dimen/common_11"
                     android:orientation="vertical">
                     <TextView
+                        android:id="@+id/tv_kbk_money"
                         android:layout_marginTop="@dimen/common_10"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -47,19 +48,35 @@
                             android:textColor="@color/color_7f7f7f"
                             android:textSize="@dimen/font_13"/>
                         <TextView
+                            android:id="@+id/tv_shop_money"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="￥1300"
                             android:textSize="@dimen/font_11"
                             android:textColor="@color/color_7f7f7f"/>
                     </LinearLayout>
-                    <TextView
-                        android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="已选择：13课时"
-                        android:textSize="@dimen/font_13"
-                        android:textColor="@color/color_7f7f7f"
-                        android:layout_marginTop="@dimen/common_10"/>
+                        android:layout_marginTop="@dimen/common_10"
+                        android:gravity="center_vertical">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="已选择："
+                            android:textSize="@dimen/font_13"
+                            android:textColor="@color/color_7f7f7f"
+                        />
+                        <TextView
+                            android:id="@+id/tv_selected_num"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="13课时"
+                            android:textSize="@dimen/font_13"
+                            android:textColor="@color/color_7f7f7f"
+                        />
+                    </LinearLayout>
+
                 </LinearLayout>
             </LinearLayout>
             <LinearLayout
@@ -105,7 +122,7 @@
         </RelativeLayout>
 
         <ImageView
-            android:id="@+id/iv_icon"
+            android:id="@+id/iv_goods_image"
             android:layout_width="@dimen/common_113"
             android:layout_height="@dimen/common_113"
             android:scaleType="fitXY"

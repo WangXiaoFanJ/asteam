@@ -17,7 +17,7 @@
     <RelativeLayout
         android:paddingLeft="@dimen/common_10"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/common_36"
+        android:layout_height="@dimen/common_44"
         android:background="@color/color_white"
         android:paddingTop="@dimen/common_8"
         >
@@ -53,7 +53,7 @@
     <RelativeLayout
         android:paddingLeft="@dimen/common_10"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/common_36"
+        android:layout_height="@dimen/common_44"
         android:background="@color/color_white"
         >
         <LinearLayout
@@ -87,7 +87,7 @@
     <RelativeLayout
         android:paddingLeft="@dimen/common_10"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/common_36"
+        android:layout_height="@dimen/common_44"
         android:background="@color/color_white"
         android:paddingBottom="@dimen/common_8"
         >

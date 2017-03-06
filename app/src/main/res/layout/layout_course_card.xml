@@ -19,6 +19,7 @@
             android:scaleType="fitXY"
             android:src="@mipmap/ic_launcher"/>
         <LinearLayout
+            android:layout_marginLeft="@dimen/common_10"
             android:layout_gravity="center_vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

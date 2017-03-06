@@ -87,6 +87,27 @@
                 android:src="@drawable/icon_arrow_right_normal"/>
         </LinearLayout>
     </RelativeLayout>
+            <LinearLayout
+                android:layout_marginTop="@dimen/common_10"
+                android:background="@color/color_white"
+                android:paddingLeft="@dimen/common_10"
+                android:layout_width="match_parent"
+                android:gravity="center_vertical"
+                android:layout_height="@dimen/common_44">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="上课码:"
+                    android:textSize="@dimen/font_12"
+                    android:textColor="@color/color_7f7f7f"/>
+                <TextView
+                    android:id="@+id/tv_course_code"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/common_3"
+                    android:textSize="@dimen/font_12"
+                    android:textColor="@color/color_333333"/>
+            </LinearLayout>
     <include layout="@layout/layout_school_info_card"/>
     <TextView
         android:layout_marginTop="@dimen/common_10"

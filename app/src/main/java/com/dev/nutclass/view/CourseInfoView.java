@@ -2,6 +2,7 @@ package com.dev.nutclass.view;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.Gravity;
@@ -17,6 +18,8 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.dev.nutclass.R;
+import com.dev.nutclass.activity.PublicListActivity;
+import com.dev.nutclass.constants.Const;
 import com.dev.nutclass.entity.CourseCardEntity;
 import com.dev.nutclass.entity.CourseInfoEntity;
 import com.dev.nutclass.utils.GlideUtils;
@@ -55,6 +58,7 @@ public class CourseInfoView extends LinearLayout implements View.OnClickListener
     private TextView giftTv;
     private ImageView minusIv;
     private ImageView giftIv;
+    private RelativeLayout moreSchoolLayout;
     public CourseInfoView(Context context) {
         super(context);
         initView(context);
@@ -81,8 +85,10 @@ public class CourseInfoView extends LinearLayout implements View.OnClickListener
         minusIv = (ImageView) this.findViewById(R.id.iv_icon_minus);
         giftTv = (TextView) this.findViewById(R.id.tv_gift_info);
         giftIv = (ImageView) this.findViewById(R.id.iv_icon_gift);
+        moreSchoolLayout = (RelativeLayout) this.findViewById(R.id.rl_show_other_school);
         selectTimeLayout.setOnClickListener(this);
         courseLableLayout.setOnClickListener(this);
+        moreSchoolLayout.setOnClickListener(this);
     }
 
     public void updateView(CourseInfoEntity entity) {
@@ -138,6 +144,11 @@ public class CourseInfoView extends LinearLayout implements View.OnClickListener
                 courseTimeTv.setText(selectedCourseTime);
             }
             menuWindow.dismiss();
+        }
+        else if (v==moreSchoolLayout){
+            Intent intent = new Intent(mContext, PublicListActivity.class);
+            intent.putExtra(Const.KEY_TYPE,Const.TYPE_FROM_COURSE_DETAIL_OTHER_SCHOOL);
+            mContext.startActivity(intent);
         }
     }
 

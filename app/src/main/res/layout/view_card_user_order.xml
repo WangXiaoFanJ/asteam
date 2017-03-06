@@ -12,17 +12,29 @@
         android:paddingTop="@dimen/common_8"
         android:paddingBottom="@dimen/common_7"
         android:orientation="horizontal">
-        <ImageView
-            android:id="@+id/iv_goods_image"
+        <RelativeLayout
             android:layout_width="@dimen/common_75"
-            android:layout_height="@dimen/common_75"
-            android:scaleType="fitXY"
-            android:src="@mipmap/ic_launcher"/>
+            android:layout_height="@dimen/common_75">
+            <ImageView
+                android:id="@+id/iv_goods_image"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="fitXY"
+                android:src="@mipmap/ic_launcher"/>
+            <ImageView
+                android:id="@+id/iv_icon_left_top"
+                android:layout_width="@dimen/common_45"
+                android:layout_height="@dimen/common_18"
+                android:scaleType="fitXY"
+                />
+        </RelativeLayout>
+       
         <LinearLayout
             android:layout_gravity="center_vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:layout_marginLeft="@dimen/common_10">
             <TextView
                 android:id="@+id/tv_goods_name"
                 android:layout_width="wrap_content"
@@ -42,6 +54,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="校区:北京通州梨园校区"
+                    android:singleLine="true"
                     android:textSize="@dimen/font_12"
                     android:textColor="@color/color_7f7f7f"/>
             </RelativeLayout>
@@ -54,11 +67,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/color_f75250"
+                    android:layout_marginRight="@dimen/common_21"
                     android:text="￥1200"
                     android:textSize="@dimen/font_14"/>
                 <TextView
                     android:id="@+id/tv_goods_attr"
-                    android:layout_marginLeft="@dimen/common_21"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="48课时"

@@ -4,7 +4,6 @@ package com.dev.nutclass.fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -23,7 +22,9 @@ import com.dev.nutclass.parser.CardListParser;
 import com.dev.nutclass.utils.LogUtil;
 import com.squareup.okhttp.Request;
 
+import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -80,7 +81,9 @@ public class CourseListFragment extends BaseFragment {
                 LogUtil.d(TAG,"response:"+response);
                 CardListParser parser = new CardListParser();
                 try {
-                    JsonDataList<BaseCardEntity> result = (JsonDataList<BaseCardEntity>) parser.parse(response);
+                    JSONObject jsonObject = new JSONObject(response);
+                    JSONArray cardListArray = jsonObject.optJSONArray("data");
+                    JsonDataList<BaseCardEntity> result = (JsonDataList<BaseCardEntity>) parser.parse(cardListArray);
                     if(result.getErrorCode()== UrlConst.SUCCESS_CODE){
                         ArrayList<BaseCardEntity> list = result.getList();
                         if(list!=null&&list.size()>0){

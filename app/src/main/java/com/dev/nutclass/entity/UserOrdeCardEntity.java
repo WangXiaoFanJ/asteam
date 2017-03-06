@@ -1,5 +1,7 @@
 package com.dev.nutclass.entity;
 
+import android.widget.ImageView;
+
 import org.json.JSONObject;
 
 /**
@@ -7,6 +9,7 @@ import org.json.JSONObject;
  */
 public class UserOrdeCardEntity extends BaseCardEntity {
     private String goodsId;
+    private String orderId;
     private String goodsName;
     private String schoolName;
     private String kbkMoney;
@@ -15,7 +18,8 @@ public class UserOrdeCardEntity extends BaseCardEntity {
     private String goodsAttr;
     private String goodsType;
     private String statusInfo;
-
+    private String iconIv;
+    private String appointmentTime;
     public UserOrdeCardEntity(int type,JSONObject jsonObject) {
         setCardType(type);
         optJsonObj(jsonObject);
@@ -31,6 +35,9 @@ public class UserOrdeCardEntity extends BaseCardEntity {
         setGoodsAttr(jsonObject.optString("goods_attr"));
         setGoodsType(jsonObject.optString("is_goods_type"));
         setStatusInfo(jsonObject.optString("status_info"));
+        setIconIv(jsonObject.optString("icon"));
+        setAppointmentTime(jsonObject.optString("add_time"));
+        setOrderId(jsonObject.optString("order_id"));
     }
 
     public String getGoodsId() {
@@ -103,5 +110,29 @@ public class UserOrdeCardEntity extends BaseCardEntity {
 
     public void setSchoolName(String schoolName) {
         this.schoolName = schoolName;
+    }
+
+    public String getIconIv() {
+        return iconIv;
+    }
+
+    public void setIconIv(String iconIv) {
+        this.iconIv = iconIv;
+    }
+
+    public String getAppointmentTime() {
+        return appointmentTime;
+    }
+
+    public void setAppointmentTime(String appointmentTime) {
+        this.appointmentTime = appointmentTime;
+    }
+
+    public String getOrderId() {
+        return orderId;
+    }
+
+    public void setOrderId(String orderId) {
+        this.orderId = orderId;
     }
 }

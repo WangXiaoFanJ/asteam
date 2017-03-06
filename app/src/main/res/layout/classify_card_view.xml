@@ -5,11 +5,18 @@
     android:layout_height="wrap_content"
     android:background="@color/color_white"
     android:orientation="vertical">
-<android.support.design.widget.TabLayout
-    android:id="@+id/tab_layout"
+
+    <android.support.design.widget.TabLayout
+        android:id="@+id/tab_layout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/common_44"
+        android:background="#f7f7f7"
+        attr:tabSelectedTextColor="@color/home_nav_txt_ed"
+        attr:tabTextColor="@color/home_nav_txt"></android.support.design.widget.TabLayout>
+
+<LinearLayout
+    android:id="@+id/ll_container"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/common_44"
-    attr:tabSelectedTextColor="@color/home_nav_txt_ed"
-    attr:tabTextColor="@color/home_nav_txt"
-    android:background="#f7f7f7"></android.support.design.widget.TabLayout>
+    android:layout_height="wrap_content"
+    android:orientation="vertical"></LinearLayout>
 </LinearLayout>

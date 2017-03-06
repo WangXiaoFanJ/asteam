@@ -7,5 +7,6 @@
         <attr name="right_type2" format="integer"/>
         <attr name="middle_text_id" format="integer"/>
         <attr name="middle_text" format="string"/>
+        <attr name="title_bar_bg" format="integer"/>
     </declare-styleable>
 </resources>

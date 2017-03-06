@@ -13,12 +13,23 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
+import com.dev.nutclass.ApplicationConfig;
 import com.dev.nutclass.R;
 import com.dev.nutclass.activity.SearchActivity;
 import com.dev.nutclass.adapter.CardListAdapter;
+import com.dev.nutclass.constants.Const;
+import com.dev.nutclass.constants.UrlConst;
 import com.dev.nutclass.entity.BaseCardEntity;
-import com.dev.nutclass.entity.ClassifyEntity;
-import com.dev.nutclass.entity.IconEntity;
+import com.dev.nutclass.entity.JsonDataList;
+import com.dev.nutclass.network.OkHttpClientManager;
+import com.dev.nutclass.parser.CardListParser;
+import com.dev.nutclass.utils.LogUtil;
+import com.dev.nutclass.utils.SharedPrefUtil;
+import com.squareup.okhttp.Request;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,13 +62,10 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
         searchLayout = (LinearLayout) view.findViewById(R.id.ll_search);
         initListener();
+
         initData();
 
 
-        LinearLayoutManager layoutManager = new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false);
-        recyclerView.setLayoutManager(layoutManager);
-        CardListAdapter adapter = new CardListAdapter(lists, mContext);
-        recyclerView.setAdapter(adapter);
 
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
@@ -88,10 +96,14 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     }
 
     private void initData() {
+        LinearLayoutManager layoutManager = new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false);
+        recyclerView.setLayoutManager(layoutManager);
+
+//        reqData();
 //        ImageEntity imageEntity = new ImageEntity(1);
-        BaseCardEntity imageEntity = new BaseCardEntity();
-        imageEntity.setCardType(BaseCardEntity.CARD_TYPE_BANNER_COURSE_INFO);
-        IconEntity iconEntity = new IconEntity(3);
+//        BaseCardEntity imageEntity = new BaseCardEntity();
+//        imageEntity.setCardType(BaseCardEntity.CARD_TYPE_BANNER_COURSE_INFO);
+//        IconEntity iconEntity = new IconEntity(3);
 //        List<String> stringList = new ArrayList<>();
 //        String [] strings = {"http://cdn2.kobiko.cn/./Uploads/2016-12-03/th_584281b63caa3.jpg",
 //                "http://cdn1.kobiko.cn/./Uploads/2016-12-03/th_5842775fe7b5a.jpg",
@@ -99,20 +111,20 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
 //        for(int i=0;i<strings.length;i++){
 //            stringList.add(strings[i]);
 //        }
-        List<String> iconLists = new ArrayList<>();
-        for(int i = 0;i<10;i++){
-            iconLists.add("http://182.92.7.222/app_files_v3/images/icon/zaojiao.png");
-        }
+//        List<String> iconLists = new ArrayList<>();
+//        for(int i = 0;i<10;i++){
+//            iconLists.add("http://182.92.7.222/app_files_v3/images/icon/zaojiao.png");
+//        }
 
-        ClassifyEntity classifyEntity = new ClassifyEntity();
-//        imageEntity.setImages(stringList);
-        iconEntity.setIconList(iconLists);
+//        ClassifyHomeCourseEntity classifyEntity = new ClassifyHomeCourseEntity();
+////        imageEntity.setImages(stringList);
+//        iconEntity.setIconList(iconLists);
 //        lists.add(imageEntity);
-        lists.add(iconEntity);
-        BaseCardEntity jdEntity = new BaseCardEntity();
-        jdEntity.setCardType(BaseCardEntity.CARD_TYPE_JD_CARD_VIEW);
-        lists.add(jdEntity);
-        lists.add(classifyEntity);
+//        lists.add(iconEntity);
+//        BaseCardEntity jdEntity = new BaseCardEntity();
+//        jdEntity.setCardType(BaseCardEntity.CARD_TYPE_JD_CARD_VIEW);
+//        lists.add(jdEntity);
+//        lists.add(classifyEntity);
 //        BaseCardEntity cardEntity = new BaseCardEntity();
 //        cardEntity.setCardType(BaseCardEntity.CARD_TYPE_COURSE_CARD_VIEW);
 //        for(int i =0;i<4;i++){
@@ -121,10 +133,47 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
 
     }
 
+    private void reqData() {
+        String url = UrlConst.HOME_LIST_URL;
+        OkHttpClientManager.getAsyn(url, new OkHttpClientManager.ResultCallback<String>() {
+            @Override
+            public void onError(Request request, Exception e) {
+                LogUtil.e(TAG,"error:"+e.getMessage());
+            }
+
+            @Override
+            public void onResponse(String response) {
+                LogUtil.d(TAG,"response:"+response);
+                CardListParser parser = new CardListParser();
+                JsonDataList<BaseCardEntity> result = null;
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    JSONArray cardListArray = jsonObject.optJSONArray("data");
+                    result = (JsonDataList<BaseCardEntity>) parser.parse(cardListArray);
+                    if(result.getErrorCode()== UrlConst.SUCCESS_CODE){
+                        if(result.getList()!=null&&result.getList().size()>0){
+                            update(result.getList());
+                        }
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+
+        });
+    }
+
+    private void update(ArrayList<BaseCardEntity> list) {
+        recyclerView.setAdapter( new CardListAdapter(list, mContext));
+    }
+
     @Override
     public void onClick(View v) {
         if(v == searchLayout){
             startActivity(new Intent(mContext, SearchActivity.class));
         }
     }
+
+
 }

@@ -26,7 +26,9 @@ import com.dev.nutclass.utils.LogUtil;
 import com.dev.nutclass.view.TitleBar;
 import com.squareup.okhttp.Request;
 
+import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -93,6 +95,9 @@ public class PublicListActivity extends BaseActivity {
         }else if(type == Const.TYPE_FROM_SCHOLL_MOR_COURSE){
             titleBar.setMiddleText("正课");
             reqData(1);
+        }else  if (type ==Const.TYPE_FROM_COURSE_DETAIL_OTHER_SCHOOL){
+            titleBar.setMiddleText("其他校区");
+            reqData(1);
         }
 
     }
@@ -109,6 +114,8 @@ public class PublicListActivity extends BaseActivity {
             url = url + "&pageNo=" + page;
         }else if (type == Const.TYPE_FROM_SCHOLL_MOR_COURSE){
             url = UrlConst.SCHOOL_TO_COURSE_LIST_URL;
+        }else if (type== Const.TYPE_FROM_COURSE_DETAIL_OTHER_SCHOOL){
+            url= UrlConst.OTHER_SCHOOL_LIST_URL;
         }
         OkHttpClientManager.getAsyn(url, new OkHttpClientManager.ResultCallback<String>() {
             @Override
@@ -120,20 +127,30 @@ public class PublicListActivity extends BaseActivity {
             public void onResponse(String response) {
                 LogUtil.d(TAG, "response=" + response);
                 BaseParser<BaseCardEntity> parser = null;
+                JsonDataList<BaseCardEntity> result = null;
+                try {
                 if (type == Const.TYPE_FROM_JD) {
                     //根据不同page解析得到list
                     if(page==1) {
-                        parser = new JDCatListParser();
+                        JDCatListParser  parser01 = new JDCatListParser();
+                        result = (JsonDataList<BaseCardEntity>) parser01
+                                .parse(response);
                     }else{
-                        parser = new JDCatListParse2();
+                        JDCatListParse2 parser2 = new JDCatListParse2();
+                        result = (JsonDataList<BaseCardEntity>) parser2.parse(response);
                     }
                 }else if(type == Const.TYPE_FROM_SCHOLL_MOR_COURSE){
                     parser = new CardListParser();
+                    JSONObject jsonObject = new JSONObject(response);
+                    JSONArray jsonArray = jsonObject.optJSONArray("data");
+                    result = (JsonDataList<BaseCardEntity>) parser.parse(jsonArray);
+                }else if (type ==Const.TYPE_FROM_COURSE_DETAIL_OTHER_SCHOOL){
+                    parser = new CardListParser();
+                    JSONObject jsonObject = new JSONObject(response);
+                    JSONArray jsonArray = jsonObject.optJSONArray("data");
+                    result = (JsonDataList<BaseCardEntity>) parser.parse(jsonArray);
                 }
-                JsonDataList<BaseCardEntity> result;
-                try {
-                    result = (JsonDataList<BaseCardEntity>) parser
-                            .parse(response);
+
                     if (result.getErrorCode() == UrlConst.SUCCESS_CODE) {
                         ArrayList<BaseCardEntity> list = result
                                 .getList();
@@ -142,7 +159,7 @@ public class PublicListActivity extends BaseActivity {
                             update(list);
                         }
                     }
-                } catch (JSONException e) {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             }

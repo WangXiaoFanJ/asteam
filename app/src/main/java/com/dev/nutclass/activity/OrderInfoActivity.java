@@ -12,6 +12,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.dev.nutclass.R;
+import com.dev.nutclass.constants.Const;
 import com.dev.nutclass.constants.UrlConst;
 import com.dev.nutclass.entity.BaseCardEntity;
 import com.dev.nutclass.entity.JsonDataList;
@@ -25,6 +26,9 @@ import com.squareup.okhttp.Request;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class OrderInfoActivity extends BaseActivity implements View.OnClickListener {
     private static final String TAG = "OrderInfoActivity";
@@ -50,12 +54,14 @@ public class OrderInfoActivity extends BaseActivity implements View.OnClickListe
     private TextView orderNumberTv;
     private TextView userPhoneTv;
     private TextView orderTimeTv;
-
+    private TextView courseCodeTv;
+    private String orderId;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_info);
         mContext = OrderInfoActivity.this;
+        orderId = getIntent().getStringExtra(Const.ORDER_ID);
         initView();
         initData();
     }
@@ -80,6 +86,7 @@ public class OrderInfoActivity extends BaseActivity implements View.OnClickListe
         orderNumberTv = (TextView) findViewById(R.id.tv_order_number);
         userPhoneTv = (TextView) findViewById(R.id.tv_user_phone);
         orderTimeTv = (TextView) findViewById(R.id.tv_order_time);
+        courseCodeTv = (TextView) findViewById(R.id.tv_course_code);
         applyBackMoneyTv.setOnClickListener(this);
     }
 
@@ -88,8 +95,10 @@ public class OrderInfoActivity extends BaseActivity implements View.OnClickListe
     }
 
     private void reqData() {
-        String url = "http://dev.kobiko.cn/api/index/orderDetailsList";
-        OkHttpClientManager.getAsyn(url, new OkHttpClientManager.ResultCallback<String>() {
+        String url = UrlConst.USER_ORDER_DETAIL_URL;
+        Map<String,String> map = new HashMap<>();
+        map.put("orderID",orderId);
+        OkHttpClientManager.postAsyn(url, new OkHttpClientManager.ResultCallback<String>() {
             @Override
             public void onError(Request request, Exception e) {
                 LogUtil.e(TAG, "error:" + e.getMessage());
@@ -124,7 +133,7 @@ public class OrderInfoActivity extends BaseActivity implements View.OnClickListe
 //                    e.printStackTrace();
 //                }
             }
-        });
+        },map);
     }
 
     private void update(UserOrderDetailEntity entity) {

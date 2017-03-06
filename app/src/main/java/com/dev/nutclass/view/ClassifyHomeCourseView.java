@@ -3,29 +3,32 @@ package com.dev.nutclass.view;
 import android.content.Context;
 import android.support.design.widget.TabLayout;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 
 import com.dev.nutclass.R;
 import com.dev.nutclass.entity.BaseCardEntity;
-import com.dev.nutclass.entity.ClassifyEntity;
+import com.dev.nutclass.entity.ClassifyHomeCourseEntity;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Administrator on 2016/12/30.
  */
-public class ClassifyView extends LinearLayout {
+public class ClassifyHomeCourseView extends LinearLayout {
     private Context mContext;
     private TabLayout tabLayout;
+    private LinearLayout containerLayout;
 //    private TextView tv;
-    public ClassifyView(Context context) {
+    public ClassifyHomeCourseView(Context context) {
         super(context);
         initView(context);
     }
 
-    public ClassifyView(Context context, AttributeSet attrs) {
+    public ClassifyHomeCourseView(Context context, AttributeSet attrs) {
         super(context, attrs);
         initView(context);
     }
@@ -33,19 +36,25 @@ public class ClassifyView extends LinearLayout {
     private void initView(Context context) {
         mContext = context;
         LayoutInflater.from(mContext).inflate(R.layout.classify_card_view,this);
+        containerLayout = (LinearLayout) this.findViewById(R.id.ll_container);
         tabLayout = (TabLayout) this.findViewById(R.id.tab_layout);
 //        tv = (TextView) this.findViewById(R.id.tv);
     }
-    public void updateView(BaseCardEntity entity){
-//        tv.setText("说什么是什么");
-//        tabLayout.removeAllViews();
+    public void updateView(ClassifyHomeCourseEntity entity){
+        containerLayout.removeAllViews();
         tabLayout.setSelectedTabIndicatorColor(getResources().getColor(R.color.home_nav_txt_ed));
         tabLayout.setSelectedTabIndicatorHeight(2);
         tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
-        ClassifyEntity classifyEntity = (ClassifyEntity) entity;
-        for(int i =0;i<classifyEntity.getTitleList().size();i++){
-            Log.d("===","classifyEntity"+classifyEntity.getTitleList().get(i));
-            tabLayout.addTab(tabLayout.newTab().setText(classifyEntity.getTitleList().get(i)));
+        for(int i = 0;i<5;i++){
+            tabLayout.addTab(tabLayout.newTab().setText("早教幼儿"));
+        }
+        for(int i=0;i<entity.getCourseCardLists().size();i++){
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                    LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT
+            );
+            CourseCardView cardView = new CourseCardView(mContext);
+            cardView.updateView(entity.getCourseCardLists().get(i));
+            containerLayout.addView(cardView,params);
         }
         tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override

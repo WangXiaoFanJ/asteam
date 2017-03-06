@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="@dimen/common_101"
     android:orientation="vertical">
-    <View
+    <ImageView
         android:id="@+id/view_jd"
         android:layout_width="match_parent"
         android:layout_height="@dimen/common_101"

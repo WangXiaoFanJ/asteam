@@ -22,7 +22,9 @@ public class CourseListCardEntity extends BaseCardEntity {
     private String gift_img2;
     private String gift_info;
 
-    public CourseListCardEntity() {
+    public CourseListCardEntity(int type,JSONObject jsonObject) {
+        setCardType(BaseCardEntity.CARD_TYPE_COLLECT_COURSE_VIEW);
+        optJsonObj(jsonObject);
     }
 
     public CourseListCardEntity(JSONObject jsonObject) {

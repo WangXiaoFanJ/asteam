@@ -63,7 +63,7 @@ public class ApplicationConfig {
     public void initConfig(MyApplication application){
             synchronized (sLock){
                 this.application = application;
-                context = application.getApplicationContext();
+                context = application.getBaseContext();
                 packageName = context.getPackageName();
                 versionCode = getVersionCode(context);
                 versionName = getVersionName(context);

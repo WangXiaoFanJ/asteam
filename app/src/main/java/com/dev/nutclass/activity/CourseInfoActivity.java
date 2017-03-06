@@ -24,6 +24,9 @@ import com.dev.nutclass.utils.LogUtil;
 import com.dev.nutclass.utils.SnsUtil;
 import com.squareup.okhttp.Request;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -161,7 +164,9 @@ public class CourseInfoActivity extends BaseActivity implements View.OnClickList
                 LogUtil.d(TAG,"response:"+response);
                 CardListParser parser = new CardListParser();
                 try {
-                    JsonDataList<BaseCardEntity> result = (JsonDataList<BaseCardEntity>) parser.parse(response);
+                    JSONObject jsonObject = new JSONObject(response);
+                    JSONArray cardListArray = jsonObject.optJSONArray("data");
+                    JsonDataList<BaseCardEntity> result = (JsonDataList<BaseCardEntity>) parser.parse(cardListArray);
                     if(result.getErrorCode()== UrlConst.SUCCESS_CODE){
                         if(result.getList()!=null&&result.getList().size()>0){
                             update(result.getList());
@@ -188,7 +193,7 @@ public class CourseInfoActivity extends BaseActivity implements View.OnClickList
         }else if (v == callPhoneLayout){
             callPhoneKobiko();
         }else if (v==shareIv){
-            SnsUtil.getInstance(mContext).openShare((Activity) mContext);
+//            SnsUtil.getInstance(mContext).openShare((Activity) mContext);
         }
     }
 

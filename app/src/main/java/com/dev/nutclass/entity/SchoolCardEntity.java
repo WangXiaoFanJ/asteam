@@ -47,13 +47,16 @@ public class SchoolCardEntity extends BaseCardEntity {
         setInterestNum(jsonObject01.optString("browseNum"));
         JSONArray jsonArray = jsonObject01.optJSONArray("list");
         List<SimpleCourseEntity> list = new ArrayList<>();
-        for(int i = 0;i<jsonArray.length();i++){
-            JSONObject jsonObject02 = jsonArray.optJSONObject(i);
-            SimpleCourseEntity entity = new SimpleCourseEntity();
-            entity.optObject(jsonObject02);
-            list.add(entity);
+        if(jsonArray!=null&&jsonArray.length()>0) {
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject jsonObject02 = jsonArray.optJSONObject(i);
+                SimpleCourseEntity entity = new SimpleCourseEntity();
+                entity.optObject(jsonObject02);
+                list.add(entity);
+            }
+            setGoodList(list);
         }
-        setGoodList(list);
+
     }
 
     public String getSchoolId() {

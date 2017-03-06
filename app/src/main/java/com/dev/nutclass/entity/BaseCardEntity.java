@@ -7,12 +7,13 @@ import java.util.List;
  * Created by Administrator on 2016/12/29.
  */
 public class BaseCardEntity  {
-    public static final int CARD_TYPE_BANNER_COURSE_INFO=2001;
     public static final int CARD_TYPE_COURSE_INFO=1008;
 
     public static final int CARD_TYPE_BANNER_VIEW =1001;
+    public static final int CARD_TYPE_HOME_ICON_VIEW=1002;
 
     public static final int CARD_TYPE_JD_CARD_VIEW=1003;
+    public static final int CARD_TYPE_HOME_COURSE_CLASSIFY=1004;
     public static final int CARD_TYPE_SHCOOL_CARD_VIEW=1005;
     public static final int CARD_TYPE_COURSE_CARD_VIEW=1006;
     /**
@@ -27,6 +28,8 @@ public class BaseCardEntity  {
     public static final int CARD_TYPE_AMUSE_PARK_VIEW=1022;
     public static final int CARD_TYPE_SCHOOL_RECOMMEND_VIEW=1027;
 
+    /**其他校区view*/
+    public static final int CARD_TYPE_OTHER_SCHOOL=1029;
     /**
      * 校区正课
      */
@@ -53,12 +56,15 @@ public class BaseCardEntity  {
     public static final  int CARD_TYPE_USER_ORDER_WAIT_USE_VIEW=1024;
     public static final  int CARD_TYPE_USER_ORDER_AFTER_SALE_VIEW=1026;
     public static final  int CARD_TYPE_DISCOUNT_COUPON_VIEW=1028;
-
+    public static final int CARD_TYPE_USER_ORDER_APPOINTMENT =1031;
+    public static final int CARD_TYPE_USER_ORDER_COMPLETED = 1030;
 
 
 
     /** 未与后台交互的cardtype*/
 
+    public static final int CARD_TYPE_COLLECT_COURSE_VIEW=2001;
+    public static final int CARD_TYPE_COLLECT_SCHOOL_VIEW=2002;
     private int cardType = 0;
 
     public int getCardType() {

@@ -26,6 +26,6 @@
         android:layout_gravity="bottom"
         android:layout_marginLeft="@dimen/common_3"
         android:src="@drawable/titlebar_album_normal"
-        android:visibility="visible" />
+        android:visibility="gone" />
 
 </LinearLayout>

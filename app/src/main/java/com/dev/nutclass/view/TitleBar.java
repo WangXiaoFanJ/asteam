@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.dev.nutclass.R;
@@ -30,7 +31,8 @@ public class TitleBar extends FrameLayout implements View.OnClickListener{
 
     private TextView mMiddleTv;
     private ImageView middleArrawIv;
-
+    private RelativeLayout rootLayout;
+    private BarClickListener mBarClickListener;
     /**
      * TAG值，标题栏左边
      */
@@ -49,6 +51,8 @@ public class TitleBar extends FrameLayout implements View.OnClickListener{
      * TAG值，标题栏右边第二个按钮
      */
     public static final int TAG_RIGHT2 = 2;
+
+
     /**
      * 控件类型-空
      */
@@ -67,6 +71,22 @@ public class TitleBar extends FrameLayout implements View.OnClickListener{
     * 控件类型-文字右01
     * */
     public static final int TYPE_RIGHT_TXT_01 = 3;
+    /**
+     * 控件类型-登录文字
+     * */
+    public static final int TYPE_MIDDLE_TXT_WHITE = 4;
+    //文字(注册（big）)
+    public static final int TYPE_MIDDLE_REGISTER_TEX =6;
+    //控件类型-文字（注册）
+    public static final int TYPE_RIGHT_REGISTER_TEX = 5;
+    /**
+     * 背景颜色
+     * */
+    //主题色
+    public static final int BG_YELLOW= 1;
+    //浅灰色
+    public static final int BG_GRAY=2;
+
     public TitleBar(Context context) {
         super(context);
         mContext = context;
@@ -84,12 +104,15 @@ public class TitleBar extends FrameLayout implements View.OnClickListener{
         rightLayout1 = (FrameLayout)this.findViewById(R.id.fl_title_right1);
         rightLayout2 = (FrameLayout)this.findViewById(R.id.fl_title_right2);
         middleLayout = (FrameLayout)this.findViewById(R.id.fl_title_middle);
+        rootLayout = (RelativeLayout) this.findViewById(R.id.rl_root);
 
         if (attrs != null) {
             TypedArray a = mContext.obtainStyledAttributes(attrs, R.styleable.TitleBar, 0, 0);
             int leftType = a.getInt(R.styleable.TitleBar_left_type, TYPE_NULL);
             int rightType1 = a.getInt(R.styleable.TitleBar_right_type1, TYPE_NULL);
             int rightType2 = a.getInt(R.styleable.TitleBar_right_type2, TYPE_NULL);
+            int middleId = a.getInt(R.styleable.TitleBar_middle_text_id,TYPE_NULL);
+            int titleBg = a.getInt(R.styleable.TitleBar_title_bar_bg,TYPE_NULL);
             String middleText = a.getString(R.styleable.TitleBar_middle_text);
             a.recycle();
             leftLayout.setOnClickListener(this);
@@ -100,14 +123,31 @@ public class TitleBar extends FrameLayout implements View.OnClickListener{
             setView(TAG_LEFT, createView(leftType));
             setView(TAG_RIGHT1, createView(rightType1));
             setView(TAG_RIGHT2, createView(rightType2));
-            setMiddleTextView(middleText);
+            setView(TAG_MIDDLE,createView(middleId));
+            if(middleText!=null){
+                setMiddleTextView(middleText);
+            }
+           setBackgroundColorNew(titleBg);
         }
     }
+
+    private void setBackgroundColorNew(int id) {
+        switch (id){
+            case BG_YELLOW:
+                rootLayout.setBackgroundResource(R.color.color_f75250);
+                break;
+            case BG_GRAY:
+                rootLayout.setBackgroundResource(R.color.color_bg);
+                break;
+        }
+    }
+
     /**
      * titleBar背景颜色
      */
     public void setBackgroundColorResource(int resId) {
-        mTitlebar.setBackgroundResource(resId);
+//        mTitlebar.setBackgroundResource(resId);
+        rootLayout.setBackgroundResource(resId);
     }
     public void setMiddleText(String text){
         setMiddleText(text, false, false);
@@ -157,6 +197,28 @@ public class TitleBar extends FrameLayout implements View.OnClickListener{
                 textView.setText("兑换");
                 textView.setTextColor(getResources().getColor(R.color.color_7f7f7f));
                 textView.setTextSize(13);
+                break;
+            case TYPE_RIGHT_REGISTER_TEX:
+                view = LayoutInflater.from(mContext).inflate(R.layout.view_title_textview,null);
+                TextView textView03 = (TextView) view.findViewById(R.id.view_text);
+                textView03.setText("注册");
+                textView03.setTextColor(getResources().getColor(R.color.color_white));
+                textView03.setTextSize(13);
+                break;
+            case TYPE_MIDDLE_TXT_WHITE:
+                view = LayoutInflater.from(mContext).inflate(R.layout.view_title_textview,null);
+                TextView textView2 = (TextView) view.findViewById(R.id.view_text);
+                textView2.setText("登录");
+                textView2.setTextColor(getResources().getColor(R.color.color_white));
+                textView2.setTextSize(15);
+                break;
+            case TYPE_MIDDLE_REGISTER_TEX:
+                view = LayoutInflater.from(mContext).inflate(R.layout.view_title_textview,null);
+                TextView textView04 = (TextView) view.findViewById(R.id.view_text);
+                textView04.setText("注册");
+                textView04.setTextColor(getResources().getColor(R.color.color_white));
+                textView04.setTextSize(15);
+                break;
             default:
                 break;
         }
@@ -210,10 +272,30 @@ public class TitleBar extends FrameLayout implements View.OnClickListener{
 
     @Override
     public void onClick(View v) {
+        if (doBarClick(v))
+            return;
         if (v == leftLayout) {
             if(leftLayout.getChildCount()>0){
                 ((Activity) mContext).finish();
             }
         }
+    }
+
+    private boolean doBarClick(View v) {
+        boolean handled = false;
+        if (mBarClickListener != null) {
+            if (v == rightLayout1) {
+                handled = mBarClickListener.onClickRight1();
+            }
+        }
+        return handled;
+    }
+
+    public void setBarClickListener(BarClickListener listener) {
+        mBarClickListener = listener;
+    }
+    public static interface BarClickListener {
+        public boolean onClickRight1();
+
     }
 }

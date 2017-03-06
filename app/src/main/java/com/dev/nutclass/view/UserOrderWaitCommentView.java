@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.dev.nutclass.R;
 import com.dev.nutclass.activity.OrderInfoActivity;
+import com.dev.nutclass.constants.Const;
 import com.dev.nutclass.entity.UserOrdeCardEntity;
 
 /**
@@ -24,6 +25,7 @@ public class UserOrderWaitCommentView extends RelativeLayout implements View.OnC
     private UserOrderCardView cardView;
     private LinearLayout containLayout;
     private TextView goodsType;
+    private String orderId;
     public UserOrderWaitCommentView(Context context) {
         super(context);
         mContext = context;
@@ -51,6 +53,7 @@ public class UserOrderWaitCommentView extends RelativeLayout implements View.OnC
     }
 
     public void updateView(UserOrdeCardEntity entity){
+        orderId = entity.getOrderId();
         goodsType.setText(entity.getGoodsType());
         cardView.updataView(entity);
     }
@@ -59,10 +62,9 @@ public class UserOrderWaitCommentView extends RelativeLayout implements View.OnC
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.ll_card_view:
-                mContext.startActivity(new Intent(mContext, OrderInfoActivity.class));
-                break;
             case R.id.ll_right:
-                mContext.startActivity(new Intent(mContext, OrderInfoActivity.class));
+                mContext.startActivity(new Intent(mContext, OrderInfoActivity.class)
+                        .putExtra(Const.ORDER_ID,orderId));
                 break;
         }
     }

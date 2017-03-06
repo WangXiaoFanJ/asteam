@@ -19,7 +19,9 @@ import com.dev.nutclass.parser.CardListParser;
 import com.dev.nutclass.utils.LogUtil;
 import com.squareup.okhttp.Request;
 
+import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -103,7 +105,10 @@ public class DiscountCouponActivity extends BaseActivity {
                 CardListParser parser = new CardListParser();
                 JsonDataList<BaseCardEntity> result = null;
                 try {
-                    result = (JsonDataList<BaseCardEntity>) parser.parse(response);
+                    JSONObject jsonObject = new JSONObject(response);
+                    JSONObject jsonObject1 = jsonObject.optJSONObject("data");
+                    JSONArray cardListArray = jsonObject1.optJSONArray("list");
+                    result = (JsonDataList<BaseCardEntity>) parser.parse(cardListArray);
                     if(result.getErrorCode()== UrlConst.SUCCESS_CODE){
                         ArrayList<BaseCardEntity> list = result
                                 .getList();

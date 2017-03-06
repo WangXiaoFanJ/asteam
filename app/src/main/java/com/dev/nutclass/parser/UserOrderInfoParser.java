@@ -13,8 +13,7 @@ import java.util.ArrayList;
 /**
  * Created by Administrator on 2017/2/18.
  */
-public class UserOrderInfoParser extends BaseParser<BaseCardEntity>{
-    @Override
+public class UserOrderInfoParser {
     public Object parse(String jsonString) throws JSONException {
         JsonDataList<BaseCardEntity> retObj=new JsonDataList<>();
         ArrayList<BaseCardEntity> list = new ArrayList<BaseCardEntity>();

@@ -14,7 +14,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class JDCatListParser extends BaseParser<BaseCardEntity> {
+public class JDCatListParser {
 	private JDItemCardEntity entity2;
 	public int from=0;
 	public JDCatListParser(){
@@ -23,7 +23,6 @@ public class JDCatListParser extends BaseParser<BaseCardEntity> {
 		this.from=from;
 	}
 
-	@Override
 	public Object parse(String jsonString) {
 		JsonDataList<BaseCardEntity> retObj = new JsonDataList<BaseCardEntity>();
 		Log.d("===","from"+from);

@@ -77,6 +77,8 @@ public class BannerCardView extends RelativeLayout {
             LayoutInflater.from(mContext).inflate(R.layout.banner_card_view_course_info,this);
         }else if(type==2){
             LayoutInflater.from(mContext).inflate(R.layout.card_banner_76,this);
+        }else if (type == BaseCardEntity.CARD_TYPE_JD_CARD_VIEW){
+            LayoutInflater.from(mContext).inflate(R.layout.card_banner_76,this);
         }
         viewPager = (ViewPager) this.findViewById(R.id.view_pager_banner);
         singleImageView = (BigImgView) this.findViewById(R.id.iv_single);

@@ -9,6 +9,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.resource.drawable.GlideDrawable;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.SimpleTarget;
+import com.dev.nutclass.R;
 
 /**
  * Created by Administrator on 2016/12/30.
@@ -32,7 +33,7 @@ public class GlideUtils {
 
     public static void loadImageView(Context context, String url,  ImageView iv, int tag) {
         if (0 == tag) {
-            Glide.with(context).load(url).transform(new GlideCircleTransform(context)).into(iv);
+            Glide.with(context).load(url).error(R.mipmap.ic_launcher).transform(new GlideCircleTransform(context)).into(iv);
         } else if (1 == tag) {
             Glide.with(context).load(url).transform(new GlideRoundTransform(context,10)).into(iv);
         }

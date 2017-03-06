@@ -194,6 +194,11 @@ public class ImageEntity extends BaseCardEntity implements Serializable {
 		"activity": "",
 		"url": ""
 	 */
+	//new 首页广告位Banner
+	public void optJsonObjADNew(JSONObject jsonObject){
+		setImgPath(jsonObject.optString("img_url"));
+	}
+
 	//首页广告位Banner;
 	public  void optJsonObjAD(JSONObject jsonObj){
 		if(jsonObj == null){

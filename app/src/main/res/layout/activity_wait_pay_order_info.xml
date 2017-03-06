@@ -278,17 +278,36 @@
         android:layout_marginTop="@dimen/common_3"
         android:textSize="@dimen/font_10"
         android:textColor="@color/color_7f7f7f"/>
-    
-    <TextView
-        android:layout_width="@dimen/common_281"
-        android:layout_height="@dimen/common_44"
+    <LinearLayout
         android:layout_marginTop="@dimen/common_31"
-        android:text="去支付"
-        android:textSize="@dimen/font_18"
-        android:textColor="@color/color_white"
-        android:layout_gravity="center"
-        android:gravity="center"
-        android:background="@drawable/shape_login_btn_bg"/>
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/common_44"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/common_10"
+        android:paddingRight="@dimen/common_10">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:text="取消订单"
+            android:textSize="@dimen/font_18"
+            android:textColor="@color/color_white"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:background="@drawable/shape_gray_btn"/>
+        <TextView
+            android:layout_marginLeft="@dimen/common_10"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:text="确认支付"
+            android:textSize="@dimen/font_18"
+            android:textColor="@color/color_white"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:background="@drawable/shape_login_btn_bg"/>
+    </LinearLayout>
+
     </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"

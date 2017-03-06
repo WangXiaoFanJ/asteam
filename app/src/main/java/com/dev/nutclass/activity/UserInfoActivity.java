@@ -8,20 +8,36 @@ import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.dev.nutclass.ApplicationConfig;
 import com.dev.nutclass.R;
+import com.dev.nutclass.constants.Const;
+import com.dev.nutclass.constants.UrlConst;
+import com.dev.nutclass.entity.UserInfoEntity;
+import com.dev.nutclass.network.OkHttpClientManager;
+import com.dev.nutclass.utils.DialogUtils;
 import com.dev.nutclass.utils.GlideUtils;
 import com.dev.nutclass.utils.LogUtil;
+import com.dev.nutclass.utils.MyUtil;
+import com.dev.nutclass.utils.SharedPrefUtil;
 import com.dev.nutclass.view.MyPopupWindow;
 import com.foamtrace.photopicker.PhotoPickerActivity;
 import com.foamtrace.photopicker.PhotoPreviewActivity;
 import com.foamtrace.photopicker.SelectModel;
 import com.foamtrace.photopicker.intent.PhotoPickerIntent;
+import com.squareup.okhttp.Request;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class UserInfoActivity extends BaseActivity implements View.OnClickListener{
     private Context mContext;
@@ -36,6 +52,10 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
     private TextView genderTv;
     private ImageView hearPortraitIv;
     private MyPopupWindow popWindow;
+    private TextView userName;
+    private Button loginBtn;
+    private String userId;
+    private RelativeLayout userNameRL;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,6 +63,20 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
         mContext = UserInfoActivity.this;
         initView();
         initListener();
+        initData();
+        registerReceiver();
+    }
+
+    private void initData() {
+        GlideUtils.loadImageView(mContext,"",hearPortraitIv,0);
+        if(SharedPrefUtil.getInstance().isLogin()){
+            UserInfoEntity entity = SharedPrefUtil.getInstance().getSession();
+            GlideUtils.loadImageView(mContext,entity.getHeadIcon(),hearPortraitIv,0);
+            userName.setText(entity.getUserName());
+            babyBirthTv.setText(entity.getBabyBirth());
+            genderTv.setText(entity.getBabySex());
+           userId =  entity.getUserId();
+        }
     }
 
 
@@ -54,12 +88,17 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
         modifyPhoneLayout = (RelativeLayout) findViewById(R.id.rl_phone_modify);
         genderTv = (TextView) findViewById(R.id.tv_gender);
         hearPortraitIv = (ImageView) findViewById(R.id.iv_head_portrait);
+        userName = (TextView) findViewById(R.id.tv_user_name);
+        loginBtn = (Button) findViewById(R.id.btn_login);
+        userNameRL = (RelativeLayout) findViewById(R.id.rl_user_name);
     }
     private void initListener() {
         babyBirthLayout.setOnClickListener(this);
         babyGenderLayout.setOnClickListener(this);
         headPortraitLayout.setOnClickListener(this);
         modifyPhoneLayout.setOnClickListener(this);
+        loginBtn.setOnClickListener(this);
+        userNameRL.setOnClickListener(this);
     }
 
     @Override
@@ -95,7 +134,9 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
                                       int dayOfMonth) {
 // TODO Auto-generated method stub
 //                        setTitle(year + "-" + (monthOfYear + 1) + "-" + dayOfMonth);
-                    babyBirthTv.setText(year + "-" + (monthOfYear + 1) + "-" + dayOfMonth);
+                    String babyBirth =year + "-" + (monthOfYear + 1) + "-" + dayOfMonth;
+//                    babyBirthTv.setText(babyBirth);
+                    MyUtil.reqChangeUserInfoURL(mContext,userId,Const.BABY_BITTHDAY,babyBirth);
                 }
             }, 2000, 1, 1).show();
         }else if(v==babyGenderLayout){
@@ -104,8 +145,23 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
             showPopupWidow(headPortraitLayout);
         }else if (v==modifyPhoneLayout){
             startActivity(new Intent(mContext,ModifyPhoneActivity.class));
+        }else  if (v==loginBtn){
+            SharedPrefUtil.getInstance().setToken("");
+            SharedPrefUtil.getInstance().setUserSession("");
+            SharedPrefUtil.getInstance().setMobile("");
+            Intent intent = new Intent();
+            intent.setPackage(ApplicationConfig.getInstance().getPackageName());
+            intent.setAction(Const.ACTION_BROADCAST_EXIT_SUCC);
+            sendBroadcast(intent);
+            finish();
+        }else if (v==userNameRL){
+            Intent intent = new Intent(mContext,EditUserInfoActivity.class);
+            intent.putExtra(Const.TYPE_USER_ID,userId);
+            startActivity(intent);
         }
     }
+
+
 
     private void showPopupWidow(View v) {
         View rootView = null;
@@ -121,6 +177,7 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
                 @Override
                 public void onClick(View v) {
                     genderTv.setText("男");
+                    MyUtil.reqChangeUserInfoURL(mContext,userId,Const.BABY_SEX,"男");
                     popWindow.dismiss();
                 }
             });
@@ -128,6 +185,7 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
                 @Override
                 public void onClick(View v) {
                     genderTv.setText("女");
+                    MyUtil.reqChangeUserInfoURL(mContext,userId,Const.BABY_SEX,"女");
                     popWindow.dismiss();
                 }
             });
@@ -168,5 +226,23 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
         popWindow.setAnimationStyle(R.style.Anim_Menu_Bottombar);
         popWindow.showAtLocation(babyBirthLayout, Gravity.BOTTOM,0,0);
 
+    }
+
+    @Override
+    public void updateUserInfo(boolean isBackGround) {
+        super.updateUserInfo(isBackGround);
+
+        UserInfoEntity entity = SharedPrefUtil.getInstance().getSession();
+        userName.setText(entity.getUserName());
+        babyBirthTv.setText(entity.getBabyBirth());
+        genderTv.setText(entity.getBabySex());
+    }
+
+    @Override
+    public void exitLogin(boolean isExit) {
+        super.exitLogin(isExit);
+//        userName.setText("");
+//        babyBirthTv.setText("");
+//        genderTv.setText("");
     }
 }

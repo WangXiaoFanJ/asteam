@@ -47,11 +47,11 @@ public class MyApplication extends Application {
         UMShareAPI.get(this);
         //友盟分享各平台配置
         PlatformConfig.setWeixin("wxf4451af60a7f3501", "ba438da1dabe212a10f41f25c26692b1");
-        PlatformConfig.setSinaWeibo("4059899234", "48a6b4a2f61de6bc02ad5e8083a8a220");
+        PlatformConfig.setSinaWeibo("4059899234", "48a6b4a2f61de6bc02ad5e8083a8a220","http://sns.whalecloud.com/sina2/callback");
         PlatformConfig.setQQZone("1105164001",
                 "gADdUXVvwRQEIknK");
-        //新浪微博的回调地址
-        Config.REDIRECT_URL="http://sns.whalecloud.com/sina2/callback";
+//        新浪微博的回调地址
+//        Config.REDIRECT_URL="http://sns.whalecloud.com/sina2/callback";
         /**
          * jd开普勒
          * */
@@ -64,6 +64,7 @@ public class MyApplication extends Application {
             public void onFailure() {
                 LogUtil.d(TAG, "kjd_failure");
             }});
+        ApplicationConfig.getInstance().initConfig(this);
 
     }
 

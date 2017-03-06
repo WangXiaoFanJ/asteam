@@ -3,12 +3,16 @@ package com.dev.nutclass.parser;
 import com.dev.nutclass.constants.UrlConst;
 import com.dev.nutclass.entity.BannerCardEntity;
 import com.dev.nutclass.entity.BaseCardEntity;
+import com.dev.nutclass.entity.ClassifyHomeCourseEntity;
 import com.dev.nutclass.entity.CourseCommentEntity;
 import com.dev.nutclass.entity.CourseInfoEntity;
 import com.dev.nutclass.entity.CourseListCardEntity;
 import com.dev.nutclass.entity.CourserDetailHeadEntity;
 import com.dev.nutclass.entity.DiscountCouponEntity;
+import com.dev.nutclass.entity.HomeIconEntity;
+import com.dev.nutclass.entity.HomeJDCardEntity;
 import com.dev.nutclass.entity.JsonDataList;
+import com.dev.nutclass.entity.OtherSchoolEntity;
 import com.dev.nutclass.entity.SchoolCardEntity;
 import com.dev.nutclass.entity.CourseRecommendForUEntity;
 import com.dev.nutclass.entity.SchoolDetailHeadEntity;
@@ -32,13 +36,10 @@ import java.util.ArrayList;
 public class CardListParser extends BaseParser<BaseCardEntity> {
 
     @Override
-    public Object parse(String jsonString) throws JSONException {
+    public Object parse(JSONArray cardListArray) throws JSONException {
         JsonDataList<BaseCardEntity> retObj = new JsonDataList<BaseCardEntity>();
         ArrayList<BaseCardEntity> list = new ArrayList<BaseCardEntity>();
 
-        JSONObject jsonObject = new JSONObject(jsonString);
-        JSONObject dataObject = jsonObject.optJSONObject("data");
-        JSONArray cardListArray = dataObject.optJSONArray("list");
         if (cardListArray != null && cardListArray.length() > 0) {
             for (int i = 0; i < cardListArray.length(); i++) {
                 JSONObject jsonObject1 = cardListArray.optJSONObject(i);
@@ -48,6 +49,7 @@ public class CardListParser extends BaseParser<BaseCardEntity> {
                 int cardType = Integer.parseInt(jsonObject1.optString("card_type"));
                 BaseCardEntity entity = null;
                 JSONObject jsonObJ = null;
+                JSONArray jsonArray = null;
                 switch (cardType) {
                     case BaseCardEntity.CARD_TYPE_SHCOOL_CARD_VIEW:
                         jsonObJ = jsonObject1.optJSONObject("card_data");
@@ -61,6 +63,8 @@ public class CardListParser extends BaseParser<BaseCardEntity> {
                     case BaseCardEntity.CARD_TYPE_USER_ORDER_VIEW:
                     case BaseCardEntity.CARD_TYPE_USER_ORDER_WAIT_USE_VIEW:
                     case BaseCardEntity.CARD_TYPE_USER_ORDER_AFTER_SALE_VIEW:
+                    case BaseCardEntity.CARD_TYPE_USER_ORDER_APPOINTMENT:
+                    case BaseCardEntity.CARD_TYPE_USER_ORDER_COMPLETED:
                         jsonObJ = jsonObject1.optJSONObject("card_data");
                         entity = new UserOrdeCardEntity(cardType, jsonObJ);
                         break;
@@ -85,7 +89,7 @@ public class CardListParser extends BaseParser<BaseCardEntity> {
                         entity = new ServiceFeatureEntity(jsonObJ);
                         break;
                     case BaseCardEntity.CARD_TYPE_COURSE_RECOMMEND_CARD_VIEW:
-                        JSONArray jsonArray = jsonObject1.optJSONArray("card_data");
+                        jsonArray = jsonObject1.optJSONArray("card_data");
                         String bannerImg = jsonObject1.optString("banner_img");
                         entity = new CourseRecommendForUEntity(jsonArray,bannerImg);
                         break;
@@ -112,14 +116,31 @@ public class CardListParser extends BaseParser<BaseCardEntity> {
                         break;
                     //校区详情页-为您推荐（1027）
                     case BaseCardEntity.CARD_TYPE_SCHOOL_RECOMMEND_VIEW:
-                        JSONArray jsonArray1 = jsonObject1.optJSONArray("card_data");
+                        jsonArray = jsonObject1.optJSONArray("card_data");
                         String bannerImg1 = jsonObject1.optString("banner_img");
-                        entity = new SchoolRecommentForUEntity(bannerImg1,jsonArray1);
+                        entity = new SchoolRecommentForUEntity(bannerImg1,jsonArray);
                         break;
                     //课程/校区详情页-课程评论（1011）
                     case BaseCardEntity.CARD_TYPE_CORUSE_COMMENT_VIEW:
-                        JSONArray jsonArray2 = jsonObject1.optJSONArray("card_data");
-                        entity =new CourseCommentEntity(jsonArray2);
+                        jsonArray= jsonObject1.optJSONArray("card_data");
+                        entity =new CourseCommentEntity(jsonArray);
+                        break;
+                    case BaseCardEntity.CARD_TYPE_HOME_ICON_VIEW:
+                        JSONArray jsonArray3 = jsonObject1.optJSONArray("card_data");
+                        entity = new HomeIconEntity(jsonArray3);
+                        break;
+                    case BaseCardEntity.CARD_TYPE_JD_CARD_VIEW:
+                        jsonArray = jsonObject1.optJSONArray("card_data");
+                        entity = new HomeJDCardEntity(jsonArray);
+                        break;
+                    case BaseCardEntity.CARD_TYPE_HOME_COURSE_CLASSIFY:
+                        jsonArray = jsonObject1.optJSONArray("card_data");
+                        entity = new ClassifyHomeCourseEntity(jsonArray);
+                        break;
+                    case BaseCardEntity.CARD_TYPE_OTHER_SCHOOL:
+                        jsonObJ = jsonObject1.optJSONObject("card_data");
+                        entity = new OtherSchoolEntity(jsonObJ);
+                        break;
                     default:
                         break;
                 }

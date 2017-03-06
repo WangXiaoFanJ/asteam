@@ -8,10 +8,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.dev.nutclass.R;
 import com.dev.nutclass.activity.CourseListActivity;
+import com.dev.nutclass.entity.HomeIconEntity;
 import com.dev.nutclass.entity.IconEntity;
 import com.dev.nutclass.utils.DensityUtil;
 import com.dev.nutclass.utils.GlideUtils;
@@ -25,8 +27,7 @@ import java.util.List;
  */
 public class HomeIconView extends LinearLayout {
     private Context mContext;
-    private LinearLayout container01;
-    private LinearLayout container02;
+    private LinearLayout containerLayout;
     public HomeIconView(Context context) {
         super(context);
         initView(context);
@@ -40,25 +41,45 @@ public class HomeIconView extends LinearLayout {
     private void initView(Context context) {
         this.mContext = context;
         LayoutInflater.from(mContext).inflate(R.layout.home_icon_view,this);
-        container01 = (LinearLayout) this.findViewById(R.id.container01);
-        container02 = (LinearLayout) this.findViewById(R.id.container02);
+        containerLayout = (LinearLayout) this.findViewById(R.id.ll_container);
     }
-    public void updateView(IconEntity iconEntity){
-        List<String> iconLists = new ArrayList<>();
-        iconLists.addAll(iconEntity.getIconList());
-        List<String> iconLists01 = new ArrayList<>();
-        List<String> iconLists02 = new ArrayList<>();
-        for(int i =0;i<iconLists.size()/2;i++){
-            iconLists01.add(iconLists.get(i));
+    public void updateView(HomeIconEntity entity){
+        containerLayout.removeAllViews();
+        if(entity.getHomeIconList()!=null&&entity.getHomeIconList().size()>0){
+            LinearLayout rowLayout = null;
+            LinearLayout.LayoutParams rowParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT);
+            for(int i=0;i<entity.getHomeIconList().size();i++){
+                if(i%5==0){
+                    rowLayout = new LinearLayout(mContext);
+                    rowLayout.setOrientation(HORIZONTAL);
+                }
+//                int ranHeight = DensityUtil.dip2px(mContext, 60);
+                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(DensityUtil.getDisplayWidth(mContext)/5,
+                        LayoutParams.WRAP_CONTENT);
+
+                View itemView = LayoutInflater.from(mContext).inflate(R.layout.home_icon_view_item,null);
+                ImageView imageView = (ImageView) itemView.findViewById(R.id.iv_icon_item);
+                TextView cateNameTv = (TextView) itemView.findViewById(R.id.tv_cate_name);
+                itemView.setOnClickListener(new OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(mContext, CourseListActivity.class);
+                        mContext.startActivity(intent);
+                    }
+                });
+                GlideUtils.loadImageView(mContext,entity.getHomeIconList().get(i).getIconUrl(),imageView);
+                cateNameTv.setText(entity.getHomeIconList().get(i).getCateName());
+                rowLayout.addView(itemView,params);
+                if(i%5==4||i==entity.getHomeIconList().size()-1){
+                    containerLayout.addView(rowLayout,rowParams);
+                }
+            }
         }
-        for(int i = iconLists.size()/2;i<iconLists.size();i++){
-            iconLists02.add(iconLists.get(i));
-        }
-        createLayout(container01,iconLists01);
-        createLayout(container02,iconLists02);
+
 
     }
-    public void createLayout(LinearLayout container,List<String> iconLists){
+    public void createLayout(LinearLayout container,List<HomeIconEntity.HomeIconData> iconLists){
         LinearLayout rowLayout=null;
         LinearLayout.LayoutParams rowParams = new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT,
                 LayoutParams.WRAP_CONTENT);
@@ -71,6 +92,7 @@ public class HomeIconView extends LinearLayout {
             }
             View itemView = LayoutInflater.from(mContext).inflate(R.layout.home_icon_view_item,null);
             ImageView imageView = (ImageView) itemView.findViewById(R.id.iv_icon_item);
+            TextView cateNameTv = (TextView) itemView.findViewById(R.id.tv_cate_name);
             itemView.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -78,7 +100,8 @@ public class HomeIconView extends LinearLayout {
                     mContext.startActivity(intent);
                 }
             });
-            GlideUtils.loadImageView(mContext,iconLists.get(i),imageView);
+            GlideUtils.loadImageView(mContext,iconLists.get(i).getIconUrl(),imageView);
+            cateNameTv.setText(iconLists.get(i).getCateName());
 //            Picasso.with(mContext).load(iconLists.get(i)).into(imageView);
 //            Glide.with(mContext).load(iconLists.get(i)).into(imageView);
 //            GlideUtils.loadImageViewLoding(mContext,iconLists.get(i),imageView,R.mipmap.ic_launcher,R.mipmap.ic_launcher);

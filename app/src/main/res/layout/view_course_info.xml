@@ -146,6 +146,7 @@
         android:background="@color/color_dcdcdc"
         android:layout_marginLeft="@dimen/common_10"/>
     <RelativeLayout
+        android:id="@+id/rl_show_other_school"
         android:layout_width="match_parent"
         android:layout_height="@dimen/common_44"
         android:gravity="center_vertical"

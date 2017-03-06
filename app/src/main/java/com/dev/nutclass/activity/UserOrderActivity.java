@@ -10,6 +10,7 @@ import android.view.View;
 
 import com.dev.nutclass.R;
 import com.dev.nutclass.adapter.CardListAdapter;
+import com.dev.nutclass.constants.Const;
 import com.dev.nutclass.constants.UrlConst;
 import com.dev.nutclass.entity.BaseCardEntity;
 import com.dev.nutclass.entity.JsonDataList;
@@ -19,10 +20,14 @@ import com.dev.nutclass.utils.LogUtil;
 import com.sina.weibo.sdk.api.share.Base;
 import com.squareup.okhttp.Request;
 
+import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class UserOrderActivity extends BaseActivity implements View.OnClickListener{
     private Context mContext;
@@ -31,6 +36,7 @@ public class UserOrderActivity extends BaseActivity implements View.OnClickListe
     private List<String> stringLists;
     private RecyclerView recyclerView;
     private CardListAdapter adapter;
+    private String orderType;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,6 +49,7 @@ public class UserOrderActivity extends BaseActivity implements View.OnClickListe
         stringLists.add("待使用");
         stringLists.add("待评价");
         stringLists.add("退款/售后");
+        orderType =getIntent().getStringExtra(Const.USER_ORDER_TYPE);
         initView();
         initData();
     }
@@ -57,6 +64,7 @@ public class UserOrderActivity extends BaseActivity implements View.OnClickListe
 
         tabLayout = (TabLayout) findViewById(R.id.tab_layout);
         tabLayout.setTabMode(TabLayout.MODE_FIXED);
+        tabLayout.setScrollPosition(Integer.parseInt(orderType)-1,0,false);
         for(int i = 0;i<stringLists.size();i++){
             tabLayout.addTab(tabLayout.newTab().setText(stringLists.get(i)));
         }
@@ -64,7 +72,7 @@ public class UserOrderActivity extends BaseActivity implements View.OnClickListe
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 if(tab.getPosition()==1){
-                    reqData(2);
+                    reqData("2");
 //                    List<BaseCardEntity> waitPayList = new ArrayList<BaseCardEntity>();
 //                    BaseCardEntity waitPayentity = new BaseCardEntity();
 //                    waitPayentity.setCardType(BaseCardEntity.CARD_TYPE_USER_ORDER_WAIT_PAY_VIEW);
@@ -74,13 +82,13 @@ public class UserOrderActivity extends BaseActivity implements View.OnClickListe
 //                    adapter = new CardListAdapter(waitPayList,mContext);
 //                    recyclerView.setAdapter(adapter);
                 }else if(tab.getPosition()==2){
-                    reqData(3);
+                    reqData("3");
                 }else if(tab.getPosition()==3){
-                    reqData(4);
+                    reqData("4");
                 }else if(tab.getPosition()==0){
-                    reqData(1);
+                    reqData("1");
                 }else{
-                    reqData(5);
+                    reqData("5");
                 }
             }
 
@@ -103,12 +111,14 @@ public class UserOrderActivity extends BaseActivity implements View.OnClickListe
 //        for(int i=0;i<4;i++){
 //            entityList.add(waitCommentEntity);
 //        }
-        reqData(2);
+        reqData(orderType);
     }
 
-    private void reqData(int type) {
-        String url = "http://dev.kobiko.cn/api/index/individualOrderList?orderType="+type;
-        OkHttpClientManager.getAsyn(url, new OkHttpClientManager.ResultCallback<String>() {
+    private void reqData(String type) {
+        String url = UrlConst.USER_ORDER_URL;
+        Map<String,String> map = new HashMap<>();
+        map.put("orderType",type);
+        OkHttpClientManager.postAsyn(url, new OkHttpClientManager.ResultCallback<String>() {
             @Override
             public void onError(Request request, Exception e) {
                 LogUtil.e(TAG,"error:"+e.getMessage());
@@ -120,13 +130,20 @@ public class UserOrderActivity extends BaseActivity implements View.OnClickListe
                 CardListParser parser = new CardListParser();
                 JsonDataList<BaseCardEntity> result  = null;
                 try {
-                    result = (JsonDataList<BaseCardEntity>) parser.parse(response);
-                    if(result.getErrorCode()== UrlConst.SUCCESS_CODE){
-                        ArrayList<BaseCardEntity> list = result
-                                .getList();
-                        if (list != null && list.size() > 0) {
-                            update(list);
+                    JSONObject jsonObject = new JSONObject(response);
+                    JSONArray cardListArray = jsonObject.optJSONArray("data");
+                    if(cardListArray!=null&&cardListArray.length()>0){
+                        recyclerView.setVisibility(View.VISIBLE);
+                        result = (JsonDataList<BaseCardEntity>) parser.parse(cardListArray);
+                        if(result.getErrorCode()== UrlConst.SUCCESS_CODE){
+                            ArrayList<BaseCardEntity> list = result
+                                    .getList();
+                            if (list != null && list.size() > 0) {
+                                update(list);
+                            }
                         }
+                    }else{
+                     recyclerView.setVisibility(View.INVISIBLE);
                     }
 
                 } catch (Exception e) {
@@ -134,7 +151,7 @@ public class UserOrderActivity extends BaseActivity implements View.OnClickListe
                 }
             }
 
-        });
+        },map);
     }
 
     private void update(ArrayList<BaseCardEntity> list) {

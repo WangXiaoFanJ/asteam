@@ -96,7 +96,7 @@ public class BannerCardEntity extends BaseCardEntity {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			
+
 		}
 	}
 	//Banner数据解析JD

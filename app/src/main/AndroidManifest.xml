@@ -3,7 +3,6 @@
     package="com.dev.nutclass">
 
     <uses-permission android:name="android.permission.INTERNET" />
-
     <!-- 友盟分享权限 -->
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
@@ -34,10 +33,10 @@
             android:value="56a457c4e0f55a76d000215b" />
         <meta-data
             android:name="UMENG_MESSAGE_SECRET"
-            android:value="819b2dcd52e29297e4dfbc018c2305a5"/>
-            <meta-data
-                android:name="UMENG_CHANNEL"
-                android:value="Unknown" />
+            android:value="819b2dcd52e29297e4dfbc018c2305a5" />
+        <meta-data
+            android:name="UMENG_CHANNEL"
+            android:value="Unknown" />
 
         <activity android:name=".activity.MainActivity">
             <intent-filter>
@@ -89,7 +88,7 @@
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
 
-                <data android:scheme="tencent100424468" />
+                <data android:scheme="tencent1105164001" />
             </intent-filter>
         </activity>
         <activity
@@ -97,7 +96,6 @@
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
-        <activity android:name=".activity.PublicListActivity" />
 
         <!-- jd开普勒 -->
         <activity
@@ -125,7 +123,14 @@
         <activity android:name=".activity.ModifyPhoneActivity" />
         <activity android:name=".activity.DiscountCouponActivity" />
         <activity android:name=".activity.OrderInfoActivity" />
-        <activity android:name=".activity.WaitPayOrderInfoActivity"></activity>
+        <activity android:name=".activity.WaitPayOrderInfoActivity" />
+        <activity android:name=".activity.MyCollectActivity" />
+        <activity android:name=".activity.LoginActivity" />
+        <activity android:name=".activity.RegisterActivity" />
+        <activity android:name=".activity.RegisterToCodeActivity" />
+        <activity android:name=".activity.RegisterActivityToSetPwd" />
+        <activity android:name=".activity.AddMobileActivity" />
+        <activity android:name=".activity.EditUserInfoActivity"></activity>
     </application>
 
 </manifest>

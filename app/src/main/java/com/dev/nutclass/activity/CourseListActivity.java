@@ -1,6 +1,6 @@
 package com.dev.nutclass.activity;
 
-import android.app.FragmentTransaction;
+import android.support.v4.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,6 +13,7 @@ import com.dev.nutclass.R;
 import com.dev.nutclass.fragment.BaseFragment;
 import com.dev.nutclass.fragment.CourseListFragment;
 import com.dev.nutclass.fragment.SchoolListFragment;
+
 
 public class CourseListActivity extends BaseActivity implements View.OnClickListener{
     private static final String TAG = "CourseListActivity";
@@ -45,7 +46,7 @@ public class CourseListActivity extends BaseActivity implements View.OnClickList
 
         courseFragment = new CourseListFragment();
         curFragment = courseFragment;
-        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.add(R.id.container,courseFragment);
         transaction.commit();
     }
@@ -88,7 +89,7 @@ public class CourseListActivity extends BaseActivity implements View.OnClickList
 
     private void switchContent(BaseFragment to) {
         if(curFragment!=to){
-            FragmentTransaction transaction = getFragmentManager().beginTransaction();
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
             if(!to.isAdded()){
                 transaction.hide(curFragment).add(R.id.container,to).commit();
             }else{

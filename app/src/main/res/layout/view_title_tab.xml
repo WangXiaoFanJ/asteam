@@ -4,6 +4,7 @@
     android:layout_height="@dimen/common_45"
     android:orientation="vertical">
 <RelativeLayout
+    android:id="@+id/rl_root"
     android:layout_width="match_parent"
     android:layout_height="0dp"
     android:layout_weight="1"

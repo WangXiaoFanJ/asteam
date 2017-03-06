@@ -16,8 +16,8 @@ import java.util.ArrayList;
 /**
  * Created by Administrator on 2016/9/23.
  */
-public class JDCatListParse2 extends BaseParser<BaseCardEntity> {
-    @Override
+public class JDCatListParse2{
+
     public Object parse(String jsonString) throws JSONException {
         {
             JsonDataList<BaseCardEntity> retObj = new JsonDataList<BaseCardEntity>();

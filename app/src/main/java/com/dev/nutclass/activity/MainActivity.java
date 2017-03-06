@@ -1,8 +1,10 @@
 package com.dev.nutclass.activity;
 
-import android.app.FragmentTransaction;
+
+
 import android.content.Context;
 import android.os.Bundle;
+import android.support.v4.app.FragmentTransaction;
 import android.widget.FrameLayout;
 
 import com.dev.nutclass.R;
@@ -40,7 +42,7 @@ public class MainActivity extends BaseActivity {
     private void initData() {
         container.removeAllViews();
         homeFragment = new HomeFragment();
-        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.add(R.id.container,homeFragment);
         curFragment = homeFragment;
         transaction.commit();
@@ -89,7 +91,7 @@ public class MainActivity extends BaseActivity {
      * */
     private void switchContent(BaseFragment to){
         if(curFragment != to){
-            FragmentTransaction transaction = getFragmentManager().beginTransaction();
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
             if(!to.isAdded()){
                 transaction.hide(curFragment).add(R.id.container,to).commit();
             }else{

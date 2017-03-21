@@ -5,6 +5,9 @@ import com.sina.weibo.sdk.constant.WBConstants;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by Administrator on 2017/2/23.
  */
@@ -24,7 +27,8 @@ public class HomeJDCardEntity extends BannerCardEntity {
         if(jsonArray!=null&&jsonArray.length()>0){
             for (int i = 0;i<jsonArray.length();i++){
                 JSONObject jsonObject = jsonArray.optJSONObject(i);
-                setImgUrl(jsonObject.optString("image_url"));
+                ImageEntityNew imageEntityNew = new ImageEntityNew(jsonObject);
+                setImgUrl(imageEntityNew.getMainImage());
             }
         }
     }

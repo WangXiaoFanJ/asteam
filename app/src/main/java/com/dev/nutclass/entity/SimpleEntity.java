@@ -8,10 +8,11 @@ import org.json.JSONObject;
 public class SimpleEntity extends BaseCardEntity {
     private String status;
     private String data;
-
+    private String message;
     public SimpleEntity(JSONObject jsonObject) {
         setStatus(jsonObject.optString("status"));
         setData(jsonObject.optString("data"));
+        setMessage(jsonObject.optString("message"));
     }
 
     public String getStatus() {
@@ -28,5 +29,13 @@ public class SimpleEntity extends BaseCardEntity {
 
     public void setData(String data) {
         this.data = data;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
     }
 }

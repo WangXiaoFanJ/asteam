@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/common_44"
+        android:gravity="center_vertical"
+        android:background="@color/color_bg"
+        android:paddingLeft="@dimen/common_10">
+        <CheckBox
+            android:id="@+id/iv_check_box"
+            android:layout_width="@dimen/common_20"
+            android:layout_height="@dimen/common_20"
+            style="@style/CustomCheckBoxStyle"
+            android:visibility="gone"
+            android:gravity="center"
+            />
+        <TextView
+            android:id="@+id/tv_history_date"
+            android:layout_marginLeft="@dimen/common_10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="10月10日"
+            android:textColor="@color/color_a8a8a8"
+            android:textSize="@dimen/font_12"/>
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/ll_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+    </LinearLayout>
+</LinearLayout>

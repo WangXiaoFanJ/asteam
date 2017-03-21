@@ -62,4 +62,7 @@ public class DensityUtil {
 	public static int getDisplayHeight(Context context) {
 		return context.getResources().getDisplayMetrics().heightPixels;
 	}
+	public static int getDisplayDensity(Context context){
+		return context.getResources().getDisplayMetrics().densityDpi;
+	}
 }

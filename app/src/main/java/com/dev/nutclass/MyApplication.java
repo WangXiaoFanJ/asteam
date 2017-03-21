@@ -15,6 +15,7 @@ import com.umeng.message.PushAgent;
 import com.umeng.socialize.Config;
 import com.umeng.socialize.PlatformConfig;
 import com.umeng.socialize.UMShareAPI;
+import com.umeng.socialize.UMShareConfig;
 
 import java.io.IOException;
 
@@ -46,6 +47,7 @@ public class MyApplication extends Application {
 
         UMShareAPI.get(this);
         //友盟分享各平台配置
+
         PlatformConfig.setWeixin("wxf4451af60a7f3501", "ba438da1dabe212a10f41f25c26692b1");
         PlatformConfig.setSinaWeibo("4059899234", "48a6b4a2f61de6bc02ad5e8083a8a220","http://sns.whalecloud.com/sina2/callback");
         PlatformConfig.setQQZone("1105164001",

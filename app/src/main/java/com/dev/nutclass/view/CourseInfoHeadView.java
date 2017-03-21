@@ -3,6 +3,7 @@ package com.dev.nutclass.view;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -21,7 +22,7 @@ public class CourseInfoHeadView extends RelativeLayout {
     private TextView shopMoneyTv;
     private TextView fitAgeTv;
     private TextView interestedNumTv;
-
+    private TextView promotionIconTv;
     public CourseInfoHeadView(Context context) {
         super(context);
         mContext = context;
@@ -43,10 +44,19 @@ public class CourseInfoHeadView extends RelativeLayout {
         shopMoneyTv = (TextView) this.findViewById(R.id.tv_shop_money);
         fitAgeTv = (TextView) this.findViewById(R.id.tv_fit_age);
         interestedNumTv = (TextView) this.findViewById(R.id.tv_interest_num);
+        promotionIconTv = (TextView) this.findViewById(R.id.tv_promotion_icon);
     }
     public void updateView(CourserDetailHeadEntity entity){
         goodsNameTv.setText(entity.getGoodsName());
-        promotionInfoTv.setText(entity.getPromotionInfo());
+
+        if(entity.getPromotionInfo()!=null){
+            promotionInfoTv.setVisibility(View.VISIBLE);
+            promotionInfoTv.setText(entity.getPromotionInfo());
+        }
+        if(entity.getPromotionIconStr()!=null){
+            promotionIconTv.setVisibility(View.VISIBLE);
+            promotionIconTv.setText(entity.getPromotionIconStr());
+        }
         kbkMoneyTv.setText(entity.getKbkMoney());
         shopMoneyTv.setText(entity.getShopMoney());
         fitAgeTv.setText(entity.getFitAge());

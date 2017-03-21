@@ -44,6 +44,7 @@ public class CourseRecommendView extends RelativeLayout {
 //        containerLayout.addView(layout,param);
     }
     public void updateView(CourseRecommendForUEntity entity){
+        containerLayout.removeAllViews();
         GlideUtils.loadImageView(mContext,entity.getBannerImg(),recommendBg);
         for(int i = 0;i<entity.getList().size();i++){
             CourseCardView cardView = new CourseCardView(mContext);

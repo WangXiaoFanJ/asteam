@@ -7,7 +7,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="@dimen/common_44"
-        android:layout_marginTop="@dimen/common_11"
+        android:layout_marginTop="@dimen/common_10"
         android:background="@color/color_white"
         android:gravity="center_vertical"
         android:paddingLeft="@dimen/common_11"
@@ -32,7 +32,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/common_6"
             android:orientation="vertical"
-            android:paddingLeft="@dimen/common_11">
+            android:paddingLeft="@dimen/common_11"
+            android:paddingBottom="@dimen/common_6">
 
             <TextView
                 android:id="@+id/tv_school_name"
@@ -56,13 +57,18 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/common_7">
-
+                android:layout_marginTop="@dimen/common_7"
+                android:gravity="center_vertical">
+                <ImageView
+                    android:layout_width="@dimen/common_8"
+                    android:layout_height="@dimen/common_10"
+                    android:src="@drawable/icon_location"/>
                 <TextView
                     android:id="@+id/tv_distance"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="2.2km"
+                    android:layout_marginLeft="@dimen/common_3"
                     android:textColor="@color/color_a8a8a8"
                     android:textSize="@dimen/font_10" />
             </LinearLayout>
@@ -81,8 +87,8 @@
 
             <ImageView
                 android:id="@+id/iv_phone"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="@dimen/common_30"
+                android:layout_height="@dimen/common_28"
                 android:layout_marginLeft="@dimen/common_17"
                 android:layout_marginRight="@dimen/common_17"
                 android:src="@drawable/icon_phone_yellow" />

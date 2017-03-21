@@ -45,8 +45,8 @@ public class ClassifyHomeCourseView extends LinearLayout {
         tabLayout.setSelectedTabIndicatorColor(getResources().getColor(R.color.home_nav_txt_ed));
         tabLayout.setSelectedTabIndicatorHeight(2);
         tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
-        for(int i = 0;i<5;i++){
-            tabLayout.addTab(tabLayout.newTab().setText("早教幼儿"));
+        for(int i=0;i<entity.getGoodCateLists().size();i++){
+            tabLayout.addTab(tabLayout.newTab().setText(entity.getGoodCateLists().get(i).getCateName()));
         }
         for(int i=0;i<entity.getCourseCardLists().size();i++){
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(

@@ -27,7 +27,7 @@ public class CourseRecommendForUEntity extends BaseCardEntity{
             JSONObject jsonObj = jsonArray.optJSONObject(i);
             CourseListCardEntity entity = new CourseListCardEntity(jsonObj);
             list.add(entity);
-            LogUtil.d("===","entity:"+entity.getIsHot()+entity.getGift_info());
+//            LogUtil.d("===","entity:"+entity.getIsHot()+entity.getGift_info());
         }
         setList(list);
     }

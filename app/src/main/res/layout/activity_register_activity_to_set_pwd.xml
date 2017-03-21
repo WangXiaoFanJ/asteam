@@ -8,9 +8,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.dev.nutclass.activity.RegisterActivityToSetPwd">
     <com.dev.nutclass.view.TitleBar
+        android:id="@+id/title_bar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/common_44"
-        app:left_type="1"
+        app:left_type="10"
         app:middle_text_id="6"
         app:title_bar_bg="1"></com.dev.nutclass.view.TitleBar>
     <LinearLayout
@@ -28,26 +29,26 @@
             android:textSize="@dimen/font_14"
             android:textColor="@color/color_7f7f7f"/>
         <ImageView
-            android:layout_width="@dimen/common_10"
-            android:layout_height="@dimen/common_13"
+            android:layout_width="@dimen/common_7"
+            android:layout_height="@dimen/common_10"
             android:src="@drawable/icon_arrow_right"
             android:layout_marginLeft="@dimen/common_3"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/common_20"
+            android:layout_marginLeft="@dimen/common_18"
             android:text="2、输入验证码号"
             android:textSize="@dimen/font_14"
             android:textColor="@color/color_7f7f7f"/>
         <ImageView
-            android:layout_width="@dimen/common_10"
-            android:layout_height="@dimen/common_13"
+            android:layout_width="@dimen/common_7"
+            android:layout_height="@dimen/common_10"
             android:src="@drawable/icon_arrow_right"
             android:layout_marginLeft="@dimen/common_3"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/common_20"
+            android:layout_marginLeft="@dimen/common_18"
             android:text="3、设置密码"
             android:textSize="@dimen/font_14"
             android:textColor="@color/color_f75250"/>

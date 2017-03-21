@@ -3,19 +3,44 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/common_44"
+        android:paddingLeft="@dimen/common_10"
+        android:background="@color/color_white"
+        android:text="课程评论"
+        android:textColor="@color/color_333333"
+        android:gravity="center_vertical"
+        android:textSize="@dimen/font_13"
+        android:layout_marginTop="@dimen/common_10"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/common_1"
+        android:background="@color/color_white">
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/common_1"
+            android:background="@color/color_dcdcdc"
+            android:layout_marginLeft="@dimen/common_10"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_container"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"></LinearLayout>
     <RelativeLayout
-        android:id="@+id/rl_select_course_time"
-        android:layout_marginTop="@dimen/common_11"
+        android:id="@+id/rl_look_more"
         android:layout_width="match_parent"
         android:background="@color/color_white"
-        android:layout_height="@dimen/common_44">
+        android:layout_height="@dimen/common_37">
         <TextView
             android:id="@+id/tv_introduce_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="课程评论"
+            android:text="查看全部评论"
             android:textColor="@color/color_333333"
-            android:textSize="@dimen/font_13"
+            android:textSize="@dimen/font_11"
             android:layout_marginLeft="@dimen/common_11"
             android:layout_centerVertical="true"
             />
@@ -25,16 +50,11 @@
             android:layout_alignParentRight="true"
             android:gravity="center_vertical">
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/icon_arrow_right_yellow"
+                android:layout_width="@dimen/common_6"
+                android:layout_height="@dimen/common_10"
+                android:src="@drawable/icon_arrow_right_normal"
                 android:layout_marginRight="@dimen/common_10"
                 android:layout_marginLeft="@dimen/common_6"/>
         </LinearLayout>
     </RelativeLayout>
-    <LinearLayout
-        android:id="@+id/ll_container"
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"></LinearLayout>
 </LinearLayout>

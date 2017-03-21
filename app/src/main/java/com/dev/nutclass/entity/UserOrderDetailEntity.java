@@ -22,7 +22,7 @@ public class UserOrderDetailEntity extends BaseCardEntity {
     private String couponInfo;
     private String waitPayMoney;
     private String userPhone;
-
+    private String courseCode;
 
     /***/
     private String orderId;
@@ -32,6 +32,7 @@ public class UserOrderDetailEntity extends BaseCardEntity {
     private String shopMoney;
     private String orderNumber;
     private String orderTime;
+    private String payStatus;
 
     public UserOrderDetailEntity(JSONObject jsonObject,int type) {
         optJsonObject2(jsonObject);
@@ -74,11 +75,13 @@ public class UserOrderDetailEntity extends BaseCardEntity {
         setUserPhone(jsonObject.optString("user_phone"));
         setOrderId(jsonObject.optString("order_id"));
         setKbkMoney(jsonObject.optString("kbk_money"));
-        setDistance(jsonObject.optString("distance"));
+        setDistance(jsonObject.optString("gps_cn"));
         setSchoolTel(jsonObject.optString("school_tel"));
         setShopMoney(jsonObject.optString("shop_money"));
         setOrderNumber(jsonObject.optString("order_sn"));
         setOrderTime(jsonObject.optString("add_time"));
+        setCourseCode(jsonObject.optString("goods_auth_code"));
+        setPayStatus(jsonObject.optString("pay_status"));
     }
 
     public String getGoodsId() {
@@ -247,5 +250,21 @@ public class UserOrderDetailEntity extends BaseCardEntity {
 
     public void setOrderTime(String orderTime) {
         this.orderTime = orderTime;
+    }
+
+    public String getCourseCode() {
+        return courseCode;
+    }
+
+    public void setCourseCode(String courseCode) {
+        this.courseCode = courseCode;
+    }
+
+    public String getPayStatus() {
+        return payStatus;
+    }
+
+    public void setPayStatus(String payStatus) {
+        this.payStatus = payStatus;
     }
 }

@@ -5,6 +5,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -16,20 +18,25 @@ import com.dev.nutclass.entity.CourseCardEntity;
 import com.dev.nutclass.entity.CourseListCardEntity;
 import com.dev.nutclass.entity.SchoolCardEntity;
 import com.dev.nutclass.utils.GlideUtils;
+import com.dev.nutclass.utils.LogUtil;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * Created by Administrator on 2017/2/25.
  */
-public class CollectCourseListAdapter extends BaseAdapter{
+public class CollectCourseListAdapter extends BaseAdapter {
     private Context mContext;
     private ArrayList<BaseCardEntity> lists;
+    private Map<Integer, Integer> map = new HashMap<>();
     private int type;
     private boolean isEdit;
-    private ViewHolder viewHolder = null;
-    public CollectCourseListAdapter(Context context, ArrayList<BaseCardEntity> list, int type,boolean isEdit) {
+
+    public CollectCourseListAdapter(Context context, ArrayList<BaseCardEntity> list, int type, boolean isEdit) {
         mContext = context;
         lists = list;
         this.type = type;
@@ -52,7 +59,8 @@ public class CollectCourseListAdapter extends BaseAdapter{
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
+        final ViewHolder viewHolder;
         if (convertView == null) {
             convertView = LayoutInflater.from(mContext).inflate(R.layout.view_amusement_park_card, null);
             viewHolder = new ViewHolder(convertView);
@@ -61,8 +69,8 @@ public class CollectCourseListAdapter extends BaseAdapter{
             viewHolder = (ViewHolder) convertView.getTag();
         }
         if (type == BaseCardEntity.CARD_TYPE_COLLECT_COURSE_VIEW) {
-            CourseListCardEntity courseEntity = (CourseListCardEntity) lists.get(position);
-                GlideUtils.loadImageView(mContext, courseEntity.getGoodsImage(), viewHolder.goodsImageIv);
+            final CourseListCardEntity courseEntity = (CourseListCardEntity) lists.get(position);
+            GlideUtils.loadImageView(mContext, courseEntity.getGoodsImage(), viewHolder.goodsImageIv);
             viewHolder.goodsNameTv.setText(courseEntity.getGoodsName());
             if (courseEntity.getIsPromotion().equals("1")) {
                 viewHolder.promotionIv.setVisibility(View.VISIBLE);
@@ -75,9 +83,22 @@ public class CollectCourseListAdapter extends BaseAdapter{
             viewHolder.gpsCnTv.setText(courseEntity.getGpsCn());
             viewHolder.kbkMoneyTv.setText(courseEntity.getGpsCn());
             viewHolder.shopMoneyTv.setText(courseEntity.getShopMoney());
+            viewHolder.checkBoxIv.setTag(position);
+            viewHolder.checkBoxIv.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    if (isChecked) {
+                        if (!map.containsKey(viewHolder.checkBoxIv.getTag())) {
+                            map.put((Integer) viewHolder.checkBoxIv.getTag(), position);
+                        }
+                    } else {
+                        map.remove(viewHolder.checkBoxIv.getTag());
+                    }
+                }
+            });
         } else if (type == BaseCardEntity.CARD_TYPE_COLLECT_SCHOOL_VIEW) {
             SchoolCardEntity schoolCardEntity = (SchoolCardEntity) lists.get(position);
-                GlideUtils.loadImageView(mContext, schoolCardEntity.getSchoolImage(), viewHolder.goodsImageIv);
+            GlideUtils.loadImageView(mContext, schoolCardEntity.getSchoolImage(), viewHolder.goodsImageIv);
             viewHolder.goodsNameTv.setText(schoolCardEntity.getSchoolName());
             if (schoolCardEntity.getIsPromotion().equals("1")) {
                 viewHolder.promotionIv.setVisibility(View.VISIBLE);
@@ -90,15 +111,50 @@ public class CollectCourseListAdapter extends BaseAdapter{
             viewHolder.gpsCnTv.setText(schoolCardEntity.getGpsCn());
             viewHolder.kbkMoneyTv.setVisibility(View.GONE);
             viewHolder.shopMoneyTv.setText(schoolCardEntity.getInterestNum());
+            viewHolder.checkBoxIv.setTag(position);
+            viewHolder.checkBoxIv.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    if (isChecked) {
+                        if (!map.containsKey(viewHolder.checkBoxIv.getTag())) {
+                            map.put((Integer) viewHolder.checkBoxIv.getTag(), position);
+                        }
+                    } else {
+                        map.remove(viewHolder.checkBoxIv.getTag());
+                    }
+                }
+            });
         }
-        if (isEdit){
+        if (isEdit) {
             viewHolder.checkBoxIv.setVisibility(View.VISIBLE);
-        }else {
+        } else {
             viewHolder.checkBoxIv.setVisibility(View.GONE);
         }
         return convertView;
     }
 
+
+    public String deleteList() {
+        StringBuilder sb = new StringBuilder();
+//        Set<Integer> keys = map.keySet();
+//        for (int key: keys) {
+//        }
+        for (int i = 0; i < lists.size(); i++) {
+            if (map.get(i) != null && map.get(i) == i) {
+                if (type == BaseCardEntity.CARD_TYPE_COLLECT_COURSE_VIEW) {
+                    CourseListCardEntity entity = (CourseListCardEntity) lists.get(i);
+                    sb.append(entity.getGoodsId());
+                } else if (type == BaseCardEntity.CARD_TYPE_COLLECT_SCHOOL_VIEW) {
+                    SchoolCardEntity schoolCardEntity = (SchoolCardEntity) lists.get(i);
+                    sb.append(schoolCardEntity.getSchoolId());
+                }
+                if (lists.size() > 1 && i < lists.size() - 1) {
+                    sb.append(",");
+                }
+            }
+        }
+        return sb.toString().trim();
+    }
 
     class ViewHolder {
         private ImageView goodsImageIv;
@@ -110,7 +166,7 @@ public class CollectCourseListAdapter extends BaseAdapter{
         private TextView gpsCnTv;
         private TextView kbkMoneyTv;
         private TextView shopMoneyTv;
-        private ImageView checkBoxIv;
+        private CheckBox checkBoxIv;
 
         public ViewHolder(View convertView) {
 
@@ -123,7 +179,9 @@ public class CollectCourseListAdapter extends BaseAdapter{
             cateNameTv = (TextView) convertView.findViewById(R.id.tv_cate_name);
             kbkMoneyTv = (TextView) convertView.findViewById(R.id.tv_kbk_money);
             shopMoneyTv = (TextView) convertView.findViewById(R.id.tv_shop_money);
-            checkBoxIv = (ImageView) convertView.findViewById(R.id.iv_check_box);
+            checkBoxIv = (CheckBox) convertView.findViewById(R.id.iv_check_box);
         }
     }
+
+
 }

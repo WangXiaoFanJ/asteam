@@ -123,6 +123,7 @@
         <activity android:name=".activity.ModifyPhoneActivity" />
         <activity android:name=".activity.DiscountCouponActivity" />
         <activity android:name=".activity.OrderInfoActivity" />
+        <activity android:name=".activity.PublicListActivity" />
         <activity android:name=".activity.WaitPayOrderInfoActivity" />
         <activity android:name=".activity.MyCollectActivity" />
         <activity android:name=".activity.LoginActivity" />
@@ -130,7 +131,13 @@
         <activity android:name=".activity.RegisterToCodeActivity" />
         <activity android:name=".activity.RegisterActivityToSetPwd" />
         <activity android:name=".activity.AddMobileActivity" />
-        <activity android:name=".activity.EditUserInfoActivity"></activity>
+        <activity android:name=".activity.EditUserInfoActivity" />
+        <activity android:name=".activity.LookHistoryActivity" />
+        <activity android:name=".activity.ChangePwdActivity01" />
+        <activity android:name=".activity.ChangePwdActivity02" />
+        <activity android:name=".activity.CommentDetailActivity" />
+        <activity android:name=".activity.CourseCommentListActivity" />
+        <activity android:name=".activity.WriteCommentActivityNew"></activity>
     </application>
 
 </manifest>

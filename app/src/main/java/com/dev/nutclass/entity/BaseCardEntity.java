@@ -65,6 +65,8 @@ public class BaseCardEntity  {
 
     public static final int CARD_TYPE_COLLECT_COURSE_VIEW=2001;
     public static final int CARD_TYPE_COLLECT_SCHOOL_VIEW=2002;
+    public static final int CARD_TYPE_LOOK_HISTORY_VIEW=2003;
+    public static final int CARD_TYPE_COURSE_COMMENT_LIST_VIEW=2004;
     private int cardType = 0;
 
     public int getCardType() {

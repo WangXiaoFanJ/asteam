@@ -9,50 +9,51 @@ import org.json.JSONObject;
 
 public class BannerCardEntity extends BaseCardEntity {
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 1L;
 	private List<ImageEntity> list = null;
-	private List<String> imgList= null;
+	private List<ImageEntityNew> imgList= null;
+
+	public List<ImageEntityNew> getImgList() {
+		return imgList;
+	}
+
+	public void setImgList(List<ImageEntityNew> imgList) {
+		this.imgList = imgList;
+	}
 
 	public BannerCardEntity() {
 		setCardType(BaseCardEntity.CARD_TYPE_BANNER);
 	}
 
-	public BannerCardEntity(JSONObject jsonObject) {
-		setCardType(BaseCardEntity.CARD_TYPE_BANNER_VIEW);
-		optJsonObjBanner(jsonObject);
+	public BannerCardEntity(int cardType, JSONArray jsonArray) {
+		setCardType(cardType);
+		optJsonObjBanner(jsonArray);
 	}
 
-	private void optJsonObjBanner(JSONObject jsonObject) {
-		JSONArray jsonArray = jsonObject.optJSONArray("goods_image");
-		List<String> list = new ArrayList<>();
-		for (int i = 0;i<jsonArray.length();i++){
-			String str = jsonArray.optString(i);
-			list.add(str);
+	private void optJsonObjBanner(JSONArray jsonArray) {
+		List<ImageEntityNew> list = new ArrayList<>();
+		for(int i = 0;i<jsonArray.length();i++){
+			JSONObject jsonObject = jsonArray.optJSONObject(i);
+			ImageEntityNew entityNew = new ImageEntityNew(jsonObject);
+			list.add(entityNew);
 		}
 		setImgList(list);
 	}
 
 
 	//old
-	public BannerCardEntity(int cardType, JSONArray jsonArray) {
-		setCardType(cardType);
-		optJsonObjNew(jsonArray);
-	}
+//	public BannerCardEntity(int cardType, JSONArray jsonArray) {
+//		setCardType(cardType);
+//		optJsonObjNew(jsonArray);
+//	}
 	//new
 	public BannerCardEntity(JSONArray jsonArray) {
 		setCardType(BaseCardEntity.CARD_TYPE_BANNER);
 		optJsonObjNew(jsonArray);
 	}
 
-	public List<String> getImgList() {
-		return imgList;
-	}
-
-	public void setImgList(List<String> imgList) {
-		this.imgList = imgList;
-	}
 
 	public void setList(List<ImageEntity> list) {
 		this.list = list;

@@ -99,7 +99,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         LinearLayoutManager layoutManager = new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(layoutManager);
 
-//        reqData();
+        reqData();
 //        ImageEntity imageEntity = new ImageEntity(1);
 //        BaseCardEntity imageEntity = new BaseCardEntity();
 //        imageEntity.setCardType(BaseCardEntity.CARD_TYPE_BANNER_COURSE_INFO);

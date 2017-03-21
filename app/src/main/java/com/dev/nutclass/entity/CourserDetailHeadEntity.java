@@ -13,7 +13,7 @@ public class CourserDetailHeadEntity extends BaseCardEntity {
     private String ShopMoney;
     private String fitAge;
     private String interestedNum;
-
+    private String promotionIconStr;
     public CourserDetailHeadEntity(JSONObject jsonObject) {
         setCardType(BaseCardEntity.CARD_TYPE_COURSE_INFO_HEAD_VIEW);
         optJsonObj(jsonObject);
@@ -22,11 +22,12 @@ public class CourserDetailHeadEntity extends BaseCardEntity {
     private void optJsonObj(JSONObject jsonObject) {
         setGoodsId(jsonObject.optString("goods_id"));
         setGoodsName(jsonObject.optString("goods_name"));
-        setPromotionInfo(jsonObject.optString("goods_ftitle"));
+        setPromotionInfo(jsonObject.optString("activity_info"));
         setKbkMoney(jsonObject.optString("kbk_money"));
         setShopMoney(jsonObject.optString("shop_money"));
         setFitAge(jsonObject.optString("fit_age"));
         setInterestedNum(jsonObject.optString("interested"));
+        setPromotionIconStr(jsonObject.optString("activity_keywords"));
     }
 
     public String getGoodsId() {
@@ -83,5 +84,13 @@ public class CourserDetailHeadEntity extends BaseCardEntity {
 
     public void setInterestedNum(String interestedNum) {
         this.interestedNum = interestedNum;
+    }
+
+    public String getPromotionIconStr() {
+        return promotionIconStr;
+    }
+
+    public void setPromotionIconStr(String promotionIconStr) {
+        this.promotionIconStr = promotionIconStr;
     }
 }

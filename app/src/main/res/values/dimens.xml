@@ -3,7 +3,7 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="common_0.5">0.5dp</dimen>
-    <dimen name="common_1">1dp</dimen>
+    <dimen name="common_1">1px</dimen>
     <dimen name="common_2">2dp</dimen>
     <dimen name="common_3">3dp</dimen>
     <dimen name="common_4">4dp</dimen>
@@ -25,6 +25,7 @@
     <dimen name="common_20">20dp</dimen>
     <dimen name="common_21">21dp</dimen>
     <dimen name="common_22">22dp</dimen>
+    <dimen name="common_23">23dp</dimen>
     <dimen name="common_24">24dp</dimen>
     <dimen name="common_25">25dp</dimen>
     <dimen name="common_26">26dp</dimen>
@@ -36,11 +37,15 @@
     <dimen name="common_36">36dp</dimen>
     <dimen name="common_37">37dp</dimen>
     <dimen name="common_38">38dp</dimen>
+    <dimen name="common_42">42dp</dimen>
     <dimen name="common_43">43dp</dimen>
     <dimen name="common_40">40dp</dimen>
+    <dimen name="common_41">41dp</dimen>
     <dimen name="common_44">44dp</dimen>
     <dimen name="common_45">44dp</dimen>
+    <dimen name="common_50">50dp</dimen>
     <dimen name="common_51">51dp</dimen>
+    <dimen name="common_53">53dp</dimen>
     <dimen name="common_56">56dp</dimen>
     <dimen name="common_60">60dp</dimen>
     <dimen name="common_61">61dp</dimen>
@@ -53,7 +58,9 @@
     <dimen name="common_81">81dp</dimen>
     <dimen name="common_85">85dp</dimen>
     <dimen name="common_89">89dp</dimen>
+    <dimen name="common_91">91dp</dimen>
     <dimen name="common_92">92dp</dimen>
+    <dimen name="common_95">95dp</dimen>
     <dimen name="common_101">101dp</dimen>
     <dimen name="common_113">113dp</dimen>
     <dimen name="common_116">116dp</dimen>
@@ -67,6 +74,7 @@
     <dimen name="common_401">401dp</dimen>
     <dimen name="common_445">445dp</dimen>
 
+    <dimen name="font_8">8sp</dimen>
     <dimen name="font_9">9sp</dimen>
     <dimen name="font_10">10sp</dimen>
     <dimen name="font_11">11sp</dimen>

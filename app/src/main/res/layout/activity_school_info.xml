@@ -4,19 +4,45 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/color_bg"
     tools:context="com.dev.nutclass.activity.SchoolInfoActivity">
-    <LinearLayout
+    <RelativeLayout
+        android:id="@+id/title_bar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/common_45"
+        android:gravity="center_vertical"
         android:background="@color/color_title_bar_bg">
         <ImageView
             android:id="@+id/iv_back"
-            android:layout_gravity="center_vertical"
+            android:layout_width="@dimen/common_10"
+            android:layout_height="@dimen/common_20"
+            android:src="@drawable/icon_back_pink"
+            android:layout_marginLeft="@dimen/common_10"/>
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/icon_back_yellow"
-            android:layout_marginLeft="@dimen/common_10"/>
-    </LinearLayout>
+            android:orientation="horizontal"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/common_13">
+            <ImageView
+                android:id="@+id/iv_attention"
+                android:layout_width="@dimen/common_23"
+                android:layout_height="@dimen/common_21"
+                android:src="@drawable/icon_collect_pink"/>
+            <ImageView
+                android:id="@+id/iv_share"
+                android:layout_width="@dimen/common_21"
+                android:layout_height="@dimen/common_21"
+                android:src="@drawable/icon_share_pink"
+                android:layout_marginLeft="@dimen/common_25"/>
+            <ImageView
+                android:id="@+id/iv_message"
+                android:layout_width="@dimen/common_21"
+                android:layout_height="@dimen/common_21"
+                android:src="@drawable/icon_message_pink"
+                android:layout_marginLeft="@dimen/common_25"/>
+        </LinearLayout>
+    </RelativeLayout>
     <android.support.v7.widget.RecyclerView
         android:id="@+id/container"
         android:layout_width="match_parent"

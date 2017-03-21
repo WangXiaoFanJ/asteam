@@ -10,6 +10,7 @@ import com.dev.nutclass.entity.BannerCardEntity;
 import com.dev.nutclass.entity.BaseCardEntity;
 import com.dev.nutclass.entity.ClassifyHomeCourseEntity;
 import com.dev.nutclass.entity.CourseCommentEntity;
+import com.dev.nutclass.entity.CourseCommentListEntity;
 import com.dev.nutclass.entity.CourseInfoEntity;
 import com.dev.nutclass.entity.CourseListCardEntity;
 import com.dev.nutclass.entity.CourseRecommendForUEntity;
@@ -19,6 +20,7 @@ import com.dev.nutclass.entity.HomeIconEntity;
 import com.dev.nutclass.entity.HomeJDCardEntity;
 import com.dev.nutclass.entity.JDCatCardEntity;
 import com.dev.nutclass.entity.JDItemCardEntity;
+import com.dev.nutclass.entity.LookHistoryEntity;
 import com.dev.nutclass.entity.OtherSchoolEntity;
 import com.dev.nutclass.entity.SchoolCardEntity;
 import com.dev.nutclass.entity.SchoolDetailHeadEntity;
@@ -33,6 +35,7 @@ import com.dev.nutclass.view.BannerCardView;
 import com.dev.nutclass.view.ClassifyHomeCourseView;
 import com.dev.nutclass.view.CommentForCourseDetailView;
 import com.dev.nutclass.view.CourseCardView;
+import com.dev.nutclass.view.CourseCommentListView;
 import com.dev.nutclass.view.CourseInfoHeadView;
 import com.dev.nutclass.view.CourseInfoView;
 import com.dev.nutclass.view.CourseRecommendView;
@@ -41,6 +44,7 @@ import com.dev.nutclass.view.HomeIconView;
 import com.dev.nutclass.view.JDCardView;
 import com.dev.nutclass.view.JDCatCardView;
 import com.dev.nutclass.view.JDItemCardView;
+import com.dev.nutclass.view.LookHistoryView;
 import com.dev.nutclass.view.NearbyAmuseParkView;
 import com.dev.nutclass.view.OtherSchoolView;
 import com.dev.nutclass.view.PublicSchoolFeatureView;
@@ -67,9 +71,15 @@ public class CardListAdapter extends RecyclerView.Adapter<CardListAdapter.MyView
     private List<BaseCardEntity> list;
     private Context mContext;
     private RecyclerItemClickListener itemClickListener;
+    private boolean isEdit;
     public CardListAdapter(List<BaseCardEntity> list,Context context) {
         this.list = list;
         this.mContext = context;
+    }
+    public CardListAdapter(List<BaseCardEntity> list,Context context,boolean isEdit) {
+        this.list = list;
+        this.mContext = context;
+        this.isEdit = isEdit;
     }
 
     public CardListAdapter(Context context, List<BaseCardEntity> list,
@@ -193,6 +203,14 @@ public class CardListAdapter extends RecyclerView.Adapter<CardListAdapter.MyView
         //其他校区
         else if (viewType == BaseCardEntity.CARD_TYPE_OTHER_SCHOOL){
             view = new OtherSchoolView(mContext);
+        }
+        //浏览历史
+        else if (viewType == BaseCardEntity.CARD_TYPE_LOOK_HISTORY_VIEW){
+            view = new LookHistoryView(mContext);
+        }
+        //课程评论列表
+        else if (viewType ==BaseCardEntity.CARD_TYPE_COURSE_COMMENT_LIST_VIEW){
+            view = new CourseCommentListView(mContext);
         }
 //        View view = LayoutInflater.from(mContext).inflate(R.layout.banner_card_view,parent,false);
         return new MyViewHolder(view);
@@ -322,6 +340,16 @@ public class CardListAdapter extends RecyclerView.Adapter<CardListAdapter.MyView
         else if (type == BaseCardEntity.CARD_TYPE_OTHER_SCHOOL){
             OtherSchoolEntity entity = (OtherSchoolEntity) list.get(position);
             ((OtherSchoolView)(holder.view)).updateView(entity);
+        }
+        //浏览历史
+        else if (type == BaseCardEntity.CARD_TYPE_LOOK_HISTORY_VIEW){
+            LookHistoryEntity entity = (LookHistoryEntity) list.get(position);
+            ((LookHistoryView)(holder.view)).updateView(entity,isEdit);
+        }
+        //课程评论列表
+        else if (type ==BaseCardEntity.CARD_TYPE_COURSE_COMMENT_LIST_VIEW){
+            CourseCommentListEntity entity = (CourseCommentListEntity) list.get(position);
+            ((CourseCommentListView)(holder.view)).updateView(entity);
         }
         }
 

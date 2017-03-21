@@ -21,7 +21,7 @@ import com.dev.nutclass.R;
  * Created by Administrator on 2017/1/11.
  */
 public class TitleBar extends FrameLayout implements View.OnClickListener{
-    private final String TAG = "TitleBar";
+    private static final String TAG = "TitleBar";
     private Context mContext;
     private View mTitlebar;
     private FrameLayout leftLayout;
@@ -62,7 +62,10 @@ public class TitleBar extends FrameLayout implements View.OnClickListener{
      * 控件类型-返回按钮
      */
     public static final int TYPE_BACK_IMG = 1;
-
+    /**
+     * 控件类型-返回按钮 2
+     */
+    public static final int TYPE_BACK_IMG_WHITE = 10;
     /**
      * 控件类型- 文字
      */
@@ -79,6 +82,12 @@ public class TitleBar extends FrameLayout implements View.OnClickListener{
     public static final int TYPE_MIDDLE_REGISTER_TEX =6;
     //控件类型-文字（注册）
     public static final int TYPE_RIGHT_REGISTER_TEX = 5;
+    //控件类型-文字(编辑)
+    public static final int TYPE_RIGHT_EDIT_TEX=7;
+    //空间类型-文字(完成)
+    public static final int TYPE_RIGHT_FINISH_TEX=8;
+    //控件类型-文字（忘记密码）
+    public static final int TYPE_MIDDLE_TEXT_FOR_PWD=9;
     /**
      * 背景颜色
      * */
@@ -130,6 +139,9 @@ public class TitleBar extends FrameLayout implements View.OnClickListener{
            setBackgroundColorNew(titleBg);
         }
     }
+    public void setTitleRight2(int rightType2) {
+        setView(TAG_RIGHT2, createView(rightType2));
+    }
 
     private void setBackgroundColorNew(int id) {
         switch (id){
@@ -149,6 +161,15 @@ public class TitleBar extends FrameLayout implements View.OnClickListener{
 //        mTitlebar.setBackgroundResource(resId);
         rootLayout.setBackgroundResource(resId);
     }
+
+    /**
+     * 设置中间文字
+     * */
+    public void setMiddleTextNew(int middleType){
+        setView(TAG_MIDDLE,  createView(middleType));
+
+    }
+
     public void setMiddleText(String text){
         setMiddleText(text, false, false);
     }
@@ -169,7 +190,7 @@ public class TitleBar extends FrameLayout implements View.OnClickListener{
             middleArrawIv.setVisibility(View.GONE);
         }
     }
-    private void setMiddleTextView(String text) {
+    public void setMiddleTextView(String text) {
         View view = (View) createView(TYPE_MIDDLE_TXT);
         mMiddleTv = (TextView) view.findViewById(R.id.view_text);
         middleArrawIv = (ImageView) view.findViewById(R.id.iv_arraw);
@@ -185,7 +206,10 @@ public class TitleBar extends FrameLayout implements View.OnClickListener{
         View view = null;
         switch (type){
             case TYPE_BACK_IMG:
-                view =createImageView(R.drawable.icon_back_yellow);
+                view =createImageView(R.drawable.icon_back);
+                break;
+            case TYPE_BACK_IMG_WHITE:
+                view = createImageView(R.drawable.icon_back_white);
                 break;
             case TYPE_MIDDLE_TXT:
                 view = LayoutInflater.from(mContext).inflate(R.layout.view_title_textview,null);
@@ -218,6 +242,27 @@ public class TitleBar extends FrameLayout implements View.OnClickListener{
                 textView04.setText("注册");
                 textView04.setTextColor(getResources().getColor(R.color.color_white));
                 textView04.setTextSize(15);
+                break;
+            case TYPE_RIGHT_EDIT_TEX:
+                view = LayoutInflater.from(mContext).inflate(R.layout.view_title_textview,null);
+                TextView textView05 = (TextView) view.findViewById(R.id.view_text);
+                textView05.setText("编辑");
+                textView05.setTextColor(getResources().getColor(R.color.color_7f7f7f));
+                textView05.setTextSize(14);
+                break;
+            case TYPE_RIGHT_FINISH_TEX:
+                view = LayoutInflater.from(mContext).inflate(R.layout.view_title_textview,null);
+                TextView textView06 = (TextView) view.findViewById(R.id.view_text);
+                textView06.setText("完成");
+                textView06.setTextColor(getResources().getColor(R.color.color_7f7f7f));
+                textView06.setTextSize(14);
+                break;
+            case TYPE_MIDDLE_TEXT_FOR_PWD:
+                view = LayoutInflater.from(mContext).inflate(R.layout.view_title_textview,null);
+                TextView textView07 = (TextView) view.findViewById(R.id.view_text);
+                textView07.setText("忘记密码");
+                textView07.setTextColor(getResources().getColor(R.color.color_white));
+                textView07.setTextSize(15);
                 break;
             default:
                 break;
@@ -287,6 +332,9 @@ public class TitleBar extends FrameLayout implements View.OnClickListener{
             if (v == rightLayout1) {
                 handled = mBarClickListener.onClickRight1();
             }
+            if(v==rightLayout2){
+                handled = mBarClickListener.onClickRight2();
+            }
         }
         return handled;
     }
@@ -296,6 +344,7 @@ public class TitleBar extends FrameLayout implements View.OnClickListener{
     }
     public static interface BarClickListener {
         public boolean onClickRight1();
+        public boolean onClickRight2();
 
     }
 }

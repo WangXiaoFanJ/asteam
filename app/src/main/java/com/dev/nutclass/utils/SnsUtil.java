@@ -6,9 +6,12 @@ import android.text.TextUtils;
 import android.widget.Toast;
 
 import com.umeng.socialize.ShareAction;
+import com.umeng.socialize.UMShareAPI;
+import com.umeng.socialize.UMShareConfig;
 import com.umeng.socialize.UMShareListener;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.umeng.socialize.media.UMImage;
+import com.umeng.socialize.media.UMWeb;
 
 public class SnsUtil {
 	public static final String QQ_APP_ID = "1104840741";
@@ -35,43 +38,44 @@ public class SnsUtil {
 	/**
 	 * type=1 课程详情 type=2
 	 * */
-//	public void openShare(final Activity context){
-////		if(entity==null||TextUtils.isEmpty(entity.getUrl())){
-////			return;
-////		}
-//		final SHARE_MEDIA[] displaylist = new SHARE_MEDIA[]
-//                {
-//                    SHARE_MEDIA.WEIXIN, SHARE_MEDIA.WEIXIN_CIRCLE, SHARE_MEDIA.SINA,
-//                    SHARE_MEDIA.QQ
-//                };
-//        new ShareAction(context).setDisplayList( displaylist )
-//				.withText("试试就试试")
-////                .withText(entity.getDesc() )
-////                .withTitle(entity.getTitle())
-////                .withTargetUrl(entity.getUrl())
-////                .withMedia(new UMImage(context, entity.getImg()) )
-//                .setListenerList(new UMShareListener() {
-//					@Override
-//					public void onStart(SHARE_MEDIA share_media) {
-//
-//					}
-//
-//					@Override
-//                    public void onResult(SHARE_MEDIA platform) {
-//                        Toast.makeText(SnsUtil.context,platform + " 分享成功啦", Toast.LENGTH_SHORT).show();
-//                    }
-//
-//                    @Override
-//                    public void onError(SHARE_MEDIA platform, Throwable t) {
-//                        Toast.makeText(context,platform + " 分享失败啦", Toast.LENGTH_SHORT).show();
-//                    }
-//
-//                    @Override
-//                    public void onCancel(SHARE_MEDIA platform) {
-//                        Toast.makeText(context,platform + " 分享取消了", Toast.LENGTH_SHORT).show();
-//                    }
-//                })
-//                .open();
-//	}
+	public void openShare(final Activity context , UMWeb web){
+//		if(entity==null||TextUtils.isEmpty(entity.getUrl())){
+//			return;
+//		}
+//		UMShareConfig config = new UMShareConfig();
+//		config.setSinaAuthType(UMShareConfig.AUTH_TYPE_WEBVIEW);
+//		UMShareAPI.get(context).setShareConfig(config);
+		final SHARE_MEDIA[] displaylist = new SHARE_MEDIA[]
+                {
+                    SHARE_MEDIA.WEIXIN, SHARE_MEDIA.WEIXIN_CIRCLE, SHARE_MEDIA.SINA,
+                    SHARE_MEDIA.QQ
+                };
+        new ShareAction(context).setDisplayList( displaylist )
+                .withMedia(web)
+                .setCallback(new UMShareListener() {
+					@Override
+					public void onStart(SHARE_MEDIA share_media) {
+					}
+
+					@Override
+                    public void onResult(SHARE_MEDIA platform) {
+                        Toast.makeText(SnsUtil.context,platform + " 分享成功", Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onError(SHARE_MEDIA platform, Throwable t) {
+                        Toast.makeText(context,platform + " 分享失败", Toast.LENGTH_SHORT).show();
+						if(t!=null){
+							LogUtil.d("throw","throw:"+t.getMessage());
+						}
+					}
+
+                    @Override
+                    public void onCancel(SHARE_MEDIA platform) {
+                        Toast.makeText(context,platform + " 分享取消", Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .open();
+	}
 
 }

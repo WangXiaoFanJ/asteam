@@ -17,7 +17,7 @@ import com.dev.nutclass.entity.BannerCardEntity;
 import com.dev.nutclass.entity.BaseCardEntity;
 import com.dev.nutclass.entity.ImageEntity;
 import com.dev.nutclass.utils.DensityUtil;
-
+import com.dev.nutclass.utils.LogUtil;
 
 
 import java.util.ArrayList;
@@ -92,7 +92,10 @@ public class BannerCardView extends RelativeLayout {
 //        for(int i=0;i<entity.getImgList().size();i++){
 //            imgList.add(entity.getImgList().get(i));
 //        }
-        imgList.addAll(entity.getImgList());
+        for(int i=0;i<entity.getImgList().size();i++){
+            imgList.add(entity.getImgList().get(i).getMainImage());
+            LogUtil.d("===","img:"+entity.getImgList().get(i).getMainImage());
+        }
 
             if (imgList == null || imgList.size() < 0) {
                 return;

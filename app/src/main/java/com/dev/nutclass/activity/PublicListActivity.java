@@ -88,15 +88,15 @@ public class PublicListActivity extends BaseActivity {
 
     private void initData() {
         if(type==Const.TYPE_FROM_AMUSE_PARK){
-            titleBar.setMiddleText("附近游乐场");
+            titleBar.setMiddleTextView("附近游乐场");
         }else if(type == Const.TYPE_FROM_JD){
-            titleBar.setMiddleText("京东商城");
+            titleBar.setMiddleTextView("京东商城");
             reqData(1);
         }else if(type == Const.TYPE_FROM_SCHOLL_MOR_COURSE){
-            titleBar.setMiddleText("正课");
+            titleBar.setMiddleTextView("正课");
             reqData(1);
         }else  if (type ==Const.TYPE_FROM_COURSE_DETAIL_OTHER_SCHOOL){
-            titleBar.setMiddleText("其他校区");
+            titleBar.setMiddleTextView("其他校区");
             reqData(1);
         }
 

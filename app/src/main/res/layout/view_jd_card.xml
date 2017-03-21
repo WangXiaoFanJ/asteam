@@ -6,6 +6,7 @@
     <ImageView
         android:id="@+id/view_jd"
         android:layout_width="match_parent"
+        android:scaleType="fitXY"
         android:layout_height="@dimen/common_101"
         android:background="@color/color_f75250"/>
 </LinearLayout>

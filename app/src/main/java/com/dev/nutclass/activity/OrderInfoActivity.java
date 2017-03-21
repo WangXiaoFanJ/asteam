@@ -1,7 +1,6 @@
 package com.dev.nutclass.activity;
 
 import android.content.Context;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -14,11 +13,8 @@ import android.widget.TextView;
 import com.dev.nutclass.R;
 import com.dev.nutclass.constants.Const;
 import com.dev.nutclass.constants.UrlConst;
-import com.dev.nutclass.entity.BaseCardEntity;
-import com.dev.nutclass.entity.JsonDataList;
 import com.dev.nutclass.entity.UserOrderDetailEntity;
 import com.dev.nutclass.network.OkHttpClientManager;
-import com.dev.nutclass.parser.UserOrderInfoParser;
 import com.dev.nutclass.utils.GlideUtils;
 import com.dev.nutclass.utils.LogUtil;
 import com.dev.nutclass.view.MyPopupWindow;
@@ -56,12 +52,14 @@ public class OrderInfoActivity extends BaseActivity implements View.OnClickListe
     private TextView orderTimeTv;
     private TextView courseCodeTv;
     private String orderId;
+    private LinearLayout backMoneyStatusLayout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_info);
         mContext = OrderInfoActivity.this;
         orderId = getIntent().getStringExtra(Const.ORDER_ID);
+        LogUtil.d("===","orderID:"+orderId);
         initView();
         initData();
     }
@@ -87,6 +85,7 @@ public class OrderInfoActivity extends BaseActivity implements View.OnClickListe
         userPhoneTv = (TextView) findViewById(R.id.tv_user_phone);
         orderTimeTv = (TextView) findViewById(R.id.tv_order_time);
         courseCodeTv = (TextView) findViewById(R.id.tv_course_code);
+        backMoneyStatusLayout = (LinearLayout) findViewById(R.id.ll_back_money_status);
         applyBackMoneyTv.setOnClickListener(this);
     }
 
@@ -97,7 +96,7 @@ public class OrderInfoActivity extends BaseActivity implements View.OnClickListe
     private void reqData() {
         String url = UrlConst.USER_ORDER_DETAIL_URL;
         Map<String,String> map = new HashMap<>();
-        map.put("orderID",orderId);
+        map.put("orderId",orderId);
         OkHttpClientManager.postAsyn(url, new OkHttpClientManager.ResultCallback<String>() {
             @Override
             public void onError(Request request, Exception e) {
@@ -151,6 +150,11 @@ public class OrderInfoActivity extends BaseActivity implements View.OnClickListe
         orderNumberTv.setText(entity.getOrderNumber());
         userPhoneTv.setText(entity.getUserPhone());
         orderTimeTv.setText(entity.getOrderTime());
+        courseCodeTv.setText(entity.getCourseCode());
+        if(entity.getPayStatus().equals("5")){
+            backMoneyStatusLayout.setVisibility(View.VISIBLE);
+            applyBackMoneyTv.setVisibility(View.GONE);
+        }
     }
 
     @Override

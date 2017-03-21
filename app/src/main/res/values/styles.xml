@@ -44,4 +44,7 @@
     <style name="TabLayoutTextStyle">
         <item name="android:textSize">@dimen/font_13</item>
     </style>
+    <style name="CustomCheckBoxStyle" parent="Base.Widget.AppCompat.CompoundButton.CheckBox">
+        <item name="android:button">@drawable/selector_check_box</item>
+    </style>
 </resources>

@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.media.Image;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,6 +19,7 @@ import android.widget.TextView;
 import com.dev.nutclass.R;
 import com.dev.nutclass.activity.DiscountCouponActivity;
 import com.dev.nutclass.activity.LoginActivity;
+import com.dev.nutclass.activity.LookHistoryActivity;
 import com.dev.nutclass.activity.MyCollectActivity;
 import com.dev.nutclass.activity.UserInfoActivity;
 import com.dev.nutclass.activity.UserOrderActivity;
@@ -28,6 +30,7 @@ import com.dev.nutclass.network.OkHttpClientManager;
 import com.dev.nutclass.utils.GlideUtils;
 import com.dev.nutclass.utils.LogUtil;
 import com.dev.nutclass.utils.SharedPrefUtil;
+import com.dev.nutclass.utils.TextUtil;
 import com.squareup.okhttp.Request;
 
 import org.w3c.dom.Text;
@@ -46,12 +49,14 @@ public class MeFragment extends BaseFragment implements View.OnClickListener {
     private RelativeLayout couponLayout;
     private RelativeLayout collectLayout;
     private RelativeLayout dayTaskLayout;
+    private RelativeLayout lookHistoryLayout;
     private TextView loginTv;
     private TextView userNameTv;
     private TextView userInfoTv;
     private LinearLayout userNameLayout;
     private boolean isLogin = false;
-
+    private RelativeLayout allOrderLayout;
+    private String userId;
     public MeFragment() {
         // Required empty public constructor
     }
@@ -62,6 +67,12 @@ public class MeFragment extends BaseFragment implements View.OnClickListener {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         mContext = getActivity();
+        if(SharedPrefUtil.getInstance().getSession()!=null){
+            LogUtil.d(TAG,"token:"+SharedPrefUtil.getInstance().getToken()+"userID:"+SharedPrefUtil.getInstance().getSession().getUserId());
+            userId = SharedPrefUtil.getInstance().getSession().getUserId();
+        }else{
+            userId = "";
+        }
         View view = inflater.inflate(R.layout.fragment_me, container, false);
         couponLayout = (RelativeLayout) view.findViewById(R.id.rl_coupon);
         userHeadIv = (ImageView) view.findViewById(R.id.iv_user_head);
@@ -75,7 +86,8 @@ public class MeFragment extends BaseFragment implements View.OnClickListener {
         userNameLayout = (LinearLayout) view.findViewById(R.id.ll_user_name_and_info);
         userNameTv = (TextView) view.findViewById(R.id.tv_user_name);
         userInfoTv = (TextView) view.findViewById(R.id.tv_user_info);
-
+        allOrderLayout = (RelativeLayout) view.findViewById(R.id.rl_all_order);
+        lookHistoryLayout = (RelativeLayout) view.findViewById(R.id.rl_look_history);
         couponLayout.setOnClickListener(this);
         userHeadIv.setOnClickListener(this);
         waitPayLayout.setOnClickListener(this);
@@ -85,7 +97,8 @@ public class MeFragment extends BaseFragment implements View.OnClickListener {
         collectLayout.setOnClickListener(this);
         dayTaskLayout.setOnClickListener(this);
         loginTv.setOnClickListener(this);
-
+        allOrderLayout.setOnClickListener(this);
+        lookHistoryLayout.setOnClickListener(this);
         String[] filters = {Const.ACTION_BROADCAST_LOGIN_SUCC,
                 Const.ACTION_BROADCAST_UPDATA_USER_INFO
                 ,Const.ACTION_BROADCAST_EXIT_SUCC};
@@ -132,6 +145,10 @@ public class MeFragment extends BaseFragment implements View.OnClickListener {
                 mContext.startActivity(new Intent(mContext,UserOrderActivity.class)
                         .putExtra(Const.USER_ORDER_TYPE,"5"));
                 break;
+            case R.id.rl_all_order:
+                mContext.startActivity(new Intent(mContext,UserOrderActivity.class)
+                        .putExtra(Const.USER_ORDER_TYPE,"1"));
+                break;
             case R.id.rl_coupon:
                 mContext.startActivity(new Intent(mContext, DiscountCouponActivity.class));
                 break;
@@ -139,7 +156,13 @@ public class MeFragment extends BaseFragment implements View.OnClickListener {
                 mContext.startActivity(new Intent(mContext, UserInfoActivity.class));
                 break;
             case R.id.rl_collect:
-                mContext.startActivity(new Intent(mContext, MyCollectActivity.class));
+                if(!TextUtils.isEmpty(userId)){
+                    Intent intent = new Intent(mContext,MyCollectActivity.class);
+                    intent.putExtra(Const.TYPE_USER_ID,userId);
+                    mContext.startActivity(intent);
+                }else{
+                    mContext.startActivity(new Intent(mContext, LoginActivity.class));
+                }
                 break;
             case R.id.rl_day_task:
 //                loginTv.setVisibility(View.VISIBLE);
@@ -148,6 +171,17 @@ public class MeFragment extends BaseFragment implements View.OnClickListener {
             case R.id.tv_login:
                 mContext.startActivity(new Intent(mContext, LoginActivity.class));
                 break;
+            case R.id.rl_look_history:
+                if(!TextUtils.isEmpty(userId)){
+                    Intent intent = new Intent(mContext,LookHistoryActivity.class);
+                    intent.putExtra(Const.TYPE_USER_ID,userId);
+                    mContext.startActivity(intent);
+                }else{
+                    mContext.startActivity(new Intent(mContext, LoginActivity.class));
+                }
+
+                break;
+
         }
     }
 
@@ -176,5 +210,6 @@ public class MeFragment extends BaseFragment implements View.OnClickListener {
         userNameTv.setText(entity.getUserName());
         GlideUtils.loadImageView(mContext, entity.getHeadIcon(), userHeadIv, 0);
         userInfoTv.setText(entity.getToken());
+//        GlideUtils.loadImageView(mContext,entity.getHeadIcon(),userHeadIv,0);
     }
 }

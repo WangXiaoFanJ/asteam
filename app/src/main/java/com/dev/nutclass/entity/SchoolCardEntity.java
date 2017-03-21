@@ -21,7 +21,7 @@ public class SchoolCardEntity extends BaseCardEntity {
     private String gpsLongitude;
     private String gpsLatitude;
     private String interestNum;
-    private List goodList;
+    private List<SimpleCourseEntity> goodList;
 
     public SchoolCardEntity(JSONObject jsonObject) {
         optJsonObject(jsonObject);
@@ -147,13 +147,14 @@ public class SchoolCardEntity extends BaseCardEntity {
         this.interestNum = interestNum;
     }
 
-    public List getGoodList() {
+    public List<SimpleCourseEntity> getGoodList() {
         return goodList;
     }
 
-    public void setGoodList(List goodList) {
+    public void setGoodList(List<SimpleCourseEntity> goodList) {
         this.goodList = goodList;
     }
+
     public class SimpleCourseEntity{
         private String goodId;
         private String goodsName;

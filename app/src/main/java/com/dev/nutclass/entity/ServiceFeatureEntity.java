@@ -13,18 +13,19 @@ public class ServiceFeatureEntity extends BaseCardEntity {
     private List<ServiceFeatureData> dataList;
 
 
-    public ServiceFeatureEntity(JSONObject jsonObject) {
+    public ServiceFeatureEntity(JSONArray jsonArray) {
         setCardType(BaseCardEntity.CARD_TYPE_SCHOOL_FEATURE_VIEW);
-        optJsonObj(jsonObject);
+        optJsonObj(jsonArray);
     }
 
-    private void optJsonObj(JSONObject jsonObject) {
+    private void optJsonObj(JSONArray jsonArray) {
         List<ServiceFeatureData> list = new ArrayList<>();
-        JSONArray jsonArray = jsonObject.optJSONArray("service_characteristic");
-        for(int i=0;i<jsonArray.length();i++){
-            JSONObject jsonObj = jsonArray.optJSONObject(i);
-            ServiceFeatureData data = new ServiceFeatureData(jsonObj);
-            list.add(data);
+        if(jsonArray!=null&&jsonArray.length()>0){
+            for(int i=0;i<jsonArray.length();i++){
+                JSONObject jsonObj = jsonArray.optJSONObject(i);
+                ServiceFeatureData data = new ServiceFeatureData(jsonObj);
+                list.add(data);
+            }
         }
         setDataList(list);
     }

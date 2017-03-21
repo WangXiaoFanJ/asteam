@@ -22,29 +22,31 @@
             android:background="@android:color/transparent">
             <ImageView
                 android:id="@+id/iv_back"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_width="@dimen/common_30"
+                android:layout_height="@dimen/common_30"
                 android:src="@drawable/iocn_back_black_bg"
                 android:layout_marginLeft="@dimen/common_10"/>
             <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="@dimen/common_10">
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                    android:id="@+id/iv_attention"
+                    android:layout_width="@dimen/common_30"
+                    android:layout_height="@dimen/common_30"
                     android:src="@drawable/icon_keep_attention"/>
                 <ImageView
                     android:id="@+id/iv_share"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                    android:layout_width="@dimen/common_30"
+                    android:layout_height="@dimen/common_30"
                     android:src="@drawable/title_bar_share"
                     android:layout_marginLeft="@dimen/common_10"/>
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                    android:id="@+id/iv_message"
+                    android:layout_width="@dimen/common_30"
+                    android:layout_height="@dimen/common_30"
                     android:src="@drawable/icon_message"
                     android:layout_marginLeft="@dimen/common_10"/>
             </LinearLayout>
@@ -61,8 +63,8 @@
                 android:gravity="center"
                 android:orientation="vertical">
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="@dimen/common_20"
+                    android:layout_height="@dimen/common_20"
                     android:src="@drawable/icon_navigation"/>
                 <TextView
                     android:layout_width="wrap_content"
@@ -70,7 +72,7 @@
                     android:text="导航"
                     android:textColor="@color/color_7f7f7f"
                     android:textSize="@dimen/font_10"
-                    android:layout_marginTop="@dimen/common_4"/>
+                    android:layout_marginTop="@dimen/common_3"/>
             </LinearLayout>
             <LinearLayout
                 android:id="@+id/ll_phone_kobiko"
@@ -80,8 +82,8 @@
                 android:gravity="center"
                 android:orientation="vertical">
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="@dimen/common_20"
+                    android:layout_height="@dimen/common_20"
                     android:src="@drawable/icon_phone"/>
                 <TextView
                     android:layout_width="wrap_content"
@@ -89,17 +91,18 @@
                     android:text="联系课比课"
                     android:textColor="@color/color_7f7f7f"
                     android:textSize="@dimen/font_10"
-                    android:layout_marginTop="@dimen/common_4"/>
+                    android:layout_marginTop="@dimen/common_3"/>
             </LinearLayout>
             <LinearLayout
+                android:id="@+id/ll_write_comment"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:orientation="vertical">
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="@dimen/common_20"
+                    android:layout_height="@dimen/common_20"
                     android:src="@drawable/icon_comment"/>
                 <TextView
                     android:layout_width="wrap_content"
@@ -107,7 +110,7 @@
                     android:text="写评论"
                     android:textColor="@color/color_7f7f7f"
                     android:textSize="@dimen/font_10"
-                    android:layout_marginTop="@dimen/common_4"/>
+                    android:layout_marginTop="@dimen/common_3"/>
             </LinearLayout>
             <TextView
                 android:layout_width="0dp"

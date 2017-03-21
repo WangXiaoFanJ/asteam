@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@color/color_white"
+    tools:context="com.dev.nutclass.activity.CommentDetailActivity">
+    <com.dev.nutclass.view.TitleBar
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/common_44"
+        app:left_type="1"
+        app:middle_text="评价详情"></com.dev.nutclass.view.TitleBar>
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"></android.support.v7.widget.RecyclerView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/common_44"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+        <EditText
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="@dimen/common_31"
+            android:paddingLeft="@dimen/common_10"
+            android:textColor="@color/color_333333"
+            android:textSize="@dimen/font_14"
+            android:background="@drawable/shape_edit_gray_border"
+            android:layout_marginLeft="@dimen/common_10"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/common_16"
+            android:layout_marginRight="@dimen/common_16"
+            android:textSize="@dimen/font_14"
+            android:text="发送"
+            android:textColor="@color/color_9b9b9b"/>
+    </LinearLayout>
+</LinearLayout>

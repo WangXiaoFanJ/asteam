@@ -52,7 +52,7 @@ public class SchoolInfoHeadView extends RelativeLayout {
         commentNumTv = (TextView) this.findViewById(R.id.tv_comment_num);
         schoolAddrTv = (TextView) this.findViewById(R.id.tv_school_addr);
         distanceTv = (TextView) this.findViewById(R.id.tv_distance);
-        isNearbyTv = (TextView) this.findViewById(R.id.tv_nearby);
+//        isNearbyTv = (TextView) this.findViewById(R.id.tv_nearby);
         imageLayout = (LinearLayout) this.findViewById(R.id.ll_image_container);
     }
     public void updateView(SchoolDetailHeadEntity entity){
@@ -64,7 +64,7 @@ public class SchoolInfoHeadView extends RelativeLayout {
         schoolAddrTv.setText(entity.getSchoolAddr());
         distanceTv.setText(entity.getDistance());
         if(entity.getIsNearby()!=null){
-            isNearbyTv.setText(entity.getIsNearby());
+//            isNearbyTv.setText(entity.getIsNearby());
         }
         if(entity.getSchoolImageList()!=null&&entity.getSchoolImageList().size()>0) {
             for (int i = 0; i < entity.getSchoolImageList().size(); i++) {

@@ -33,7 +33,7 @@ public class SchoolDetailHeadEntity extends BaseCardEntity {
         setInterestedNum(jsonObject.optString("browseNum"));
         setCommentNum(jsonObject.optString("contentNum"));
         setSchoolAddr(jsonObject.optString("address_detail"));
-        setDistance(jsonObject.optString("school_distance"));
+        setDistance(jsonObject.optString("gps_cn"));
         setIsNearby(jsonObject.optString("school_distance_info"));
         setSchoolTel(jsonObject.optString("school_tel"));
         JSONArray jsonArray = jsonObject.optJSONArray("school_image");

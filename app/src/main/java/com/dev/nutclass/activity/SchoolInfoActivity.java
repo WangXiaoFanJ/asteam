@@ -1,6 +1,7 @@
 package com.dev.nutclass.activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -10,12 +11,17 @@ import android.widget.ImageView;
 
 import com.dev.nutclass.R;
 import com.dev.nutclass.adapter.CardListAdapter;
+import com.dev.nutclass.constants.Const;
 import com.dev.nutclass.constants.UrlConst;
 import com.dev.nutclass.entity.BaseCardEntity;
 import com.dev.nutclass.entity.JsonDataList;
+import com.dev.nutclass.entity.SimpleEntity;
 import com.dev.nutclass.network.OkHttpClientManager;
 import com.dev.nutclass.parser.CardListParser;
+import com.dev.nutclass.parser.SimpleParser;
+import com.dev.nutclass.utils.DialogUtils;
 import com.dev.nutclass.utils.LogUtil;
+import com.dev.nutclass.utils.SharedPrefUtil;
 import com.squareup.okhttp.Request;
 
 import org.json.JSONArray;
@@ -23,20 +29,24 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class SchoolInfoActivity extends BaseActivity  implements View.OnClickListener{
     private static final String TAG = "SchoolInfoActivity";
-    private ImageView backIv;
+    private ImageView backIv,shareIv;
     private RecyclerView recyclerView;
     private Context mContext;
     private List<BaseCardEntity> lists;
+    private String schoolId;
+    private ImageView attentionTv;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_school_info);
         mContext = SchoolInfoActivity.this;
-
+        schoolId = getIntent().getStringExtra(Const.SCHOOL_ID);
         intiView();
         initListener();
         initData();
@@ -45,10 +55,14 @@ public class SchoolInfoActivity extends BaseActivity  implements View.OnClickLis
 
     private void intiView() {
         backIv = (ImageView) findViewById(R.id.iv_back);
+        shareIv = (ImageView) findViewById(R.id.iv_share);
         recyclerView = (RecyclerView) findViewById(R.id.container);
+        attentionTv = (ImageView) findViewById(R.id.iv_attention);
     }
     private void initListener() {
         backIv.setOnClickListener(this);
+        shareIv.setOnClickListener(this);
+        attentionTv.setOnClickListener(this);
     }
     private void initData() {
         LinearLayoutManager layoutManager = new LinearLayoutManager(mContext,LinearLayoutManager.VERTICAL,false);
@@ -82,7 +96,10 @@ public class SchoolInfoActivity extends BaseActivity  implements View.OnClickLis
 
     private void reqData() {
         String url = UrlConst.SCHOOL_DETAIL_URL;
-        OkHttpClientManager.getAsyn(url, new OkHttpClientManager.ResultCallback<String>() {
+        Map<String,String> map =new HashMap<>();
+        LogUtil.d("===","schoolId"+schoolId);
+        map.put("schoolId",schoolId);
+        OkHttpClientManager.postAsyn(url, new OkHttpClientManager.ResultCallback<String>() {
             @Override
             public void onError(Request request, Exception e) {
                 LogUtil.e(TAG,"error:"+e.getMessage());
@@ -105,7 +122,7 @@ public class SchoolInfoActivity extends BaseActivity  implements View.OnClickLis
                 }
             }
 
-        });
+        },map);
     }
 
     private void update(ArrayList<BaseCardEntity> list) {
@@ -116,6 +133,46 @@ public class SchoolInfoActivity extends BaseActivity  implements View.OnClickLis
     public void onClick(View v) {
         if(v==backIv){
             finish();
+        }else if(v == shareIv){
+
+        }else if (v==attentionTv){
+            collectSchool();
+        }
+    }
+
+    private void collectSchool() {
+        {
+            String userId = null;
+            if(SharedPrefUtil.getInstance().getSession()!=null){
+                userId = SharedPrefUtil.getInstance().getSession().getUserId();
+            }else{
+                startActivity(new Intent(mContext,LoginActivity.class));
+            }
+            final Map<String,String> map = new HashMap();
+            map.put("userId",userId);
+            map.put("schoolId",schoolId);
+            String url =UrlConst.COLLECT_SCHOOL_URL;
+            OkHttpClientManager.postAsyn(url, new OkHttpClientManager.ResultCallback<String>() {
+                @Override
+                public void onError(Request request, Exception e) {
+                    LogUtil.d(TAG,"error:"+e.getMessage());
+                }
+
+                @Override
+                public void onResponse(String response) {
+                    LogUtil.d(TAG,"response:"+response);
+                    SimpleParser parse = new SimpleParser();
+                    try {
+                        SimpleEntity entity = (SimpleEntity) parse.parse(response);
+                        if(entity.getStatus().equals("1")){
+                            DialogUtils.showToast(mContext,entity.getMessage());
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+            },map);
         }
     }
 }

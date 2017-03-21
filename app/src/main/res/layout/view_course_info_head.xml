@@ -9,7 +9,7 @@
         android:layout_height="wrap_content"
         android:background="@color/color_white"
         android:orientation="vertical"
-        android:paddingLeft="@dimen/common_11">
+        android:paddingLeft="@dimen/common_10">
 
         <TextView
             android:id="@+id/tv_goods_name"
@@ -26,7 +26,7 @@
             android:text="促销信息"
             android:visibility="gone"
             android:textColor="@color/color_7f7f7f"
-            android:textSize="@dimen/font_14"
+            android:textSize="@dimen/font_13"
             android:layout_marginTop="@dimen/common_5"/>
         <LinearLayout
             android:layout_width="wrap_content"
@@ -47,7 +47,7 @@
                 android:layout_marginLeft="@dimen/common_10"
                 android:text="门店价:"
                 android:textColor="@color/color_a8a8a8"
-                android:textSize="@dimen/font_11" />
+                android:textSize="@dimen/font_10" />
             <TextView
                 android:id="@+id/tv_shop_money"
                 android:layout_width="wrap_content"
@@ -56,6 +56,21 @@
                 android:text="1800"
                 android:textColor="@color/color_a8a8a8"
                 android:textSize="@dimen/font_11" />
+            <TextView
+                android:id="@+id/tv_promotion_icon"
+                android:visibility="gone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="双十一特惠"
+                android:textSize="@dimen/font_8"
+                android:textColor="@color/color_white"
+                android:layout_marginLeft="@dimen/common_21"
+                android:paddingLeft="@dimen/common_3"
+                android:paddingRight="@dimen/common_3"
+                android:paddingTop="@dimen/common_2"
+                android:paddingBottom="@dimen/common_2"
+                android:background="@drawable/shape_login_btn_bg"
+                />
         </LinearLayout>
 
         <RelativeLayout

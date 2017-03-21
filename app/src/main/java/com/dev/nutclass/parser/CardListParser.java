@@ -85,8 +85,8 @@ public class CardListParser extends BaseParser<BaseCardEntity> {
                         entity = new CourseInfoEntity(jsonObJ);
                         break;
                     case BaseCardEntity.CARD_TYPE_SCHOOL_FEATURE_VIEW:
-                        jsonObJ = jsonObject1.optJSONObject("card_data");
-                        entity = new ServiceFeatureEntity(jsonObJ);
+                        jsonArray = jsonObject1.optJSONArray("card_data");
+                        entity = new ServiceFeatureEntity(jsonArray);
                         break;
                     case BaseCardEntity.CARD_TYPE_COURSE_RECOMMEND_CARD_VIEW:
                         jsonArray = jsonObject1.optJSONArray("card_data");
@@ -94,8 +94,8 @@ public class CardListParser extends BaseParser<BaseCardEntity> {
                         entity = new CourseRecommendForUEntity(jsonArray,bannerImg);
                         break;
                     case BaseCardEntity.CARD_TYPE_BANNER_VIEW:
-                        jsonObJ = jsonObject1.optJSONObject("card_data");
-                        entity = new BannerCardEntity(jsonObJ);
+                        jsonArray = jsonObject1.optJSONArray("card_data");
+                        entity = new BannerCardEntity(BaseCardEntity.CARD_TYPE_BANNER_VIEW,jsonArray);
                         break;
                     case BaseCardEntity.CARD_TYPE_SCHOOL_INFO_HEAD_NAME:
                         jsonObJ = jsonObject1.optJSONObject("card_data");
@@ -126,16 +126,16 @@ public class CardListParser extends BaseParser<BaseCardEntity> {
                         entity =new CourseCommentEntity(jsonArray);
                         break;
                     case BaseCardEntity.CARD_TYPE_HOME_ICON_VIEW:
-                        JSONArray jsonArray3 = jsonObject1.optJSONArray("card_data");
-                        entity = new HomeIconEntity(jsonArray3);
+                        jsonArray= jsonObject1.optJSONArray("card_data");
+                        entity = new HomeIconEntity(jsonArray);
                         break;
                     case BaseCardEntity.CARD_TYPE_JD_CARD_VIEW:
                         jsonArray = jsonObject1.optJSONArray("card_data");
                         entity = new HomeJDCardEntity(jsonArray);
                         break;
                     case BaseCardEntity.CARD_TYPE_HOME_COURSE_CLASSIFY:
-                        jsonArray = jsonObject1.optJSONArray("card_data");
-                        entity = new ClassifyHomeCourseEntity(jsonArray);
+                        jsonObJ = jsonObject1.optJSONObject("card_data");
+                        entity = new ClassifyHomeCourseEntity(jsonObJ);
                         break;
                     case BaseCardEntity.CARD_TYPE_OTHER_SCHOOL:
                         jsonObJ = jsonObject1.optJSONObject("card_data");
@@ -144,7 +144,10 @@ public class CardListParser extends BaseParser<BaseCardEntity> {
                     default:
                         break;
                 }
-                list.add(entity);
+                if(jsonArray!=null||jsonObJ!=null){
+                    list.add(entity);
+                }
+
             }
         }
         retObj.setErrorCode(UrlConst.SUCCESS_CODE);

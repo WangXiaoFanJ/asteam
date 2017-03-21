@@ -198,6 +198,7 @@
         android:background="@color/color_bg"
         android:layout_marginLeft="@dimen/common_10"/>
     <RelativeLayout
+        android:id="@+id/rl_change_pwd"
         android:layout_width="match_parent"
         android:layout_height="@dimen/common_44"
         android:paddingLeft="@dimen/common_16"

@@ -66,6 +66,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     private EditText pwdEdit;
     private TextView reqVerifyTv;
     private TextView reqVoiceVerifyTv;
+    private TextView forgetPwdTv;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -86,6 +87,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         loginTv = (TextView) findViewById(R.id.tv_login);
         phoneEdit = (EditText) findViewById(R.id.edit_phone);
         pwdEdit = (EditText) findViewById(R.id.edit_pwd);
+        forgetPwdTv = (TextView) findViewById(R.id.tv_forget_pwd);
         phoneContainerLayout = (LinearLayout) findViewById(R.id.ll_container_phone);
         accountContainerLayout = (LinearLayout) findViewById(R.id.ll_container_account);
         loginTv02 = (TextView) findViewById(R.id.tv_login_02);
@@ -103,10 +105,16 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         loginTv02.setOnClickListener(this);
         reqVerifyTv.setOnClickListener(this);
         reqVoiceVerifyTv.setOnClickListener(this);
+        forgetPwdTv.setOnClickListener(this);
         titleBar.setBarClickListener(new TitleBar.BarClickListener() {
             @Override
             public boolean onClickRight1() {
                 startActivity(new Intent(mContext, RegisterActivity.class));
+                return false;
+            }
+
+            @Override
+            public boolean onClickRight2() {
                 return false;
             }
         });
@@ -164,6 +172,11 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                 break;
             case R.id.tv_req_voice_verify:
                 reqVoiceVerifyCode();
+                break;
+            case R.id.tv_forget_pwd:
+                Intent intent = new Intent(mContext,RegisterActivity.class);
+                intent.putExtra(Const.TYPE_FORGET_PWD,1);
+                startActivity(intent);
                 break;
         }
     }
@@ -288,14 +301,11 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         mShareAPI.getPlatformInfo(this, platform, new UMAuthListener() {
             @Override
             public void onStart(SHARE_MEDIA share_media) {
-
             }
-
             @Override
             public void onComplete(SHARE_MEDIA share_media, int status, Map<String, String> map) {
 //                Toast.makeText(mContext, "", Toast.LENGTH_SHORT).show();
                 if (status == 200) {
-
                 }
                 if (map != null) {
                     StringBuilder sb = new StringBuilder();
@@ -304,12 +314,11 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                         sb.append(key + "=" + map.get(key).toString() + ";");
                     }
                     sb.append("\r\n");
+                    LogUtil.d("===","sb:"+sb.toString());
                     Toast.makeText(getApplicationContext(), "sb" + sb.toString(), Toast.LENGTH_LONG).show();
-                  Log.d("===","sb:"+sb.toString());
                     thirdLogin2UserEntity(platform, map);
                 }
             }
-
             @Override
             public void onError(SHARE_MEDIA share_media, int status, Throwable throwable) {
 //                Toast.makeText(mContext, "error", Toast.LENGTH_SHORT).show();

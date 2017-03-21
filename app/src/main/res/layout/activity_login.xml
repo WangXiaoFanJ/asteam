@@ -11,7 +11,7 @@
         android:id="@+id/title_bar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/common_44"
-        app:left_type="1"
+        app:left_type="10"
         app:middle_text_id="4"
         app:title_bar_bg="1"
         app:right_type1="5"
@@ -57,15 +57,7 @@
                 android:textColorHint="@color/color_cacaca"
                 android:paddingLeft="@dimen/common_3"
                 android:background="@drawable/shape_edit_normal"/>
-            <TextView
-                android:id="@+id/tv_req_verify"
-                android:layout_width="@dimen/common_80"
-                android:layout_height="@dimen/common_24"
-                android:text="获取验证码"
-                android:textColor="@color/color_333333"
-                android:textSize="@dimen/font_12"
-                android:gravity="center"
-                android:background="@drawable/shape_tv_white_radius"/>
+
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
@@ -101,6 +93,15 @@
                 android:textColorHint="@color/color_cacaca"
                 android:paddingLeft="@dimen/common_3"
                 android:background="@drawable/shape_edit_normal"/>
+            <TextView
+                android:id="@+id/tv_req_verify"
+                android:layout_width="@dimen/common_80"
+                android:layout_height="@dimen/common_24"
+                android:text="获取验证码"
+                android:textColor="@color/color_333333"
+                android:textSize="@dimen/font_12"
+                android:gravity="center"
+                android:background="@drawable/shape_tv_white_radius"/>
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
@@ -222,6 +223,7 @@
             android:layout_marginTop="@dimen/common_11"
             android:paddingRight="@dimen/common_10">
             <TextView
+                android:id="@+id/tv_forget_pwd"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
@@ -275,7 +277,7 @@
                 <ImageView
                     android:layout_width="@dimen/common_35"
                     android:layout_height="@dimen/common_35"
-                    android:src="@mipmap/ic_launcher"/>
+                    android:src="@drawable/icon_qq"/>
                 <TextView
                     android:layout_marginTop="@dimen/common_7"
                     android:layout_width="wrap_content"
@@ -294,7 +296,7 @@
                 <ImageView
                     android:layout_width="@dimen/common_35"
                     android:layout_height="@dimen/common_35"
-                    android:src="@mipmap/ic_launcher"/>
+                    android:src="@drawable/icon_weixin"/>
                 <TextView
                     android:layout_marginTop="@dimen/common_7"
                     android:layout_width="wrap_content"
@@ -314,7 +316,7 @@
                 <ImageView
                     android:layout_width="@dimen/common_35"
                     android:layout_height="@dimen/common_35"
-                    android:src="@mipmap/ic_launcher"/>
+                    android:src="@drawable/icon_weibo"/>
                 <TextView
                     android:layout_marginTop="@dimen/common_7"
                     android:layout_width="wrap_content"

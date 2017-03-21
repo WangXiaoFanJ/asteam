@@ -10,6 +10,11 @@ import com.dev.nutclass.entity.UserInfoEntity;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 /**
  * Created by Administrator on 2017/1/16.
  */
@@ -22,10 +27,12 @@ public class SharedPrefUtil {
     private static SharedPrefUtil instance;
     private static final String statusBarHeight = "status_bar_height";// token
     private SharedPreferences mPrefer;
+
     private SharedPrefUtil() {
         mPrefer = ApplicationConfig.getInstance().getBaseContext()
-                .getSharedPreferences(PREFER_NAME,Context.MODE_PRIVATE);
+                .getSharedPreferences(PREFER_NAME, Context.MODE_PRIVATE);
     }
+
     public static synchronized final SharedPrefUtil getInstance() {
         if (instance == null) {
             instance = new SharedPrefUtil();
@@ -40,6 +47,7 @@ public class SharedPrefUtil {
         }
         return false;
     }
+
     /**
      * 获取加密后的base64的token
      */
@@ -58,27 +66,33 @@ public class SharedPrefUtil {
     public String getString(String key) {
         return mPrefer.getString(key, "");
     }
+
     public void setString(String key, String value) {
         SharedPreferences.Editor editor = mPrefer.edit();
         editor.putString(key, value);
         editor.commit();
     }
-    public int getInt(String key){
-        return  mPrefer.getInt(key,0);
+
+    public int getInt(String key) {
+        return mPrefer.getInt(key, 0);
     }
-    public void setInt(String key,int value){
+
+    public void setInt(String key, int value) {
         SharedPreferences.Editor editor = mPrefer.edit();
-        editor.putInt(key,value);
+        editor.putInt(key, value);
         editor.commit();
     }
-    public void setDeviceToken(String deviceToken){
+
+    public void setDeviceToken(String deviceToken) {
         SharedPreferences.Editor editor = mPrefer.edit();
-        editor.putString("device_token",deviceToken);
+        editor.putString("device_token", deviceToken);
         editor.commit();
     }
-    public String getDeviceToken(){
-        return mPrefer.getString("device_token","");
+
+    public String getDeviceToken() {
+        return mPrefer.getString("device_token", "");
     }
+
     public void setMobile(String mobile) {
         setString(KEY_MOBILE, mobile);
     }
@@ -86,6 +100,7 @@ public class SharedPrefUtil {
     public String getMobile() {
         return getString(KEY_MOBILE);
     }
+
     // LoginSession
     public void setUserSession(String userJson) {
         setString(KEY_SESSION, userJson);

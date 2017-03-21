@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.dev.nutclass.R;
 import com.dev.nutclass.activity.OrderInfoActivity;
+import com.dev.nutclass.constants.Const;
 import com.dev.nutclass.entity.UserOrdeCardEntity;
 
 /**
@@ -25,6 +26,7 @@ public class UserOrderBackMoneyView extends RelativeLayout implements View.OnCli
     private UserOrderCardView cardView;
     private LinearLayout containLayout;
     private TextView goodsType;
+    private String orderId;
     public UserOrderBackMoneyView(Context context) {
         super(context);
         mContext = context;
@@ -56,13 +58,15 @@ public class UserOrderBackMoneyView extends RelativeLayout implements View.OnCli
     public void updateView(UserOrdeCardEntity entity){
         goodsType.setText(entity.getGoodsType());
         cardView.updataView(entity);
+        orderId = entity.getOrderId();
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.ll_card_view:
-                mContext.startActivity(new Intent(mContext, OrderInfoActivity.class));
+                mContext.startActivity(new Intent(mContext, OrderInfoActivity.class)
+                        .putExtra(Const.ORDER_ID,orderId));
                 break;
         }
     }

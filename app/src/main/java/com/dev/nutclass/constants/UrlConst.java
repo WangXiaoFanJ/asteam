@@ -23,7 +23,7 @@ public class UrlConst {
      * 测试接口
      * */
     public static final String COURSE_LIST_URL = "http://dev.kobiko.cn/api/index/getCourseList";
-    public static final String COURSE_DETAIL_URL = "http://dev.kobiko.cn/api/index/getCourseDetailsList?goodsId=1";
+    public static final String COURSE_DETAIL_URL = "http://dev.kobiko.cn/api/index/getCourseDetailsList";
     public static final String SCHOOL_DETAIL_URL = "https://dev.kobiko.cn/api/Index/getSchoolDetailsList?schoolId=123";
 
     //校区列表页接口
@@ -40,6 +40,10 @@ public class UrlConst {
 
     //其他校区接口
     public  static  final  String OTHER_SCHOOL_LIST_URL ="https://dev.kobiko.cn/api/Index/getOrderSchoolList";
+    //课程评论列表接口
+    public static  final String COURSE_COMMENT_LIST_URL=BASE_URL+"getGoodsCommentsList";
+    //课程评论详情接口
+    public static final String COURSE_COMMENT_DETAIL_URL = BASE_URL+"getGoodsCommentsListDetails";
 
     /**
      * 注册
@@ -60,5 +64,19 @@ public class UrlConst {
     public static final String BIND_PHONE_URL = BASE_URL+"bindingPhone";
     //个人中心页编辑用户信息
     public static final String EDIT_USER_INFO_URL= BASE_URL+"userInfoEdit";
+    //浏览记录接口
+    public static final String LOOK_HISTORY_URL=BASE_URL+"userLookLog";
+    //修改密码接口
+    public static  final String CHANGE_PWD_URL = BASE_URL+"userPasswordEdit";
 
+    //点赞接口
+    public static final String CLICK_PRAISE_URL = BASE_URL+"comment_click_praise";
+    //收藏课程
+    public static  final String COLLECT_COURSE_URL = BASE_URL+"addCollectionGoods";
+    //收藏校区
+    public static final String COLLECT_SCHOOL_URL = BASE_URL+"addCollectionSchool";
+    //删除收藏课程
+    public static final String DELETE_COURSE_RUL = BASE_URL+"delCollectionGoods";
+    //删除收藏校区
+    public static final String DELETE_SCHOOL_RUL= BASE_URL+"delCollectionSchool";
 }

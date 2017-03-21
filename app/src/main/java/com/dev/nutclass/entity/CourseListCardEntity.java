@@ -18,11 +18,13 @@ public class CourseListCardEntity extends BaseCardEntity {
     private String shopMoney;
     private String schoolId;
     private String schoolName;
-    private String gift_img;
-    private String gift_img2;
-    private String gift_info;
+    private String giftTImg;
+    private String giftTInfo;
+    private GiftData giftData;
+    private String giftImgPointer;
 
     public CourseListCardEntity(int type,JSONObject jsonObject) {
+        //收藏课程解析
         setCardType(BaseCardEntity.CARD_TYPE_COLLECT_COURSE_VIEW);
         optJsonObj(jsonObject);
     }
@@ -45,9 +47,14 @@ public class CourseListCardEntity extends BaseCardEntity {
         setShopMoney(jsonObject.optString("shop_money"));
         setSchoolId(jsonObject.optString("school_id"));
         setSchoolName(jsonObject.optString("school_name"));
-        setGift_img(jsonObject.optString("gift_img"));
-        setGift_img2(jsonObject.optString("gift_img2"));
-        setGift_info(jsonObject.optString("gift_info"));
+        setGiftTImg(jsonObject.optString("gift_t_img"));
+        setGiftTInfo(jsonObject.optString("gift_t_info"));
+        setGiftImgPointer(jsonObject.optString("gift_img"));
+        JSONObject jsonObject1 = jsonObject.optJSONObject("gift_data");
+        if(jsonObject1!=null){
+            GiftData giftData = new GiftData(jsonObject1);
+            setGiftData(giftData);
+        }
     }
 
     public String getGoodsId() {
@@ -146,27 +153,61 @@ public class CourseListCardEntity extends BaseCardEntity {
         this.schoolId = schoolId;
     }
 
-    public String getGift_img() {
-        return gift_img;
+    public String getGiftTImg() {
+        return giftTImg;
     }
 
-    public void setGift_img(String gift_img) {
-        this.gift_img = gift_img;
+    public void setGiftTImg(String giftTImg) {
+        this.giftTImg = giftTImg;
     }
 
-    public String getGift_img2() {
-        return gift_img2;
+    public String getGiftTInfo() {
+        return giftTInfo;
     }
 
-    public void setGift_img2(String gift_img2) {
-        this.gift_img2 = gift_img2;
+    public void setGiftTInfo(String giftTInfo) {
+        this.giftTInfo = giftTInfo;
     }
 
-    public String getGift_info() {
-        return gift_info;
+    public GiftData getGiftData() {
+        return giftData;
     }
 
-    public void setGift_info(String gift_info) {
-        this.gift_info = gift_info;
+    public void setGiftData(GiftData giftData) {
+        this.giftData = giftData;
+    }
+
+    public String getGiftImgPointer() {
+        return giftImgPointer;
+    }
+
+    public void setGiftImgPointer(String giftImgPointer) {
+        this.giftImgPointer = giftImgPointer;
+    }
+
+   public class GiftData{
+        private String img;
+        private String info;
+
+        public GiftData(JSONObject jsonObject) {
+            setImg(jsonObject.optString("img"));
+            setInfo(jsonObject.optString("info"));
+        }
+
+        public String getImg() {
+            return img;
+        }
+
+        public void setImg(String img) {
+            this.img = img;
+        }
+
+        public String getInfo() {
+            return info;
+        }
+
+        public void setInfo(String info) {
+            this.info = info;
+        }
     }
 }

@@ -21,6 +21,7 @@ import com.dev.nutclass.utils.DialogUtils;
 import com.dev.nutclass.utils.LogUtil;
 import com.dev.nutclass.utils.MyCountTimer;
 import com.dev.nutclass.utils.MyUtil;
+import com.dev.nutclass.view.TitleBar;
 import com.squareup.okhttp.Request;
 
 import org.json.JSONException;
@@ -36,7 +37,10 @@ public class RegisterToCodeActivity extends AppCompatActivity implements View.On
     private TextView timerTv;
     private String mobile;
     private EditText verifyCodeEdit;
-    private TextView hintMobileTv;
+    private TextView hintMobileTv,reqVoiceVerifyTv;
+    private int formType;
+    private TitleBar titleBar;
+    private Bundle bundle;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,9 +55,13 @@ public class RegisterToCodeActivity extends AppCompatActivity implements View.On
     }
 
     private void initIntent() {
-        mobile = getIntent().getStringExtra(Const.TYPE_REGISTER_PHONE);
+        bundle= getIntent().getExtras();
+        mobile =   bundle.getString(Const.TYPE_REGISTER_PHONE);
+        formType = bundle.getInt(Const.TYPE_FORGET_PWD);
         hintMobileTv.setText("验证码已发送到手机号"+mobile);
-
+        if(formType ==1){
+            titleBar.setMiddleTextNew(9);
+        }
     }
 
     private void initView() {
@@ -61,8 +69,11 @@ public class RegisterToCodeActivity extends AppCompatActivity implements View.On
         timerTv = (TextView) findViewById(R.id.tv_timer);
         verifyCodeEdit = (EditText) findViewById(R.id.edit_verify_code);
         hintMobileTv = (TextView) findViewById(R.id.tv_hint_mobile);
+        reqVoiceVerifyTv = (TextView) findViewById(R.id.tv_req_voice_verify);
+        titleBar = (TitleBar) findViewById(R.id.title_bar);
         confirmTv.setOnClickListener(this);
         timerTv.setOnClickListener(this);
+        reqVoiceVerifyTv.setOnClickListener(this);
     }
 
 
@@ -84,6 +95,9 @@ public class RegisterToCodeActivity extends AppCompatActivity implements View.On
                 MyCountTimer myCount = new MyCountTimer(60*1000,1000,timerTv);
                 myCount.start();
                 break;
+            case R.id.tv_req_voice_verify:
+                MyUtil.reqVerifyCode(mobile,mContext,"1");
+                break;
         }
     }
 
@@ -104,10 +118,11 @@ public class RegisterToCodeActivity extends AppCompatActivity implements View.On
                 SimpleParser parser = new SimpleParser();
                 try {
                     SimpleEntity entity = (SimpleEntity) parser.parse(response);
-                    DialogUtils.showToast(mContext,entity.getData());
                     if(entity.getStatus().equals("1")){
                         Intent intent = new Intent(mContext,RegisterActivityToSetPwd.class);
-                        intent.putExtra(Const.TYPE_REGISTER_PHONE,mobile);
+                        if(bundle!=null){
+                            intent.putExtras(bundle);
+                        }
                         startActivity(intent);
                     }
                 } catch (JSONException e) {
@@ -116,6 +131,5 @@ public class RegisterToCodeActivity extends AppCompatActivity implements View.On
             }
         },parmas);
     }
-
 
 }

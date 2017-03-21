@@ -19,31 +19,43 @@ public class CourseInfoEntity extends BaseCardEntity {
     private List<GoodsAttrBean> goodsAttrBeanList;
     private SchoolInfoBean schoolInfoBean;
     private String goodsId;
-
+    private String goodsLink;
     public CourseInfoEntity(JSONObject jsonObject) {
         setCardType(BaseCardEntity.CARD_TYPE_COURSE_INFO);
         optJsonObj(jsonObject);
     }
 
+    public String getGoodsLink() {
+        return goodsLink;
+    }
+
+    public void setGoodsLink(String goodsLink) {
+        this.goodsLink = goodsLink;
+    }
+
     private void optJsonObj(JSONObject jsonObject) {
+        setGoodsLink(jsonObject.optString("goods_link"));
         //课比课服务
         JSONArray jsonArray = jsonObject.optJSONArray("has_service");
         List<KbkServiceBean> list = new ArrayList<>();
-
-        for (int i=0;i<jsonArray.length();i++){
-            try {
-                JSONObject jsonObj = jsonArray.getJSONObject(i);
-                KbkServiceBean kbkServiceBean = new KbkServiceBean();
-                kbkServiceBean.optObj(jsonObj);
-                list.add(kbkServiceBean);
-            } catch (Exception e) {
-                e.printStackTrace();
+        if (jsonArray != null && jsonArray.length() > 0) {
+            for (int i = 0; i < jsonArray.length(); i++) {
+                try {
+                    JSONObject jsonObj = jsonArray.getJSONObject(i);
+                    KbkServiceBean kbkServiceBean = new KbkServiceBean();
+                    kbkServiceBean.optObj(jsonObj);
+                    list.add(kbkServiceBean);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         }
-        LogUtil.d("===","list:"+list.size());
+
+        LogUtil.d("===", "list:" + list.size());
         setKbkServiceList(list);
         //课比课促销信息
         JSONObject jsonObj = jsonObject.optJSONObject("promotion_info");
+
         PromotionInfoBean promotionInfo = new PromotionInfoBean();
         promotionInfo.optObj(jsonObj);
         setPromotionInfoBean(promotionInfo);
@@ -54,11 +66,12 @@ public class CourseInfoEntity extends BaseCardEntity {
         giftBean.optJsonObj(jsonObj02);
         setGiftInfoBean(giftBean);
         //课比课课时
-        JSONArray jsonArray02 = null;
         List<GoodsAttrBean> list02 = new ArrayList<>();
         try {
-            jsonArray02 = jsonObject.optJSONArray("goods_attr");
-            for (int i=0;i<jsonArray02.length();i++){
+            JSONObject jsonObject1 = jsonObject.optJSONObject("goods_attr");
+            String goodImage = jsonObject1.optString("goods_image");
+            JSONArray jsonArray02 = jsonObject1.optJSONArray("data");
+            for (int i = 0; i < jsonArray02.length(); i++) {
                 JSONObject jsonObj03 = jsonArray02.optJSONObject(i);
                 GoodsAttrBean goodsBean = new GoodsAttrBean();
                 goodsBean.optJson(jsonObj03);
@@ -70,8 +83,8 @@ public class CourseInfoEntity extends BaseCardEntity {
         setGoodsAttrBeanList(list02);
 
         //课比课信息
-        JSONObject jsonObj03 =  jsonObject.optJSONObject("school_info");
-        SchoolInfoBean schoolBean  = new SchoolInfoBean();
+        JSONObject jsonObj03 = jsonObject.optJSONObject("school_info");
+        SchoolInfoBean schoolBean = new SchoolInfoBean();
         schoolBean.optJson(jsonObj03);
         setSchoolInfoBean(schoolBean);
 
@@ -125,8 +138,9 @@ public class CourseInfoEntity extends BaseCardEntity {
         this.goodsId = goodsId;
     }
 
-   public class KbkServiceBean{
+    public class KbkServiceBean {
         private String serviceInfo;
+        private String serviceName;
 
         public String getServiceInfo() {
             return serviceInfo;
@@ -135,40 +149,34 @@ public class CourseInfoEntity extends BaseCardEntity {
         public void setServiceInfo(String serviceInfo) {
             this.serviceInfo = serviceInfo;
         }
-        public void optObj(JSONObject jsonObject){
-            setServiceInfo(jsonObject.optString("has1"));
+
+        public void optObj(JSONObject jsonObject) {
+            setServiceInfo(jsonObject.optString("dict_name"));
+            setServiceName(jsonObject.optString("dict_content"));
+        }
+
+        public String getServiceName() {
+            return serviceName;
+        }
+
+        public void setServiceName(String serviceName) {
+            this.serviceName = serviceName;
         }
     }
-    public class PromotionInfoBean{
+
+    public class PromotionInfoBean {
         private String promotionImg;
         private String promontionInfo;
-        private List<Data> data;
-        public void optObj(JSONObject jsonobject){
-            setPromotionImg(jsonobject.optString("img"));
-            setPromontionInfo(jsonobject.optString("info"));
-            List<Data> list = new ArrayList<>();
-            JSONArray jsonArray = jsonobject.optJSONArray("data");
-            for(int i=0;i<jsonArray.length();i++){
-                JSONObject jsonObj02 = jsonArray.optJSONObject(i);
-                Data data = new Data();
-                data.optData(jsonObj02);
-                list.add(data);
-            }
-            setData(list);
-        }
-       public class Data{
-            private String data1;
-            public void optData(JSONObject jsonObject){
-                setData1(jsonObject.optString("data1"));
-            }
-            public String getData1() {
-                return data1;
-            }
+        private String contentImg;
+        private String contentInfo;
 
-            public void setData1(String data1) {
-                this.data1 = data1;
-            }
+        public void optObj(JSONObject jsonobject) {
+            setPromontionInfo(jsonobject.optString("info"));
+            setPromotionImg(jsonobject.optString("img"));
+            setContentImg(jsonobject.optString("content1"));
+            setContentInfo(jsonobject.optString("content"));
         }
+
         public String getPromotionImg() {
             return promotionImg;
         }
@@ -185,44 +193,34 @@ public class CourseInfoEntity extends BaseCardEntity {
             this.promontionInfo = promontionInfo;
         }
 
-        public List<Data> getData() {
-            return data;
+        public String getContentImg() {
+            return contentImg;
         }
 
-        public void setData(List<Data> data) {
-            this.data = data;
+        public void setContentImg(String contentImg) {
+            this.contentImg = contentImg;
         }
 
+        public String getContentInfo() {
+            return contentInfo;
+        }
+
+        public void setContentInfo(String contentInfo) {
+            this.contentInfo = contentInfo;
+        }
     }
-  public   class GiftInfoBean{
+
+    public class GiftInfoBean {
         private String giftImg;
         private String giftInfo;
-        private List<Data> giftList;
-        public void optJsonObj(JSONObject jsonObj){
+        private String contentImg;
+        private String contentInfo;
+
+        public void optJsonObj(JSONObject jsonObj) {
             setGiftImg(jsonObj.optString("img"));
             setGiftInfo(jsonObj.optString("info"));
-            List<Data> list = new ArrayList<>();
-            JSONArray jsonArray = jsonObj.optJSONArray("data");
-            for(int i=0;i<jsonArray.length();i++){
-                JSONObject jsonObj02 = jsonArray.optJSONObject(i);
-                Data data = new Data();
-                data.optData(jsonObj02);
-                list.add(data);
-            }
-            setGiftList(list);
-         }
-      public   class Data{
-            private String data1;
-            public void optData(JSONObject jsonObject){
-                setData1(jsonObject.optString("data1"));
-            }
-            public String getData1() {
-                return data1;
-            }
-
-            public void setData1(String data1) {
-                this.data1 = data1;
-            }
+            setContentImg(jsonObj.optString("content1"));
+            setContentInfo(jsonObj.optString("content"));
         }
 
         public String getGiftImg() {
@@ -241,19 +239,69 @@ public class CourseInfoEntity extends BaseCardEntity {
             this.giftInfo = giftInfo;
         }
 
-        public List<Data> getGiftList() {
-            return giftList;
+        public String getContentImg() {
+            return contentImg;
         }
 
-        public void setGiftList(List<Data> giftList) {
-            this.giftList = giftList;
+        public void setContentImg(String contentImg) {
+            this.contentImg = contentImg;
+        }
+
+        public String getContentInfo() {
+            return contentInfo;
+        }
+
+        public void setContentInfo(String contentInfo) {
+            this.contentInfo = contentInfo;
         }
     }
-   public class GoodsAttrBean{
+
+    public class GoodsAttrBean {
         private String goodsAttr;
-        public void optJson(JSONObject jsonObj){
-            setGoodsAttr(jsonObj.optString("attr1"));
+        private String attrId;
+        private String goodsId;
+        private String kbkMoney;
+        private String shopMoney;
+        public void optJson(JSONObject jsonObj) {
+            setAttrId(jsonObj.optString("attr_id"));
+            setGoodsId(jsonObj.optString("goods_id"));
+            setKbkMoney(jsonObj.optString("kbk_money"));
+            setShopMoney(jsonObj.optString("shop_money"));
+            setGoodsAttr(jsonObj.optString("goods_attr_value"));
         }
+
+        public String getAttrId() {
+            return attrId;
+        }
+
+        public void setAttrId(String attrId) {
+            this.attrId = attrId;
+        }
+
+        public String getGoodsId() {
+            return goodsId;
+        }
+
+        public void setGoodsId(String goodsId) {
+            this.goodsId = goodsId;
+        }
+
+        public String getKbkMoney() {
+            return kbkMoney;
+        }
+
+        public void setKbkMoney(String kbkMoney) {
+            this.kbkMoney = kbkMoney;
+        }
+
+        public String getShopMoney() {
+            return shopMoney;
+        }
+
+        public void setShopMoney(String shopMoney) {
+            this.shopMoney = shopMoney;
+        }
+
         public String getGoodsAttr() {
             return goodsAttr;
         }
@@ -262,22 +310,22 @@ public class CourseInfoEntity extends BaseCardEntity {
             this.goodsAttr = goodsAttr;
         }
     }
-    public class SchoolInfoBean{
+
+    public class SchoolInfoBean {
         private String schoolId;
         private String schoolName;
         private String schoolAddr;
         private String distance;
-        private String distanceInfo;
         private String schoolTel;
 
-        public void optJson(JSONObject jsonObj){
+        public void optJson(JSONObject jsonObj) {
             setSchoolId(jsonObj.optString("school_id"));
             setSchoolName(jsonObj.optString("school_name"));
             setSchoolAddr(jsonObj.optString("school_addr"));
             setDistance(jsonObj.optString("school_distance"));
-            setDistanceInfo(jsonObj.optString("school_distance_info"));
             setSchoolTel(jsonObj.optString("school_tel"));
         }
+
         public String getSchoolId() {
             return schoolId;
         }
@@ -308,14 +356,6 @@ public class CourseInfoEntity extends BaseCardEntity {
 
         public void setDistance(String distance) {
             this.distance = distance;
-        }
-
-        public String getDistanceInfo() {
-            return distanceInfo;
-        }
-
-        public void setDistanceInfo(String distanceInfo) {
-            this.distanceInfo = distanceInfo;
         }
 
         public String getSchoolTel() {

@@ -1,5 +1,7 @@
 package com.dev.nutclass.utils;
 
+import com.dev.nutclass.rsa.Base64Utils;
+
 import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileInputStream;

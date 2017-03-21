@@ -15,16 +15,20 @@ import com.dev.nutclass.constants.Const;
 import com.dev.nutclass.constants.UrlConst;
 import com.dev.nutclass.utils.DialogUtils;
 import com.dev.nutclass.utils.MyUtil;
+import com.dev.nutclass.view.TitleBar;
 
 public class RegisterActivity extends BaseActivity implements View.OnClickListener {
     private TextView confirmTv;
     private Context mContext;
     private EditText phoneEdit;
+    private TitleBar titleBar;
+    private int fromType;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
         mContext = RegisterActivity.this;
+        fromType = getIntent().getIntExtra(Const.TYPE_FORGET_PWD,0);
         initView();
         initListener();
         MyUtil.addActivity((Activity) mContext);
@@ -34,7 +38,11 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
     private void initView() {
         confirmTv = (TextView) findViewById(R.id.tv_confirm);
         phoneEdit = (EditText) findViewById(R.id.edit_phone);
-
+        titleBar = (TitleBar) findViewById(R.id.title_bar);
+        if(fromType==1){
+            //设置标题栏显示（忘记密码）
+            titleBar.setMiddleTextNew(9);
+        }
     }
 
     private void initListener() {
@@ -53,7 +61,10 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
                         DialogUtils.showToast(mContext,"请输入正确的手机号");
                     }else{
                         Intent intent = new Intent(mContext,RegisterToCodeActivity.class);
-                        intent.putExtra(Const.TYPE_REGISTER_PHONE,mobile);
+                        Bundle bundle = new Bundle();
+                        bundle.putString(Const.TYPE_REGISTER_PHONE,mobile);
+                        bundle.putInt(Const.TYPE_FORGET_PWD,fromType);
+                        intent.putExtras(bundle);
                         startActivity(intent);
                     }
                 }

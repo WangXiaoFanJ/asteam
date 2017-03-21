@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,11 +22,14 @@ import com.dev.nutclass.constants.Const;
 import com.dev.nutclass.constants.UrlConst;
 import com.dev.nutclass.entity.UserInfoEntity;
 import com.dev.nutclass.network.OkHttpClientManager;
+import com.dev.nutclass.rsa.Base64Utils;
 import com.dev.nutclass.utils.DialogUtils;
+import com.dev.nutclass.utils.File2ByteUtils;
 import com.dev.nutclass.utils.GlideUtils;
 import com.dev.nutclass.utils.LogUtil;
 import com.dev.nutclass.utils.MyUtil;
 import com.dev.nutclass.utils.SharedPrefUtil;
+import com.dev.nutclass.utils.TextUtil;
 import com.dev.nutclass.view.MyPopupWindow;
 import com.foamtrace.photopicker.PhotoPickerActivity;
 import com.foamtrace.photopicker.PhotoPreviewActivity;
@@ -36,6 +40,10 @@ import com.squareup.okhttp.Request;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -48,6 +56,7 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
     private RelativeLayout babyGenderLayout;
     private RelativeLayout headPortraitLayout;
     private RelativeLayout modifyPhoneLayout;
+    private RelativeLayout changePwdLayout;
     private TextView babyBirthTv;
     private TextView genderTv;
     private ImageView hearPortraitIv;
@@ -86,6 +95,7 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
         babyGenderLayout = (RelativeLayout) findViewById(R.id.rl_baby_gender);
         headPortraitLayout = (RelativeLayout) findViewById(R.id.rl_change_head_image);
         modifyPhoneLayout = (RelativeLayout) findViewById(R.id.rl_phone_modify);
+        changePwdLayout = (RelativeLayout) findViewById(R.id.rl_change_pwd);
         genderTv = (TextView) findViewById(R.id.tv_gender);
         hearPortraitIv = (ImageView) findViewById(R.id.iv_head_portrait);
         userName = (TextView) findViewById(R.id.tv_user_name);
@@ -99,6 +109,7 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
         modifyPhoneLayout.setOnClickListener(this);
         loginBtn.setOnClickListener(this);
         userNameRL.setOnClickListener(this);
+        changePwdLayout.setOnClickListener(this);
     }
 
     @Override
@@ -111,7 +122,9 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
                     GlideUtils.loadImageView(mContext,data.getStringArrayListExtra(PhotoPickerActivity.EXTRA_RESULT).get(0),
                            hearPortraitIv,0);
                     LogUtil.d("===","paths:"+data.getStringArrayListExtra(PhotoPickerActivity.EXTRA_RESULT).get(0));
+                    String filePaths = data.getStringArrayListExtra(PhotoPickerActivity.EXTRA_RESULT).get(0);
 //                    loadAdpater(data.getStringArrayListExtra(PhotoPickerActivity.EXTRA_RESULT));
+                    postPhotoToService(filePaths);
                     break;
                 // 预览
                 case REQUEST_PREVIEW_CODE:
@@ -120,6 +133,31 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
 //                    GlideUtils.loadImageView(mContext,data.getStringArrayListExtra(PhotoPickerActivity.EXTRA_RESULT).get(0),hearPortraitIv);
 //                    loadAdpater(data.getStringArrayListExtra(PhotoPreviewActivity.EXTRA_RESULT));
                     break;
+            }
+        }
+    }
+
+    private void postPhotoToService(String paths) {
+        String url = UrlConst.EDIT_USER_INFO_URL;
+        File file = null;
+        if(TextUtils.isEmpty(paths)){
+            file = null;
+        }else {
+            file = new File(paths);
+            if (!file.exists()) {
+                file = null;
+            }
+        }
+        if(file!=null){
+            try {
+                String baseString = Base64Utils.encode(File2ByteUtils.File2byte(file.getPath()));
+//                Map<String,String> map = new HashMap<>();
+//                map.put("headImage",baseString);
+//                map.put("userId",SharedPrefUtil.getInstance().getSession().getUserId());
+                LogUtil.d("===","headImage:"+baseString+"userId:"+SharedPrefUtil.getInstance().getSession().getUserId());
+                MyUtil.reqChangeUserInfoURL(mContext,userId,Const.HEAD_IMAGE,baseString);
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         }
     }
@@ -156,6 +194,10 @@ public class UserInfoActivity extends BaseActivity implements View.OnClickListen
             finish();
         }else if (v==userNameRL){
             Intent intent = new Intent(mContext,EditUserInfoActivity.class);
+            intent.putExtra(Const.TYPE_USER_ID,userId);
+            startActivity(intent);
+        }else if(v==changePwdLayout){
+            Intent intent = new Intent(mContext,ChangePwdActivity01.class);
             intent.putExtra(Const.TYPE_USER_ID,userId);
             startActivity(intent);
         }

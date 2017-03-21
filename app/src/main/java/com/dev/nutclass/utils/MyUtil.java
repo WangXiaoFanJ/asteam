@@ -81,7 +81,7 @@ public class MyUtil {
     }
 
     /**
-     * 修改宝宝生日
+     * 修改用户信息
      */
     public static void reqChangeUserInfoURL(final Context mContext, String userId, final String stringType, final String editInfo) {
         Map<String, String> map = new HashMap<>();
@@ -109,6 +109,11 @@ public class MyUtil {
                         } else if (stringType.equals(Const.USER_NAME)) {
                             entity.setUserName(editInfo);
                             ((Activity) mContext).finish();
+                        }else if (stringType.equals(Const.HEAD_IMAGE)){
+                            JSONObject jsonObject = jsonObj.optJSONObject("data");
+                            String headImage = jsonObject.optString("headerIconUrl");
+                            LogUtil.d("===","headImage:"+headImage);
+                            entity.setHeadIcon(headImage);
                         }
                         SharedPrefUtil.getInstance().setUserSession(entity.buildJsonObject().toString());
                         Intent intent = new Intent();

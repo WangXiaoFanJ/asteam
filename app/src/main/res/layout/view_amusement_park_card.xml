@@ -7,18 +7,20 @@
     <LinearLayout
         android:id="@+id/ll_root_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingLeft="@dimen/common_8"
+        android:layout_height="@dimen/common_91"
+        android:paddingLeft="@dimen/common_10"
         android:paddingTop="@dimen/common_8"
         android:paddingBottom="@dimen/common_7"
-        android:orientation="horizontal">
-        <ImageView
-            android:id="@+id/iv_check_box"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+        <CheckBox
             android:visibility="gone"
+            android:id="@+id/iv_check_box"
             android:layout_width="@dimen/common_20"
             android:layout_height="@dimen/common_20"
             android:src="@mipmap/ic_launcher"
-            android:layout_gravity="center"
+            style="@style/CustomCheckBoxStyle"
+            android:gravity="center"
             android:layout_marginRight="@dimen/common_10"
             />
         <ImageView
@@ -38,6 +40,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical">
                 <TextView
+                    android:singleLine="true"
                     android:id="@+id/tv_goods_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -66,7 +69,7 @@
                 android:layout_marginTop="@dimen/common_6"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingRight="@dimen/common_11"
+                android:paddingRight="@dimen/common_10"
                 android:gravity="center_vertical">
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -87,15 +90,25 @@
                         android:textSize="@dimen/font_12"
                         android:layout_marginLeft="@dimen/common_21"/>
                 </LinearLayout>
-
-                <TextView
-                    android:id="@+id/tv_gps_cn"
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:text="1.2公里"
-                    android:textColor="@color/color_7f7f7f"
-                    android:textSize="@dimen/font_12"/>
+                    android:gravity="center_vertical"
+                    android:layout_alignParentRight="true">
+                    <ImageView
+                        android:layout_width="@dimen/common_7"
+                        android:layout_height="@dimen/common_8"
+                        android:src="@drawable/icon_location"/>
+                    <TextView
+                        android:id="@+id/tv_gps_cn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="1.2公里"
+                        android:layout_marginLeft="@dimen/common_3"
+                        android:textColor="@color/color_7f7f7f"
+                        android:textSize="@dimen/font_12"/>
+                </LinearLayout>
+
             </RelativeLayout>
             <TextView
                 android:id="@+id/tv_interest_num"
@@ -139,8 +152,8 @@
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/common_1"
-        android:background="@color/color_dcdcdc"/>
+    <!--<View-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="@dimen/common_1"-->
+        <!--android:background="@color/color_dcdcdc"/>-->
 </LinearLayout>

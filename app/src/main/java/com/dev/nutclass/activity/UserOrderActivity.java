@@ -64,10 +64,10 @@ public class UserOrderActivity extends BaseActivity implements View.OnClickListe
 
         tabLayout = (TabLayout) findViewById(R.id.tab_layout);
         tabLayout.setTabMode(TabLayout.MODE_FIXED);
-        tabLayout.setScrollPosition(Integer.parseInt(orderType)-1,0,false);
         for(int i = 0;i<stringLists.size();i++){
             tabLayout.addTab(tabLayout.newTab().setText(stringLists.get(i)));
         }
+        tabLayout.getTabAt(Integer.parseInt(orderType)-1).select();
         tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {

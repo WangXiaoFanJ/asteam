@@ -41,8 +41,9 @@ public class CourseCardView extends RelativeLayout implements View.OnClickListen
     private String goodsId;
     private LinearLayout giftLayout;
     private LinearLayout giftLayout02;
-    private ImageView giftIv01,giftIcon01,giftIv02;
-    private TextView  giftInfoTv01,giftInfoTv02;
+    private ImageView giftIv01, giftIcon01, giftIv02;
+    private TextView giftInfoTv01, giftInfoTv02;
+    private ImageView iconMoney;
     public CourseCardView(Context context) {
         super(context);
         mContext = context;
@@ -75,6 +76,7 @@ public class CourseCardView extends RelativeLayout implements View.OnClickListen
         giftIv02 = (ImageView) this.findViewById(R.id.iv_gift_img_02);
         giftInfoTv01 = (TextView) this.findViewById(R.id.tv_gift_info);
         giftInfoTv02 = (TextView) this.findViewById(R.id.tv_gift_info_02);
+        iconMoney = (ImageView) this.findViewById(R.id.iv_icon_money);
         cardViewLayout.setOnClickListener(this);
     }
 
@@ -82,40 +84,43 @@ public class CourseCardView extends RelativeLayout implements View.OnClickListen
         goodsId = entity.getGoodsId();
         schoolNameTv.setText(entity.getSchoolName());
         goodsNameTv.setText(entity.getGoodsName());
-        GlideUtils.loadImageView(mContext,entity.getGoodsImage(),schoolImageTv);
-        if(entity.getIsPromotion().equals("1")){
+        GlideUtils.loadImageView(mContext, entity.getGoodsImage(), schoolImageTv);
+        if (!TextUtils.isEmpty(entity.getIsPromotion())) {
             isPromtionIv.setVisibility(View.VISIBLE);
+            GlideUtils.loadImageView(mContext, entity.getIsPromotion(), isPromtionIv);
         }
-        if(entity.getIsHot().equals("1")){
-         isHotIv.setVisibility(View.VISIBLE);
+        if (!TextUtils.isEmpty(entity.getIsHot())) {
+            isHotIv.setVisibility(View.VISIBLE);
+            GlideUtils.loadImageView(mContext,entity.getIsHot(),isHotIv);
         }
+        GlideUtils.loadImageView(mContext,entity.getIconMoney(),iconMoney);
         shopCircleNameTv.setText(entity.getShopCircleName());
         cateNameTv.setText(entity.getCateName());
         gpsCnTv.setText(entity.getGpsCn());
         kbkMoneyTv.setText(entity.getKbkMoney());
         shopMoneyTv.setText(entity.getShopMoney());
-        if(!TextUtils.isEmpty(entity.getGiftImgPointer())){
-            LogUtil.d(TAG,"========");
+        if (!TextUtils.isEmpty(entity.getGiftImgPointer())) {
+            LogUtil.d(TAG, "========");
             giftLayout.setVisibility(VISIBLE);
-            GlideUtils.loadImageView(mContext,entity.getGiftImgPointer(),giftIcon01);
-            GlideUtils.loadImageView(mContext,entity.getGiftData().getImg(),giftIv01);
+            GlideUtils.loadImageView(mContext, entity.getGiftImgPointer(), giftIcon01);
+            GlideUtils.loadImageView(mContext, entity.getGiftData().getImg(), giftIv01);
             giftInfoTv01.setText(entity.getGiftData().getInfo());
         }
-        LogUtil.d(TAG,"giftPgiftImg:"+entity.getGiftTImg());
-        if(!TextUtils.isEmpty(entity.getGiftTImg())){
+        LogUtil.d(TAG, "giftPgiftImg:" + entity.getGiftTImg());
+        if (!TextUtils.isEmpty(entity.getGiftTImg())) {
             giftLayout02.setVisibility(VISIBLE);
-            GlideUtils.loadImageView(mContext,entity.getGiftTImg(),giftIv02);
+            GlideUtils.loadImageView(mContext, entity.getGiftTImg(), giftIv02);
             giftInfoTv02.setText(entity.getGiftTInfo());
         }
     }
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.ll_root_view:
 //                mContext.startActivity(new Intent(mContext,CourseInfoActivity.class));
-                Intent intent = new Intent(mContext,CourseInfoActivity.class);
-                intent.putExtra(Const.GOODS_ID,goodsId);
+                Intent intent = new Intent(mContext, CourseInfoActivity.class);
+                intent.putExtra(Const.GOODS_ID, goodsId);
                 mContext.startActivity(intent);
                 break;
         }

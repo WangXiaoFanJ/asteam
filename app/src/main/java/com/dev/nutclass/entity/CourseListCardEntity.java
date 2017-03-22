@@ -22,7 +22,7 @@ public class CourseListCardEntity extends BaseCardEntity {
     private String giftTInfo;
     private GiftData giftData;
     private String giftImgPointer;
-
+    private String iconMoney;
     public CourseListCardEntity(int type,JSONObject jsonObject) {
         //收藏课程解析
         setCardType(BaseCardEntity.CARD_TYPE_COLLECT_COURSE_VIEW);
@@ -50,6 +50,7 @@ public class CourseListCardEntity extends BaseCardEntity {
         setGiftTImg(jsonObject.optString("gift_t_img"));
         setGiftTInfo(jsonObject.optString("gift_t_info"));
         setGiftImgPointer(jsonObject.optString("gift_img"));
+        setIconMoney(jsonObject.optString("icon_money"));
         JSONObject jsonObject1 = jsonObject.optJSONObject("gift_data");
         if(jsonObject1!=null){
             GiftData giftData = new GiftData(jsonObject1);
@@ -167,6 +168,14 @@ public class CourseListCardEntity extends BaseCardEntity {
 
     public void setGiftTInfo(String giftTInfo) {
         this.giftTInfo = giftTInfo;
+    }
+
+    public String getIconMoney() {
+        return iconMoney;
+    }
+
+    public void setIconMoney(String iconMoney) {
+        this.iconMoney = iconMoney;
     }
 
     public GiftData getGiftData() {

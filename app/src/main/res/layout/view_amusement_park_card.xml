@@ -38,29 +38,30 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical">
+                android:gravity="center_vertical">
                 <TextView
                     android:singleLine="true"
                     android:id="@+id/tv_goods_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="精锐教育蓝色港湾"
+                    android:textSize="@dimen/font_14"
                     android:textColor="@color/color_333333"
                     />
                 <ImageView
+                    android:visibility="gone"
                     android:id="@+id/iv_icon_promotion"
                     android:layout_width="@dimen/common_16"
                     android:layout_height="@dimen/common_16"
                     android:src="@drawable/icon_promotion"
-                    android:visibility="gone"
-                    android:layout_marginLeft="@dimen/common_5"
+                    android:layout_marginLeft="@dimen/common_7"
                     android:scaleType="fitXY"/>
                 <ImageView
                     android:visibility="gone"
                     android:id="@+id/iv_icon_hot"
                     android:layout_width="@dimen/common_16"
                     android:layout_height="@dimen/common_16"
-                    android:layout_marginLeft="@dimen/common_5"
+                    android:layout_marginLeft="@dimen/common_7"
                     android:src="@drawable/icon_hot"
                     android:scaleType="fitXY"/>
             </LinearLayout>
@@ -125,6 +126,11 @@
                 android:gravity="center_vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
+                <ImageView
+                    android:id="@+id/iv_icon_money"
+                    android:layout_width="@dimen/common_8"
+                    android:layout_height="@dimen/common_11"
+                    android:layout_marginRight="@dimen/common_2"/>
                 <TextView
                     android:id="@+id/tv_kbk_money"
                     android:layout_width="wrap_content"

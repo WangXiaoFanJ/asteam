@@ -15,6 +15,7 @@ import com.dev.nutclass.constants.Const;
 import com.dev.nutclass.constants.UrlConst;
 import com.dev.nutclass.entity.BaseCardEntity;
 import com.dev.nutclass.entity.JsonDataList;
+import com.dev.nutclass.entity.ShareInfoEntity;
 import com.dev.nutclass.entity.SimpleEntity;
 import com.dev.nutclass.network.OkHttpClientManager;
 import com.dev.nutclass.parser.CardListParser;
@@ -22,7 +23,10 @@ import com.dev.nutclass.parser.SimpleParser;
 import com.dev.nutclass.utils.DialogUtils;
 import com.dev.nutclass.utils.LogUtil;
 import com.dev.nutclass.utils.SharedPrefUtil;
+import com.dev.nutclass.utils.SnsUtil;
 import com.squareup.okhttp.Request;
+import com.umeng.socialize.media.UMImage;
+import com.umeng.socialize.media.UMWeb;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -41,6 +45,7 @@ public class SchoolInfoActivity extends BaseActivity  implements View.OnClickLis
     private List<BaseCardEntity> lists;
     private String schoolId;
     private ImageView attentionTv;
+    private ShareInfoEntity shareInfoEntity;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -111,6 +116,8 @@ public class SchoolInfoActivity extends BaseActivity  implements View.OnClickLis
                 CardListParser parser = new CardListParser();
                 try {
                     JSONObject jsonObject = new JSONObject(response);
+                    JSONObject shareObj = jsonObject.optJSONObject("share_info");
+                    shareInfoEntity = new ShareInfoEntity(shareObj);
                     JSONArray cardListArray = jsonObject.optJSONArray("data");
                     JsonDataList<BaseCardEntity> result = (JsonDataList<BaseCardEntity>) parser.parse(cardListArray);
                     if(result.getErrorCode()== UrlConst.SUCCESS_CODE){
@@ -134,7 +141,17 @@ public class SchoolInfoActivity extends BaseActivity  implements View.OnClickLis
         if(v==backIv){
             finish();
         }else if(v == shareIv){
-
+            UMWeb web = new UMWeb(shareInfoEntity.getUrl());
+            web.setTitle(shareInfoEntity.getTitle());//标题
+            //分享图片
+            UMImage image = new UMImage(mContext, R.mipmap.ic_launcher);
+//                image.compressStyle = UMImage.CompressStyle.SCALE;//大小压缩，默认为大小压缩，适合普通很大的图
+//                image.compressStyle = UMImage.CompressStyle.QUALITY;//质量压缩，适合长图的分享
+            UMImage thumb =  new UMImage(this,R.mipmap.ic_launcher);
+            image.setThumb(thumb);
+            web.setThumb(image);  //缩略图
+            web.setDescription(shareInfoEntity.getContext());//描述
+            SnsUtil.getInstance(mContext).openShare((CourseInfoActivity) mContext,web);
         }else if (v==attentionTv){
             collectSchool();
         }

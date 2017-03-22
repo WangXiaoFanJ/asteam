@@ -4,6 +4,7 @@ package com.dev.nutclass.fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -12,7 +13,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.dev.nutclass.R;
-import com.dev.nutclass.activity.CourseInfoActivity;
 import com.dev.nutclass.adapter.CardListAdapter;
 import com.dev.nutclass.constants.UrlConst;
 import com.dev.nutclass.entity.BaseCardEntity;
@@ -82,7 +82,8 @@ public class CourseListFragment extends BaseFragment {
                 CardListParser parser = new CardListParser();
                 try {
                     JSONObject jsonObject = new JSONObject(response);
-                    JSONArray cardListArray = jsonObject.optJSONArray("data");
+                    JSONObject dataObj = jsonObject.optJSONObject("data");
+                    JSONArray cardListArray = dataObj.optJSONArray("list");
                     JsonDataList<BaseCardEntity> result = (JsonDataList<BaseCardEntity>) parser.parse(cardListArray);
                     if(result.getErrorCode()== UrlConst.SUCCESS_CODE){
                         ArrayList<BaseCardEntity> list = result.getList();

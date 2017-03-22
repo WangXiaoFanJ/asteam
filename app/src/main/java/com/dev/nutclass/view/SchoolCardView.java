@@ -2,6 +2,8 @@ package com.dev.nutclass.view;
 
 import android.content.Context;
 import android.content.Intent;
+import android.media.Image;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -39,6 +41,7 @@ public class SchoolCardView extends RelativeLayout implements View.OnClickListen
     private ImageView hotIconTv;
     private LinearLayout containerLayout;
     private String schoolId;
+    private ImageView iconMoneyIv;
     public SchoolCardView(Context context) {
         super(context);
         mContext = context;
@@ -60,7 +63,7 @@ public class SchoolCardView extends RelativeLayout implements View.OnClickListen
         cateNameTv = (TextView) this.findViewById(R.id.tv_cate_name);
         gpsCnTv = (TextView) this.findViewById(R.id.tv_gps_cn);
        interestNumTv = (TextView) this.findViewById(R.id.tv_interest_num);
-
+        iconMoneyIv = (ImageView) this.findViewById(R.id.iv_icon_money);
         promotionIconIv = (ImageView) this.findViewById(R.id.iv_icon_promotion);
         hotIconTv = (ImageView) this.findViewById(R.id.iv_icon_hot);
         containerLayout = (LinearLayout) this.findViewById(R.id.ll_container);
@@ -75,11 +78,14 @@ public class SchoolCardView extends RelativeLayout implements View.OnClickListen
         cateNameTv.setText(entity.getSchoolCateName());
         gpsCnTv.setText(entity.getGpsCn());
         interestNumTv.setText(entity.getInterestNum());
-        if(entity.getIsHot().equals("1")){
+        GlideUtils.loadImageView(mContext,entity.getIconMoney(),iconMoneyIv);
+        if(!TextUtils.isEmpty(entity.getIsHot())){
             hotIconTv.setVisibility(View.VISIBLE);
+            GlideUtils.loadImageView(mContext,entity.getIsHot(),hotIconTv);
         }
-        if(entity.getIsPromotion().equals("1")){
+        if(!TextUtils.isEmpty(entity.getIsPromotion())){
             promotionIconIv.setVisibility(View.VISIBLE);
+            GlideUtils.loadImageView(mContext,entity.getIsPromotion(),promotionIconIv);
         }
         if(entity.getGoodList()!=null&&entity.getGoodList().size()>0){
             for(int i=0;i<entity.getGoodList().size();i++){

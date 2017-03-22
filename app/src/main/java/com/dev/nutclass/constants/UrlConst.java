@@ -22,12 +22,14 @@ public class UrlConst {
     /**
      * 测试接口
      * */
-    public static final String COURSE_LIST_URL = "http://dev.kobiko.cn/api/index/getCourseList";
+//    public static final String COURSE_LIST_URL = "http://dev.kobiko.cn/api/index/getCourseList";
+    //新课程列表页接口
+    public static final String COURSE_LIST_URL = BASE_URL+"getCourseListPlus";
     public static final String COURSE_DETAIL_URL = "http://dev.kobiko.cn/api/index/getCourseDetailsList";
     public static final String SCHOOL_DETAIL_URL = "https://dev.kobiko.cn/api/Index/getSchoolDetailsList?schoolId=123";
 
     //校区列表页接口
-    public static  final String SCHOOL_LIST_URL="http://dev.kobiko.cn/api/index/schoolList?current_page=5";
+    public static  final String SCHOOL_LIST_URL=BASE_URL+"schoolListPlus";
 
     //正课列表接口
     public static final  String SCHOOL_TO_COURSE_LIST_URL ="http://dev.kobiko.cn/api/index/schoolDetailSonNormalGoodsList?goods_type=1";

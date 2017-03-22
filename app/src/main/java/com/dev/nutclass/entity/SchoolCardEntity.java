@@ -22,7 +22,7 @@ public class SchoolCardEntity extends BaseCardEntity {
     private String gpsLatitude;
     private String interestNum;
     private List<SimpleCourseEntity> goodList;
-
+    private String iconMoney;
     public SchoolCardEntity(JSONObject jsonObject) {
         optJsonObject(jsonObject);
     }
@@ -45,6 +45,7 @@ public class SchoolCardEntity extends BaseCardEntity {
         setGpsLongitude(jsonObject01.optString("gps_x"));
         setGpsLatitude(jsonObject01.optString("gps_y"));
         setInterestNum(jsonObject01.optString("browseNum"));
+        setIconMoney(jsonObject01.optString("icon_money"));
         JSONArray jsonArray = jsonObject01.optJSONArray("list");
         List<SimpleCourseEntity> list = new ArrayList<>();
         if(jsonArray!=null&&jsonArray.length()>0) {
@@ -73,6 +74,14 @@ public class SchoolCardEntity extends BaseCardEntity {
 
     public void setShop_circle_text(String shop_circle_text) {
         this.shop_circle_text = shop_circle_text;
+    }
+
+    public String getIconMoney() {
+        return iconMoney;
+    }
+
+    public void setIconMoney(String iconMoney) {
+        this.iconMoney = iconMoney;
     }
 
     public String getSchoolImage() {
@@ -160,7 +169,9 @@ public class SchoolCardEntity extends BaseCardEntity {
         private String goodsName;
         private String kbkMoney;
         private String shopMoney;
-
+        private String promotionIcon;
+        private String hotIcon;
+        private String iconMoney;
         public String getGoodId() {
             return goodId;
         }
@@ -197,6 +208,33 @@ public class SchoolCardEntity extends BaseCardEntity {
             setGoodsName(jsonObject.optString("goods_name"));
             setKbkMoney(jsonObject.optString("kbk_money"));
             setShopMoney(jsonObject.optString("shop_money"));
+            setPromotionIcon(jsonObject.optString("promotion"));
+            setHotIcon(jsonObject.optString("hot"));
+            setIconMoney(jsonObject.optString("icon_money"));
+        }
+
+        public String getPromotionIcon() {
+            return promotionIcon;
+        }
+
+        public void setPromotionIcon(String promotionIcon) {
+            this.promotionIcon = promotionIcon;
+        }
+
+        public String getHotIcon() {
+            return hotIcon;
+        }
+
+        public void setHotIcon(String hotIcon) {
+            this.hotIcon = hotIcon;
+        }
+
+        public String getIconMoney() {
+            return iconMoney;
+        }
+
+        public void setIconMoney(String iconMoney) {
+            this.iconMoney = iconMoney;
         }
     }
 }
